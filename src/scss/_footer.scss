@@ -1,0 +1,23 @@
+.footer {
+	flex-shrink: 0;
+	flex-grow: 0;
+	padding: 42px 0px 32px 0px;
+	background-color: #000000;
+	color: #ffffff;
+	&__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		a {
+			color: #ffffff;
+		}
+	}
+	&__approval {
+		line-height: 18px;
+	}
+	&__social {
+		a {
+			padding-right: 28px;
+		}
+	}
+}

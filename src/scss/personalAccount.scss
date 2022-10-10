@@ -1,0 +1,202 @@
+* {
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,
+*:before,
+*:after {
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,
+:active {
+	outline: none;
+}
+a:focus,
+a:active {
+	outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+	display: block;
+}
+
+html,
+body {
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 14px;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	background-color: #0e0e0e;
+	color: #ffffff;
+	// font-family: 'Open Sans', sans-serif;
+	font-family: "Roboto", sans-serif;
+}
+input,
+button,
+textarea {
+	font-family: inherit;
+}
+
+input::-ms-clear {
+	display: none;
+}
+button {
+	cursor: pointer;
+}
+button::-moz-focus-inner {
+	padding: 0;
+	border: 0;
+}
+a,
+a:visited {
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: none;
+}
+ul li {
+	list-style: none;
+}
+img {
+	vertical-align: top;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-size: inherit;
+	font-weight: 400;
+}
+@mixin hoverLink($hoverColor, $top) {
+	display: inline-block;
+	line-height: 1;
+	cursor: pointer;
+	transition: all 0.3s ease-in-out;
+	position: relative;
+	&:hover {
+		color: $hoverColor;
+	}
+	&:after {
+		position: absolute;
+		top: $top + 4px;
+		background-color: #f7c356; /* Цвет линии при наведении на нее курсора мыши */
+		display: block;
+		content: "";
+		height: 1px; /* Высота линии */
+		width: 0%;
+		-webkit-transition: width 0.3s ease-in-out;
+		-moz--transition: width 0.3s ease-in-out;
+		transition: width 0.3s ease-in-out;
+	}
+	&:hover:after,
+	&:focus:hover {
+		width: 100%;
+	}
+}
+
+.avatar__title {
+	font-size: 32px;
+	line-height: 38px;
+	font-weight: 700;
+}
+
+.container {
+	max-width: 1200px;
+	margin: 0 auto;
+}
+@import "./header";
+.person {
+	margin: 48px 0px 70px 0px;
+	&__row {
+		display: flex;
+		margin-bottom: 48px;
+	}
+	&__block-img {
+		flex: 0 0 282px;
+		height: 282px;
+		border-radius: 20px;
+		background-color: #d9d9d9;
+		margin-right: 24px;
+		position: relative;
+		&::after {
+			position: absolute;
+			content: "";
+			background-image: url(../img/personalAcc/avatar.svg);
+			width: 153px;
+			height: 173px;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+	&__info {
+		&-name {
+			font-size: 32px;
+			font-weight: 700;
+			line-height: 38px;
+		}
+		&-mail {
+			font-size: 20px;
+			line-height: 23px;
+			color: #ffffff;
+		}
+	}
+	&__compilation {
+		&-title {
+			margin-bottom: 16px;
+		}
+		&-slider {
+			display: flex;
+			justify-content: space-between;
+		}
+		margin-bottom: 32px;
+	}
+	&__watched {
+		&-title {
+			margin-bottom: 16px;
+		}
+		&-slider {
+			display: flex;
+			justify-content: space-between;
+		}
+	}
+	&__block {
+		border-radius: 12px;
+		width: 223px;
+		height: 220px;
+		overflow: hidden;
+		position: relative;
+		border: 1px solid #ffffff;
+		img {
+			max-width: 100%;
+		}
+		&:after {
+			display: none;
+			position: absolute;
+			content: "";
+			width: 100%;
+			height: 100%;
+			background-color: #000000;
+			top: 0;
+			left: 0;
+		}
+		&:hover:after {
+			display: block;
+			opacity: 0.5;
+		}
+	}
+}
+@import "./footer";
