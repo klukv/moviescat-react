@@ -1,15 +1,15 @@
 import React from "react";
 import "../scss/home.scss";
 
-import guardiansIMG from "../assets/img/banner/guardians.jpg";
-import lostCityIMG from "../assets/img/banner/lostCity.jpg";
-import jwIMG from "../assets/img/banner/JW.jpg";
-import thorIMG from "../assets/img/banner/Thor.jpg";
-import blackIMG from "../assets/img/banner/blackP.jpg";
-import aboutOneIMG from "../assets/img/about/quality.jpg";
-import aboutTwoIMG from "../assets/img/about/download.jpg";
+const guardiansIMG = require("../assets/img/banner/guardians.jpg");
+const lostCityIMG = require("../assets/img/banner/lostCity.jpg");
+const jwIMG = require("../assets/img/banner/JW.jpg");
+const thorIMG = require("../assets/img/banner/Thor.jpg");
+const blackIMG = require("../assets/img/banner/blackP.jpg");
+const aboutOneIMG = require("../assets/img/about/quality.jpg");
+const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
-function Home() {
+const Home: React.FC = () => {
   return (
     <div>
       <main className="main">
@@ -34,38 +34,38 @@ function Home() {
             <div className="compilation__inner">
               <div className="compilation__titles">
                 <div className="compilation__title title">
-                  <a href="#">Популярное</a>
+                  <a href="#1">Популярное</a>
                 </div>
                 <div className="compilation__title title">
-                  <a href="#">Актуальное</a>
+                  <a href="#1">Актуальное</a>
                 </div>
               </div>
               <div className="compilation__slider">
-                <a href="#" className="compilation__slider_block">
+                <a href="#1" className="compilation__slider_block">
                   <img
                     src={guardiansIMG}
                     alt="movie"
                     className="compilation__movie"
                   />
                 </a>
-                <a href="#" className="compilation__slider_block">
+                <a href="#1" className="compilation__slider_block">
                   <img
                     src={blackIMG}
                     alt="movie"
                     className="compilation__movie"
                   />
                 </a>
-                <a href="#" className="compilation__slider_block">
+                <a href="#1" className="compilation__slider_block">
                   <img
                     src={lostCityIMG}
                     alt="movie"
                     className="compilation__movie"
                   />
                 </a>
-                <a href="#" className="compilation__slider_block">
+                <a href="#1" className="compilation__slider_block">
                   <img src={jwIMG} alt="movie" className="compilation__movie" />
                 </a>
-                <a href="#" className="compilation__slider_block">
+                <a href="#1" className="compilation__slider_block">
                   <img
                     src={thorIMG}
                     alt="movie"
@@ -114,6 +114,6 @@ function Home() {
       </main>
     </div>
   );
-}
+};
 
 export default Home;
