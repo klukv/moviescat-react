@@ -1,4 +1,5 @@
 import React from "react";
+import { Slider } from "../components/Slider";
 import "../scss/home.scss";
 
 const guardiansIMG = require("../assets/img/banner/guardians.jpg");
@@ -40,7 +41,7 @@ const Home: React.FC = () => {
                   <a href="#1">Актуальное</a>
                 </div>
               </div>
-              <div className="compilation__slider">
+              <Slider>
                 <a href="#1" className="compilation__slider_block">
                   <img
                     src={guardiansIMG}
@@ -72,7 +73,38 @@ const Home: React.FC = () => {
                     className="compilation__movie"
                   />
                 </a>
-              </div>
+                <a href="#1" className="compilation__slider_block">
+                  <img
+                    src={guardiansIMG}
+                    alt="movie"
+                    className="compilation__movie"
+                  />
+                </a>
+                <a href="#1" className="compilation__slider_block">
+                  <img
+                    src={blackIMG}
+                    alt="movie"
+                    className="compilation__movie"
+                  />
+                </a>
+                <a href="#1" className="compilation__slider_block">
+                  <img
+                    src={lostCityIMG}
+                    alt="movie"
+                    className="compilation__movie"
+                  />
+                </a>
+                <a href="#1" className="compilation__slider_block">
+                  <img src={jwIMG} alt="movie" className="compilation__movie" />
+                </a>
+                <a href="#1" className="compilation__slider_block">
+                  <img
+                    src={thorIMG}
+                    alt="movie"
+                    className="compilation__movie"
+                  />
+                </a>
+              </Slider>
             </div>
           </section>
           <section className="about">

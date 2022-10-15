@@ -188,8 +188,10 @@ main {
 	&__slider {
 		display: flex;
 		justify-content: space-between;
+		transition: transform 300ms ease-in-out;
 		&_block {
 			border-radius: 12px;
+			margin-right: 20px;
 			overflow: hidden;
 			position: relative;
 			img {
@@ -267,5 +269,24 @@ main {
 		}
 	}
 	padding-bottom: 72px;
+}
+.arrow {
+	position: absolute;
+	cursor: pointer;
+	color: #ffffff;
+}
+.arrowLeft {
+	left: -30px;
+	top: 50%;
+}
+.arrowRight {
+	right: -30px;
+	top: 50%;
+}
+.slider {
+	&__inner {
+		overflow: hidden;
+	}
+	position: relative;
 }
 @import "./footer";
