@@ -1,6 +1,21 @@
-declare module "libName";
-declare module "*.jpg";
-declare module "*.png";
-declare module "*.jpeg";
-declare module "*.gif";
-declare module "*.svg";
+
+declare module '*.png'{
+	const content: any;
+	export default content;
+}
+declare module '*.svg'{
+	const content: any;
+	export default content;
+}
+declare module '*.jpeg'{
+	const content: any;
+	export default content;
+}
+declare module '*.jpg'{
+	const content: any;
+	export default content;
+}
+declare module 'libName'{
+	const content: any;
+	export default content;
+}

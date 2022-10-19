@@ -181,7 +181,13 @@ main {
 			font-weight: 400;
 			color: #ffffff;
 		}
+		.active {
+			a {
+				color: #f7c356;
+			}
+		}
 	}
+
 	&__title {
 		padding-right: 36px;
 	}

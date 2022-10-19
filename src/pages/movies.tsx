@@ -7,6 +7,11 @@ const lostCityIMG = require("../assets/img/banner/lostCity.jpg");
 const jwIMG = require("../assets/img/banner/JW.jpg");
 const thorIMG = require("../assets/img/banner/Thor.jpg");
 const blackIMG = require("../assets/img/banner/blackP.jpg");
+const hobbitIMG = require("../assets/img/newFilms/hobbit.jpg");
+const jumanjiIMG = require("../assets/img/newFilms/jumanji.jpg");
+const hollywoodIMG = require("../assets/img/newFilms/hollywood.jpg");
+const avatarIMG = require("../assets/img/newFilms/avatar.jpg");
+const inseptionIMG = require("../assets/img/newFilms/inseption.jpg");
 
 const Movies: React.FC = () => {
   return (
@@ -17,49 +22,49 @@ const Movies: React.FC = () => {
             <button className="movies__date sort">По дате добавления</button>
             <button className="movies__genre sort">Жанр</button>
             <div className="movies__row">
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={guardiansIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={blackIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={lostCityIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={jwIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={thorIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
+                <img src={hobbitIMG} alt="movie" className="movies__image" />
+              </a>
+              <a href="#1" className="movies__block">
+                <img src={jumanjiIMG} alt="movie" className="movies__image" />
+              </a>
+              <a href="#1" className="movies__block">
+                <img src={hollywoodIMG} alt="movie" className="movies__image" />
+              </a>
+              <a href="#1" className="movies__block">
+                <img src={avatarIMG} alt="movie" className="movies__image" />
+              </a>
+              <a href="#1" className="movies__block">
+                <img src={inseptionIMG} alt="movie" className="movies__image" />
+              </a>
+              <a href="#1" className="movies__block">
                 <img src={guardiansIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={blackIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={lostCityIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={jwIMG} alt="movie" className="movies__image" />
               </a>
-              <a href="#" className="movies__block">
-                <img src={thorIMG} alt="movie" className="movies__image" />
-              </a>
-              <a href="#" className="movies__block">
-                <img src={guardiansIMG} alt="movie" className="movies__image" />
-              </a>
-              <a href="#" className="movies__block">
-                <img src={blackIMG} alt="movie" className="movies__image" />
-              </a>
-              <a href="#" className="movies__block">
-                <img src={lostCityIMG} alt="movie" className="movies__image" />
-              </a>
-              <a href="#" className="movies__block">
-                <img src={jwIMG} alt="movie" className="movies__image" />
-              </a>
-              <a href="#" className="movies__block">
+              <a href="#1" className="movies__block">
                 <img src={thorIMG} alt="movie" className="movies__image" />
               </a>
             </div>

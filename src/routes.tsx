@@ -6,15 +6,15 @@ import PersonalAccount from "./pages/personalAC";
 
 export const publicRoutes = [
   {
-      path: home,
-      Component: Home
+    path: home,
+    Component: Home,
   },
   {
-      path: movies,
-      Component: Movies
+    path: movies,
+    Component: Movies,
   },
   {
-      path: personAcc,
-      Component: PersonalAccount
-  }
+    path: personAcc,
+    Component: PersonalAccount,
+  },
 ];

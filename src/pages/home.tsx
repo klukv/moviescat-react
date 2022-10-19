@@ -1,16 +1,23 @@
-import React from "react";
-import { Slider } from "../components/Slider";
+import React, { useState } from "react";
+import ActualFilms from "../components/actualFilms";
+import NewFilms from "../components/newFilms";
+
 import "../scss/home.scss";
 
-const guardiansIMG = require("../assets/img/banner/guardians.jpg");
-const lostCityIMG = require("../assets/img/banner/lostCity.jpg");
-const jwIMG = require("../assets/img/banner/JW.jpg");
-const thorIMG = require("../assets/img/banner/Thor.jpg");
-const blackIMG = require("../assets/img/banner/blackP.jpg");
 const aboutOneIMG = require("../assets/img/about/quality.jpg");
 const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
 const Home: React.FC = () => {
+  const [popularFilms, setPopularFilms] = useState(true);
+
+  const handlePopualrFilms = (value: boolean) => {
+    setPopularFilms(value);
+  };
+
+  const handleActualFilms = (value: boolean) => {
+    setPopularFilms(value);
+  };
+
   return (
     <div>
       <main className="main">
@@ -34,77 +41,30 @@ const Home: React.FC = () => {
           <section className="compilation">
             <div className="compilation__inner">
               <div className="compilation__titles">
-                <div className="compilation__title title">
-                  <a href="#1">Популярное</a>
+                <div
+                  className={
+                    popularFilms
+                      ? "compilation__title title active"
+                      : "compilation__title title"
+                  }
+                >
+                  <a href="#1" onClick={() => handlePopualrFilms(true)}>
+                    Популярное
+                  </a>
                 </div>
-                <div className="compilation__title title">
-                  <a href="#1">Актуальное</a>
+                <div
+                  className={
+                    !popularFilms
+                      ? "compilation__title title active"
+                      : "compilation__title title"
+                  }
+                >
+                  <a href="#1" onClick={() => handleActualFilms(false)}>
+                    Актуальное
+                  </a>
                 </div>
               </div>
-              <Slider>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={guardiansIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={blackIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={lostCityIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img src={jwIMG} alt="movie" className="compilation__movie" />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={thorIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={guardiansIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={blackIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={lostCityIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img src={jwIMG} alt="movie" className="compilation__movie" />
-                </a>
-                <a href="#1" className="compilation__slider_block">
-                  <img
-                    src={thorIMG}
-                    alt="movie"
-                    className="compilation__movie"
-                  />
-                </a>
-              </Slider>
+              {popularFilms ? <NewFilms /> : <ActualFilms />}
             </div>
           </section>
           <section className="about">
