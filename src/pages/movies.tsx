@@ -12,6 +12,7 @@ const jumanjiIMG = require("../assets/img/newFilms/jumanji.jpg");
 const hollywoodIMG = require("../assets/img/newFilms/hollywood.jpg");
 const avatarIMG = require("../assets/img/newFilms/avatar.jpg");
 const inseptionIMG = require("../assets/img/newFilms/inseption.jpg");
+const moneyball = require("../assets/img/banner/moneyball.jpg");
 
 const Movies: React.FC = () => {
   return (
@@ -56,7 +57,7 @@ const Movies: React.FC = () => {
                 <img src={guardiansIMG} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
-                <img src={blackIMG} alt="movie" className="movies__image" />
+                <img src={moneyball} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
                 <img src={lostCityIMG} alt="movie" className="movies__image" />
