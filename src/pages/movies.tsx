@@ -12,7 +12,11 @@ const jumanjiIMG = require("../assets/img/newFilms/jumanji.jpg");
 const hollywoodIMG = require("../assets/img/newFilms/hollywood.jpg");
 const avatarIMG = require("../assets/img/newFilms/avatar.jpg");
 const inseptionIMG = require("../assets/img/newFilms/inseption.jpg");
-const moneyball = require("../assets/img/banner/moneyball.jpg");
+const moneyballIMG = require("../assets/img/banner/moneyball.jpg");
+const PiratesIMG = require("../assets/img/banner/Pirates.jpg");
+const BabyDriverIMG = require("../assets/img/banner/BabyDriver.jpg");
+const CrewIMG = require("../assets/img/banner/Crew.jpg");
+const NightMuseumIMG = require("../assets/img/banner/NightMuseum.jpg");
 
 const Movies: React.FC = () => {
   return (
@@ -54,19 +58,19 @@ const Movies: React.FC = () => {
                 <img src={inseptionIMG} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
-                <img src={guardiansIMG} alt="movie" className="movies__image" />
+                <img src={CrewIMG} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
-                <img src={moneyball} alt="movie" className="movies__image" />
+                <img src={moneyballIMG} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
-                <img src={lostCityIMG} alt="movie" className="movies__image" />
+                <img src={BabyDriverIMG} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
-                <img src={jwIMG} alt="movie" className="movies__image" />
+                <img src={NightMuseumIMG} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
-                <img src={thorIMG} alt="movie" className="movies__image" />
+                <img src={PiratesIMG} alt="movie" className="movies__image" />
               </a>
             </div>
           </div>
