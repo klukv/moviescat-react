@@ -1,4 +1,6 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect } from "react";
+import SortPopupDate from "../components/SortPopupDate";
+import SortPopupGenre from "../components/SortPopupGenre";
 
 import "../scss/movies.scss";
 
@@ -18,50 +20,14 @@ const BabyDriverIMG = require("../assets/img/banner/BabyDriver.jpg");
 const CrewIMG = require("../assets/img/banner/Crew.jpg");
 const NightMuseumIMG = require("../assets/img/banner/NightMuseum.jpg");
 
-type menuClick = MouseEvent & {
-  path: Node[];
-};
-
 const Movies: React.FC = () => {
-  const [menuActive, setMenuActive] = useState(false);
-
-  useEffect(() => {
-    const handleClickMenu = (event: MouseEvent) => {
-      const _event = event as menuClick;
-      if (refMenu.current && !_event.path.includes(refMenu.current)) {
-        setMenuActive(false);
-      }
-    };
-
-    document.body.addEventListener("click", handleClickMenu);
-
-    return () => document.body.removeEventListener("click", handleClickMenu);
-  }, []);
-
-  const refMenu = useRef<HTMLDivElement>(null);
-
   return (
     <div>
       <main className="main">
         <section className="movies">
           <div className="container">
-            <button className="movies__date sort">По дате добавления</button>
-            <div  className="movies__genre" ref={refMenu}>
-              <button
-                className="movies__genre-btn sort"
-                onClick={() => setMenuActive(!menuActive)}
-              >
-                Жанр
-                {menuActive && (
-                  <ul className="movies__list">
-                    <li className="movies__list-link">Комедия</li>
-                    <li className="movies__list-link">Драма</li>
-                    <li className="movies__list-link">Боевик</li>
-                    <li className="movies__list-link">Триллер</li>
-                  </ul>
-                )}
-              </button>
-            </div>
+            <SortPopupDate />
+            <SortPopupGenre />
             <div className="movies__row">
               <a href="#1" className="movies__block">
                 <img src={guardiansIMG} alt="movie" className="movies__image" />
