@@ -1,5 +1,7 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Slider } from "../components/Slider";
+import { RootState } from "../redux/store";
 const hobbitIMG = require("../assets/img/newFilms/hobbit.jpg");
 const jumanjiIMG = require("../assets/img/newFilms/jumanji.jpg");
 const hollywoodIMG = require("../assets/img/newFilms/hollywood.jpg");

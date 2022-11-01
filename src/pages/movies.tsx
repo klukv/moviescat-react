@@ -1,8 +1,10 @@
 import React, { useEffect } from "react";
 import SortPopupDate from "../components/SortPopupDate";
 import SortPopupGenre from "../components/SortPopupGenre";
-
+import { useSelector, useDispatch } from "react-redux";
+import type { RootState } from "../redux/store";
 import "../scss/movies.scss";
+import MovieComponent from "../components/MoviesComponent";
 
 const guardiansIMG = require("../assets/img/banner/guardians.jpg");
 const lostCityIMG = require("../assets/img/banner/lostCity.jpg");
@@ -21,6 +23,10 @@ const CrewIMG = require("../assets/img/banner/Crew.jpg");
 const NightMuseumIMG = require("../assets/img/banner/NightMuseum.jpg");
 
 const Movies: React.FC = () => {
+  const moviesArray = useSelector(
+    (state: RootState) => state.moviesSlice.movies
+  );
+
   return (
     <div>
       <main className="main">
@@ -29,7 +35,10 @@ const Movies: React.FC = () => {
             <SortPopupDate />
             <SortPopupGenre />
             <div className="movies__row">
-              <a href="#1" className="movies__block">
+              {moviesArray.map((movies, index) => (
+                <MovieComponent key={`index=${index}`} {...movies} />
+              ))}
+              {/* <a href="#1" className="movies__block">
                 <img src={guardiansIMG} alt="movie" className="movies__image" />
               </a>
               <a href="#1" className="movies__block">
@@ -81,7 +90,7 @@ const Movies: React.FC = () => {
               </a>
               <a href="#1" className="movies__block">
                 <img src={PiratesIMG} alt="movie" className="movies__image" />
-              </a>
+              </a> */}
             </div>
           </div>
         </section>
