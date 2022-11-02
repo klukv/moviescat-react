@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import type { PayloadAction } from "@reduxjs/toolkit";
 
 export interface moviesState {
   movies: {
@@ -13,6 +12,7 @@ export interface moviesState {
     time: number;
     budget: number;
     imgUrl: string;
+    type: string;
   }[];
 }
 
@@ -24,13 +24,12 @@ export const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    addFilms(state, action) {
+    addFilms: (state, action) => {
       state.movies = action.payload;
     },
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { addFilms } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

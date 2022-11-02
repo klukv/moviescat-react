@@ -11,6 +11,7 @@ type movie = {
   time: number;
   budget: number;
   imgUrl: string;
+  type?: string;
 };
 const MoviesComponent: React.FC<movie> = ({
   id,
@@ -24,12 +25,10 @@ const MoviesComponent: React.FC<movie> = ({
   budget,
   imgUrl,
 }) => {
-  console.log(imgUrl);
-
   return (
     <div className="movie__div">
-      <a href="#1" className="movies__block">
-        <img src={imgUrl} alt="movie" className="movies__image" />
+      <a href="#1" className="movies__block compilation__slider_block">
+        <img src={imgUrl} alt="movie" className="compilation__movie" />
       </a>
     </div>
   );

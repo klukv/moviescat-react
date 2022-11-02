@@ -16,8 +16,6 @@
 }
 .movie__div {
 	border-radius: 14px;
-	overflow: hidden;
-	position: relative;
 	&:after {
 		display: none;
 		position: absolute;
@@ -97,11 +95,6 @@
 		padding: 48px 0px 40px 0px;
 	}
 	&__block {
-		border-radius: 12px;
-		overflow: hidden;
-		// border: 1px solid #ffffff;
-		img {
-			max-width: 100%;
-		}
+		display: block;
 	}
 }

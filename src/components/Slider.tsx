@@ -2,7 +2,7 @@ import React, { cloneElement, useEffect, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 
 const PAGE_WIDTH = 217;
-const TRANSLATE_WIDTH = 534;
+const TRANSLATE_WIDTH = 600;
 
 export const Slider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [pages, setPages] = useState<React.ReactNode>([]);
@@ -14,6 +14,10 @@ export const Slider: React.FC<React.PropsWithChildren> = ({ children }) => {
       return Math.min(newTranslate, 0);
     });
   };
+
+  //   React.Children.map(children, (child) => {
+  //     console.log(child);
+  //   });
 
   const handleRightArrow = () => {
     setTranslate((currentTranslate) => {

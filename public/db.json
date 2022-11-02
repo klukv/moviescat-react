@@ -10,7 +10,8 @@
             "director":"Беннетт Миллер",
             "time":126,
             "budget":50000000,
-			"imgUrl": "https://im.wampi.ru/2022/11/01/moneyball.jpg" 
+			"imgUrl": "https://im.wampi.ru/2022/11/01/moneyball.jpg",
+			"type": "popular"
         },
         {
             "id": 1,
@@ -22,7 +23,8 @@
             "director":"Джеймс Ганн",
             "time":0,
             "budget":200000000,
-			"imgUrl": "https://ie.wampi.ru/2022/11/01/guardians.jpg"
+			"imgUrl": "https://ie.wampi.ru/2022/11/01/guardians.jpg",
+			"type": "popular"
         },
         {
             "id": 2,
@@ -34,7 +36,8 @@
             "director":"Райан Куглер",
             "time":0,
             "budget":200000000,
-			"imgUrl": "https://im.wampi.ru/2022/11/01/blackP.jpg"
+			"imgUrl": "https://im.wampi.ru/2022/11/01/blackP.jpg",
+			"type": "popular"
         },
         {
             "id": 3,
@@ -46,7 +49,8 @@
             "director":"Беннетт Миллер",
             "time":112,
             "budget":68000000,
-			"imgUrl": "https://wampi.ru/image/R0ke8FP"
+			"imgUrl": "https://ic.wampi.ru/2022/11/01/lostCity.jpg",
+			"type": "popular"
         },
         {
             "id": 4,
@@ -58,7 +62,8 @@
             "director":"Чад Стахелски",
             "time":130,
             "budget":326709727,
-			"imgUrl": "https://wampi.ru/image/R0keFQs"
+			"imgUrl": "https://ie.wampi.ru/2022/11/01/JW.jpg",
+			"type": "popular"
         },
         {
             "id": 5,
@@ -70,7 +75,8 @@
             "director":"Питер Джексон",
             "time":169,
             "budget":180000000,
-			"imgUrl": "https://wampi.ru/image/R0keqXx"
+			"imgUrl": "https://ie.wampi.ru/2022/11/01/hobbit.jpg",
+			"type": "actual"
         },
         {
             "id": 6,
@@ -82,7 +88,8 @@
             "director":"Джейк Кэздан",
             "time":123,
             "budget":320314960,
-			"imgUrl": "https://wampi.ru/image/R0keEDr" 
+			"imgUrl": "https://im.wampi.ru/2022/11/01/jumanji.jpg",
+			"type": "actual"
         },
         {
             "id": 7,
@@ -94,7 +101,8 @@
             "director":"Квентин Тарантино",
             "time":161,
             "budget":90000000,
-			"imgUrl": "https://wampi.ru/image/R0keUEn"
+			"imgUrl": "https://ic.wampi.ru/2022/11/01/hollywood.jpg",
+			"type": "actual"
         },
         {
             "id": 8,
@@ -106,7 +114,8 @@
             "director":"Джеймс Кэмерон",
             "time":0,
             "budget":200000000,
-			"imgUrl": "https://wampi.ru/image/R0keZda"
+			"imgUrl": "https://ic.wampi.ru/2022/11/01/avatar.jpg",
+			"type": "actual"
         },
         {
             "id": 9,
@@ -118,7 +127,8 @@
             "director":"Кристофер Нолан",
             "time":148,
             "budget":292576195,
-			"imgUrl": "https://wampi.ru/image/R0keNXq"
+			"imgUrl": "https://im.wampi.ru/2022/11/01/inseption.jpg",
+			"type": "actual"
         },
         {
             "id": 10,
@@ -130,7 +140,8 @@
             "director":"Николай Лебедев",
             "time":138,
             "budget":10621650,
-			"imgUrl": "https://wampi.ru/image/R0keWgz"
+			"imgUrl": "https://ic.wampi.ru/2022/11/01/Crew.jpg",
+			"type": "actual"
         },
         {
             "id": 11,
@@ -142,7 +153,8 @@
             "director":"Эдгар Райт",
             "time":113,
             "budget":5924796,
-			"imgUrl": "https://wampi.ru/image/R0kFbyz"
+			"imgUrl": "https://ic.wampi.ru/2022/11/01/BabyDriver.jpg",
+			"type": "popular"
         },
         {
             "id": 12,
@@ -154,7 +166,8 @@
             "director":"Шон Леви",
             "time":108,
             "budget":110000000,
-			"imgUrl": "https://wampi.ru/image/R0keLz6"
+			"imgUrl": "https://ic.wampi.ru/2022/11/01/NightMuseum.jpg",
+			"type": "actual"
         },
         {
             "id": 13,
@@ -166,7 +179,8 @@
             "director":"Гор Вербински",
             "time":151,
             "budget":225000000,
-			"imgUrl": "https://wampi.ru/image/R0kePOQ"
+			"imgUrl": "https://ie.wampi.ru/2022/11/01/Pirates.jpg",
+			"type": "popular"
         },
         {
             "id": 14,
@@ -178,7 +192,8 @@
             "director":"Тайка Вайтити",
             "time":118,
             "budget":250000000,
-			"imgUrl": "https://wampi.ru/image/R0ke9Ug"
+			"imgUrl": "https://ic.wampi.ru/2022/11/01/Thor.jpg",
+			"type": "popular"
         }
     ]
 }

@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Slider } from "../components/Slider";
 import { RootState } from "../redux/store";
+import MoviesComponent from "./MoviesComponent";
 const hobbitIMG = require("../assets/img/newFilms/hobbit.jpg");
 const jumanjiIMG = require("../assets/img/newFilms/jumanji.jpg");
 const hollywoodIMG = require("../assets/img/newFilms/hollywood.jpg");
@@ -13,10 +14,19 @@ const BabyDriverIMG = require("../assets/img/banner/BabyDriver.jpg");
 const CrewIMG = require("../assets/img/banner/Crew.jpg");
 const NightMuseumIMG = require("../assets/img/banner/NightMuseum.jpg");
 
-const ActualFilms = () => {
+const ActualFilms: React.FC = () => {
+  const arrayMovies = useSelector(
+    (state: RootState) => state.moviesSlice.movies
+  ).filter((movie) => {
+    return movie.type === "actual";
+  });
+
   return (
     <Slider>
-      <a href="#1" className="compilation__slider_block">
+      {arrayMovies.map((movie, index) => (
+        <MoviesComponent key={`index__${index}`} {...movie} />
+      ))}
+      {/* <a href="#1" className="compilation__slider_block">
         <img src={hollywoodIMG} alt="movie" className="compilation__movie" />
       </a>
       <a href="#1" className="compilation__slider_block">
@@ -45,7 +55,7 @@ const ActualFilms = () => {
       </a>
       <a href="#1" className="compilation__slider_block">
         <img src={inseptionIMG} alt="movie" className="compilation__movie" />
-      </a>
+      </a> */}
     </Slider>
   );
 };
