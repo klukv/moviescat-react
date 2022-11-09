@@ -14,7 +14,7 @@ const App: React.FC = () => {
     axios
       .get("http://localhost:3001/films")
       .then(({ data }) => dispatch(addFilms(data)));
-  }, []);
+  });
 
   return (
     <div>

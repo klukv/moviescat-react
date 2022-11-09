@@ -1,6 +1,6 @@
 import React from "react";
 
-type movie = {
+interface movie {
   id: number;
   title: string;
   description: string;
@@ -12,7 +12,7 @@ type movie = {
   budget: number;
   imgUrl: string;
   type?: string;
-};
+}
 const MoviesComponent: React.FC<movie> = ({
   id,
   title,

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ActualFilms from "../components/actualFilms";
-import NewFilms from "../components/newFilms";
+
+import Slider from "../components/Slider";
 
 import "../scss/home.scss";
 
@@ -64,7 +64,7 @@ const Home: React.FC = () => {
                   </a>
                 </div>
               </div>
-              {popularFilms ? <NewFilms /> : <ActualFilms />}
+              <Slider activeFilms={popularFilms} />
             </div>
           </section>
           <section className="about">

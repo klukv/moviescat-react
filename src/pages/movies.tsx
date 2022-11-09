@@ -1,7 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import SortPopupDate from "../components/SortPopupDate";
 import SortPopupGenre from "../components/SortPopupGenre";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import "../scss/movies.scss";
 import MovieComponent from "../components/MoviesComponent";

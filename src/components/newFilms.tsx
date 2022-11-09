@@ -1,10 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Slider } from "../components/Slider";
 import { RootState } from "../redux/store";
 import MoviesComponent from "./MoviesComponent";
 
-const NewFilms: React.FC = () => {
+type translateType = {
+  translate: number;
+};
+
+const NewFilms: React.FC<translateType> = ({ translate }) => {
   const arrayMovies = useSelector(
     (state: RootState) => state.moviesSlice.movies
   ).filter((movie) => {
@@ -12,11 +15,16 @@ const NewFilms: React.FC = () => {
   });
 
   return (
-    <Slider>
+    <div
+      className="compilation__slider"
+      style={{
+        transform: `translateX(${translate}px)`,
+      }}
+    >
       {arrayMovies.map((movie, index) => (
         <MoviesComponent key={`index__${index}`} {...movie} />
       ))}
-    </Slider>
+    </div>
   );
 };
 
