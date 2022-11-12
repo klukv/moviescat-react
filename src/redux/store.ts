@@ -1,8 +1,9 @@
+import filterSlice from "./slices/filter";
 import { configureStore } from "@reduxjs/toolkit";
 import moviesSlice from "./slices/moviesSlice";
 
 export const store = configureStore({
-  reducer: { moviesSlice },
+  reducer: { moviesSlice, filterSlice },
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

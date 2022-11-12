@@ -1,9 +1,25 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setOtherSort } from "../redux/slices/filter";
 
 type menuClick = MouseEvent & {
   path: Node[];
 };
-const SortPopupDate: React.FC = () => {
+interface OtherParametrsType {
+  items: {
+    name: string;
+    type: string;
+    order: string;
+  }[];
+  activeObj: {
+    name: string;
+    type: string;
+    order: string;
+  };
+}
+
+const SortPopupDate: React.FC<OtherParametrsType> = ({ items, activeObj }) => {
+  const dispatch = useDispatch();
   const refDateMenu = useRef<HTMLDivElement>(null);
   const [menuDateActive, setMenuDateActive] = useState(false);
   useEffect(() => {
@@ -18,6 +34,12 @@ const SortPopupDate: React.FC = () => {
 
     return () => document.body.removeEventListener("click", handleClickMenu);
   }, []);
+
+  const onClickSortItem = (name: string, type: string, order: string) => {
+    dispatch(setOtherSort({ name, type, order }));
+    setMenuDateActive(false);
+  };
+
   return (
     <div className="movies__date" ref={refDateMenu}>
       <a
@@ -25,23 +47,20 @@ const SortPopupDate: React.FC = () => {
         className="movies__date-btn sort"
         onClick={() => setMenuDateActive(!menuDateActive)}
       >
-        По дате добавления
+        {activeObj.type !== "default" ? activeObj.name : "Фильтры"}
       </a>
       <div className="sort__popup date-menu">
         {menuDateActive && (
           <ul className="movies__list">
-            <li className="movies__list-link">
-              <span>По дате добавления</span>
-            </li>
-            <li className="movies__list-link">
-              <span>По дате выхода</span>
-            </li>
-            <li className="movies__list-link">
-              <span>По рейтингу</span>
-            </li>
-            <li className="movies__list-link">
-              <span>По названию</span>
-            </li>
+            {items.map((obj, index) => (
+              <li key={`key__${index}`} className="movies__list-link">
+                <span
+                  onClick={() => onClickSortItem(obj.name, obj.type, obj.order)}
+                >
+                  {obj.name}
+                </span>
+              </li>
+            ))}
           </ul>
         )}
       </div>

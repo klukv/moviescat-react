@@ -18,6 +18,7 @@
 	height: 412px;
 	min-width: 217px;
 	max-width: 217px;
+	margin-right: 20px;
 }
 .movies {
 	&__date {
@@ -63,7 +64,6 @@
 			padding-bottom: 9px;
 			text-align: start;
 			span {
-				white-space: nowrap;
 				color: #ffffff;
 				font-size: 20px;
 				line-height: 23px;
@@ -83,5 +83,6 @@
 	}
 	&__block {
 		display: block;
+		width: 100%;
 	}
 }

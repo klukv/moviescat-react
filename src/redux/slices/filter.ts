@@ -1,43 +1,44 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export interface filterState {
-  actualMovies: {
-    id: number;
-    title: string;
-    description: string;
-    year: number;
-    country: string;
-    genre: string;
-    director: string;
-    time: number;
-    budget: number;
-    imgUrl: string;
-  }[];
-  popularFilms: {
-    id: number;
-    title: string;
-    description: string;
-    year: number;
-    country: string;
-    genre: string;
-    director: string;
-    time: number;
-    budget: number;
-    imgUrl: string;
-  }[];
+  genreSort: {
+    name: string;
+    type: string;
+    order: string;
+  };
+  otherParams: {
+    name: string;
+    type: string;
+    order: string;
+  };
 }
 
 const initialState: filterState = {
-  actualMovies: [],
-  popularFilms: [],
+  genreSort: {
+    name: "",
+    type: "default",
+    order: "",
+  },
+  otherParams: {
+    name: "",
+    type: "default",
+    order: "",
+  },
 };
 
 export const filterSlice = createSlice({
   name: "filter",
   initialState,
-  reducers: {},
+  reducers: {
+    setGenreSort: (state, action) => {
+      state.genreSort = action.payload;
+    },
+    setOtherSort: (state, action) => {
+      state.otherParams = action.payload;
+    },
+  },
 });
 
-export const {} = filterSlice.actions;
+export const { setGenreSort, setOtherSort } = filterSlice.actions;
 
 export default filterSlice.reducer;

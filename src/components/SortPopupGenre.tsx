@@ -1,9 +1,24 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { setGenreSort } from "../redux/slices/filter";
 
 type menuClick = MouseEvent & {
   path: Node[];
 };
-const SortPopupGenre: React.FC = () => {
+interface genreType {
+  items: {
+    name: string;
+    type: string;
+    order: string;
+  }[];
+  activeObj: {
+    name: string;
+    type: string;
+    order: string;
+  };
+}
+const SortPopupGenre: React.FC<genreType> = ({ items, activeObj }) => {
+  const dispatch = useDispatch();
   const refGenreMenu = useRef<HTMLDivElement>(null);
   const [menuGenreActive, setMenuGenreActive] = useState(false);
   useEffect(() => {
@@ -18,6 +33,12 @@ const SortPopupGenre: React.FC = () => {
 
     return () => document.body.removeEventListener("click", handleClickMenu);
   }, []);
+
+  const onClickSortItem = (name: string, type: string, order: string) => {
+    dispatch(setGenreSort({ name, type, order }));
+    setMenuGenreActive(false);
+  };
+
   return (
     <div className="movies__genre" ref={refGenreMenu}>
       <a
@@ -25,23 +46,20 @@ const SortPopupGenre: React.FC = () => {
         className="movies__genre-btn sort"
         onClick={() => setMenuGenreActive(!menuGenreActive)}
       >
-        Жанр
+        {activeObj.type !== "default" ? activeObj.name : "Жанр"}
       </a>
       <div className="sort__popup">
         {menuGenreActive && (
           <ul className="movies__list">
-            <li className="movies__list-link">
-              <span>Комедия</span>
-            </li>
-            <li className="movies__list-link">
-              <span>Драма</span>
-            </li>
-            <li className="movies__list-link">
-              <span>Боевик</span>
-            </li>
-            <li className="movies__list-link">
-              <span>Триллер</span>
-            </li>
+            {items.map((obj, index) => (
+              <li key={`key__${index}Genre`} className="movies__list-link">
+                <span
+                  onClick={() => onClickSortItem(obj.name, obj.type, obj.order)}
+                >
+                  {obj.name}
+                </span>
+              </li>
+            ))}
           </ul>
         )}
       </div>

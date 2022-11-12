@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ActualFilms from "./actualFilms";
 import NewFilms from "./newFilms";
 
-const TRANSLATE_WIDTH = 400;
+const TRANSLATE_WIDTH = 500;
 interface movieType {
   activeFilms: boolean;
 }
@@ -21,7 +21,7 @@ const Slider: React.FC<movieType> = ({ activeFilms }) => {
     setTranslate((currentTranslate) => {
       const newTranslate = currentTranslate - TRANSLATE_WIDTH;
 
-      return Math.max(newTranslate, -550);
+      return Math.max(newTranslate, -700);
     });
   };
 

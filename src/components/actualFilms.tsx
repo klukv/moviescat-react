@@ -24,6 +24,7 @@ const ActualFilms: React.FC<translateType> = ({ translate }) => {
       {arrayMovies.map((movie, index) => (
         <MoviesComponent key={`index__${index}`} {...movie} />
       ))}
+      {/* доделать слайдер */}
     </div>
   );
 };
