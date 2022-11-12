@@ -155,7 +155,7 @@ h6 {
 	flex-direction: column;
 	min-height: 100vh;
 }
-main {
+.main {
 	flex-shrink: 1;
 	flex-grow: 1;
 }
@@ -219,6 +219,7 @@ main {
 		border-radius: 16px;
 		border: 1px solid #f7c356;
 		margin-bottom: 48px;
+		font-size: 24px;
 	}
 	&__about {
 		&-title {

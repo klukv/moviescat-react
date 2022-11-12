@@ -9,8 +9,8 @@ import avatar from "../assets/img/header/person.svg";
 
 const Header: React.FC = () => {
   return (
-    <div>
-      <header className="header">
+    <div className="header">
+      <header>
         <div className="container">
           <div className="header__inner">
             <div className="header__logo">

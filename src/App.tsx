@@ -17,7 +17,7 @@ const App: React.FC = () => {
   });
 
   return (
-    <div>
+    <div className="page">
       <Header />
       <Routes>
         {publicRoutes.map(({ path, Component }) => (

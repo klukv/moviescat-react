@@ -1,7 +1,8 @@
-import { home, movies, personAcc } from "./const/const";
+import { home, movies, oneMovie, personAcc } from "./const/const";
 
 import Home from "./pages/home";
 import Movies from "./pages/movies";
+import OneMovie from "./pages/oneMovie";
 import PersonalAccount from "./pages/personalAC";
 
 export const publicRoutes = [
@@ -16,5 +17,9 @@ export const publicRoutes = [
   {
     path: personAcc,
     Component: PersonalAccount,
+  },
+  {
+    path: oneMovie + "/:id",
+    Component: OneMovie,
   },
 ];

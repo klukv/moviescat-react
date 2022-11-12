@@ -1,4 +1,6 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
+import { oneMovie } from "../const/const";
 
 interface movie {
   id: number;
@@ -25,11 +27,19 @@ const MoviesComponent: React.FC<movie> = ({
   budget,
   imgUrl,
 }) => {
+  const navigate = useNavigate();
+  const clickMovie = (id: number) => {
+    navigate(oneMovie + "/" + id);
+  };
+
   return (
     <div className="movie__div">
-      <a href="#1" className="movies__block compilation__slider_block">
+      <button
+        className="movies__block compilation__slider_block"
+        onClick={() => clickMovie(id)}
+      >
         <img src={imgUrl} alt="movie" className="compilation__movie" />
-      </a>
+      </button>
     </div>
   );
 };

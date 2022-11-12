@@ -7,8 +7,8 @@ import facebook from "../assets/img/footer/facebook.svg";
 
 const Footer: React.FC = () => {
   return (
-    <div>
-      <footer className="footer">
+    <div className="footer">
+      <footer>
         <div className="container">
           <div className="footer__inner">
             <div className="footer__approval">
