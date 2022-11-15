@@ -7,12 +7,12 @@ type menuClick = MouseEvent & {
 };
 interface genreType {
   items: {
-    name: string;
+    genre: string;
     type: string;
     order: string;
   }[];
   activeObj: {
-    name: string;
+    genre: string;
     type: string;
     order: string;
   };
@@ -34,8 +34,8 @@ const SortPopupGenre: React.FC<genreType> = ({ items, activeObj }) => {
     return () => document.body.removeEventListener("click", handleClickMenu);
   }, []);
 
-  const onClickSortItem = (name: string, type: string, order: string) => {
-    dispatch(setGenreSort({ name, type, order }));
+  const onClickSortItem = (type: string, genre: string, order: string) => {
+    dispatch(setGenreSort({ type, genre, order }));
     setMenuGenreActive(false);
   };
 
@@ -46,7 +46,7 @@ const SortPopupGenre: React.FC<genreType> = ({ items, activeObj }) => {
         className="movies__genre-btn sort"
         onClick={() => setMenuGenreActive(!menuGenreActive)}
       >
-        {activeObj.type !== "default" ? activeObj.name : "Жанр"}
+        {activeObj.genre}
       </a>
       <div className="sort__popup">
         {menuGenreActive && (
@@ -54,9 +54,11 @@ const SortPopupGenre: React.FC<genreType> = ({ items, activeObj }) => {
             {items.map((obj, index) => (
               <li key={`key__${index}Genre`} className="movies__list-link">
                 <span
-                  onClick={() => onClickSortItem(obj.name, obj.type, obj.order)}
+                  onClick={() =>
+                    onClickSortItem(obj.type, obj.genre, obj.order)
+                  }
                 >
-                  {obj.name}
+                  {obj.genre}
                 </span>
               </li>
             ))}

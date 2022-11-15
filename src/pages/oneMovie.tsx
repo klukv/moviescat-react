@@ -1,8 +1,6 @@
-import axios from "axios";
 import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import changeEverything from "../assets/img/oneMovie/changeEverything.jpg";
 import { RootState } from "../redux/store";
 
 import "../scss/oneMovie.scss";

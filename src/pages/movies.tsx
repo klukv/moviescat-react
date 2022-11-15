@@ -7,10 +7,11 @@ import "../scss/movies.scss";
 import MovieComponent from "../components/MoviesComponent";
 
 const sortItemsGenre = [
-  { name: "Комедия", type: "comedy", order: "asc" },
-  { name: "Драма", type: "drama", order: "asc" },
-  { name: "Боевик", type: "action_movie", order: "asc" },
-  { name: "Триллер", type: "thriller", order: "asc" },
+  { genre: "Все", type: "default", order: "asc" },
+  { genre: "Комедия", type: "comedy", order: "asc" },
+  { genre: "Драма", type: "drama", order: "asc" },
+  { genre: "Боевик", type: "action_movie", order: "asc" },
+  { genre: "Триллер", type: "thriller", order: "asc" },
 ];
 const sortItemsOther = [
   { name: "По дате добавления", type: "date_added", order: "desc" },

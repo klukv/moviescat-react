@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export interface filterState {
   genreSort: {
-    name: string;
+    genre: string;
     type: string;
     order: string;
   };
@@ -15,7 +15,7 @@ export interface filterState {
 
 const initialState: filterState = {
   genreSort: {
-    name: "",
+    genre: "Все",
     type: "default",
     order: "",
   },

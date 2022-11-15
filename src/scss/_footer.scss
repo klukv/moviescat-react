@@ -10,6 +10,10 @@
 		align-items: center;
 		a {
 			color: #ffffff;
+			transition: all 0.25s ease-in;
+			&:hover {
+				color: #f7c356;
+			}
 		}
 	}
 	&__approval {
