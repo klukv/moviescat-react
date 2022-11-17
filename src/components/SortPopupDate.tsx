@@ -8,12 +8,12 @@ type menuClick = MouseEvent & {
 interface OtherParametrsType {
   items: {
     name: string;
-    type: string;
+    typeParams: string;
     order: string;
   }[];
   activeObj: {
     name: string;
-    type: string;
+    typeParams: string;
     order: string;
   };
 }
@@ -35,8 +35,8 @@ const SortPopupDate: React.FC<OtherParametrsType> = ({ items, activeObj }) => {
     return () => document.body.removeEventListener("click", handleClickMenu);
   }, []);
 
-  const onClickSortItem = (name: string, type: string, order: string) => {
-    dispatch(setOtherSort({ name, type, order }));
+  const onClickSortItem = (name: string, typeParams: string, order: string) => {
+    dispatch(setOtherSort({ name, typeParams, order }));
     setMenuDateActive(false);
   };
 
@@ -47,7 +47,7 @@ const SortPopupDate: React.FC<OtherParametrsType> = ({ items, activeObj }) => {
         className="movies__date-btn sort"
         onClick={() => setMenuDateActive(!menuDateActive)}
       >
-        {activeObj.type !== "default" ? activeObj.name : "Фильтры"}
+        {activeObj.name}
       </a>
       <div className="sort__popup date-menu">
         {menuDateActive && (
@@ -55,7 +55,9 @@ const SortPopupDate: React.FC<OtherParametrsType> = ({ items, activeObj }) => {
             {items.map((obj, index) => (
               <li key={`key__${index}`} className="movies__list-link">
                 <span
-                  onClick={() => onClickSortItem(obj.name, obj.type, obj.order)}
+                  onClick={() =>
+                    onClickSortItem(obj.name, obj.typeParams, obj.order)
+                  }
                 >
                   {obj.name}
                 </span>

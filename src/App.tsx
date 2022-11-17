@@ -13,18 +13,25 @@ const App: React.FC = () => {
   const { genre, type } = useSelector(
     (state: RootState) => state.filterSlice.genreSort
   );
+  const { typeParams, order } = useSelector(
+    (state: RootState) => state.filterSlice.otherParams
+  );
 
   useEffect(() => {
     if (type === "default") {
       axios
-        .get(`https://6373a0410bb6b698b6116d57.mockapi.io/items`)
+        .get(
+          `https://6373a0410bb6b698b6116d57.mockapi.io/items?sortby=${typeParams}&order=${order}`
+        )
         .then(({ data }) => dispatch(addFilms(data)));
     } else {
       axios
-        .get(`https://6373a0410bb6b698b6116d57.mockapi.io/items?genre=${genre}`)
+        .get(
+          `https://6373a0410bb6b698b6116d57.mockapi.io/items?genre=${genre}&sortby=${typeParams}&order=${order}`
+        )
         .then(({ data }) => dispatch(addFilms(data)));
     }
-  }, [genre, type]);
+  }, [genre, type, typeParams]);
 
   return (
     <div className="page">

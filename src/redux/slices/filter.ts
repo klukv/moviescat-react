@@ -8,7 +8,7 @@ export interface filterState {
   };
   otherParams: {
     name: string;
-    type: string;
+    typeParams: string;
     order: string;
   };
 }
@@ -17,12 +17,12 @@ const initialState: filterState = {
   genreSort: {
     genre: "Все",
     type: "default",
-    order: "",
+    order: "desc",
   },
   otherParams: {
-    name: "",
-    type: "default",
-    order: "",
+    name: "По умолчанию",
+    typeParams: "default",
+    order: "desc",
   },
 };
 

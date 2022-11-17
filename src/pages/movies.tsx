@@ -8,16 +8,17 @@ import MovieComponent from "../components/MoviesComponent";
 
 const sortItemsGenre = [
   { genre: "Все", type: "default", order: "asc" },
-  { genre: "Комедия", type: "comedy", order: "asc" },
-  { genre: "Драма", type: "drama", order: "asc" },
-  { genre: "Боевик", type: "action_movie", order: "asc" },
-  { genre: "Триллер", type: "thriller", order: "asc" },
+  { genre: "Комедия", type: "comedy", order: "desc" },
+  { genre: "Драма", type: "drama", order: "desc" },
+  { genre: "Боевик", type: "action_movie", order: "desc" },
+  { genre: "Триллер", type: "thriller", order: "desc" },
 ];
 const sortItemsOther = [
-  { name: "По дате добавления", type: "date_added", order: "desc" },
-  { name: "По дате выхода", type: "release", order: "asc" },
-  { name: "По рейтингу", type: "rating", order: "asc" },
-  { name: "По названию", type: "name_movie", order: "asc" },
+  { name: "По умолчанию", typeParams: "default", order: "asc" },
+  { name: "По дате добавления", typeParams: "date_added", order: "desc" },
+  { name: "По дате выхода", typeParams: "year", order: "desc" },
+  { name: "По рейтингу", typeParams: "rating", order: "desc" },
+  { name: "По названию", typeParams: "title", order: "desc" },
 ];
 
 const Movies: React.FC = () => {

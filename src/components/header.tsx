@@ -28,9 +28,14 @@ const Header: React.FC = () => {
               </li>
             </ul>
             <div className="header__links">
-              <a href="#1" className="header__link search">
-                <img src={search} alt="search" />
-              </a>
+              <div className="header__link search">
+                {/* <img src={search} alt="search" /> */}
+                <div className="container_search">
+                  <input type="text" placeholder="Поиск..." />
+
+                  <div className="search-btn"></div>
+                </div>
+              </div>
               <Link to={personAcc} className="header__link avatar">
                 <img src={avatar} alt="avatar" />
               </Link>
