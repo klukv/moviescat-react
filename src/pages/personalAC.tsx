@@ -10,8 +10,8 @@ const blackIMG = require("../assets/img/banner/blackP.jpg");
 
 const PersonalAC: React.FC = () => {
   return (
-    <div>
-      <main className="main">
+    <div className="main">
+      <main>
         <div className="person">
           <div className="container">
             <div className="person__inner">

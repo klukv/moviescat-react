@@ -8,40 +8,53 @@ import { addFilms } from "./redux/slices/moviesSlice";
 import { RootState } from "./redux/store";
 import { publicRoutes } from "./routes";
 
+interface contextSearch {
+  searchValue: string;
+  setSearchValue: (value: string) => void;
+}
+const defaultState = {
+  searchValue: "",
+  setSearchValue: () => "",
+};
+
+export const searchContext = React.createContext<contextSearch>(defaultState);
+
 const App: React.FC = () => {
   const dispatch = useDispatch();
+  const [searchValue, setSearchValue] = React.useState("");
   const { genre, type } = useSelector(
     (state: RootState) => state.filterSlice.genreSort
   );
   const { typeParams, order } = useSelector(
     (state: RootState) => state.filterSlice.otherParams
   );
+  const genreURL = type !== "default" ? `&genre=${genre}` : "";
+  const searchMovies = searchValue ? `&title=${searchValue}` : "";
 
   useEffect(() => {
-    if (type === "default") {
-      axios
-        .get(
-          `https://6373a0410bb6b698b6116d57.mockapi.io/items?sortby=${typeParams}&order=${order}`
-        )
-        .then(({ data }) => dispatch(addFilms(data)));
-    } else {
-      axios
-        .get(
-          `https://6373a0410bb6b698b6116d57.mockapi.io/items?genre=${genre}&sortby=${typeParams}&order=${order}`
-        )
-        .then(({ data }) => dispatch(addFilms(data)));
-    }
-  }, [genre, type, typeParams]);
+    axios
+      .get(
+        `https://6373a0410bb6b698b6116d57.mockapi.io/items?sortby=${typeParams}&order=${order}${genreURL}${searchMovies}`
+      )
+      .then(({ data }) => dispatch(addFilms(data)));
+  }, [genre, type, typeParams, searchValue]);
 
   return (
     <div className="page">
-      <Header />
-      <Routes>
-        {publicRoutes.map(({ path, Component }) => (
-          <Route key={path} path={path} element={<Component />} />
-        ))}
-      </Routes>
-      <Footer />
+      <searchContext.Provider
+        value={{
+          searchValue,
+          setSearchValue,
+        }}
+      >
+        <Header />
+        <Routes>
+          {publicRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
+        </Routes>
+        <Footer />
+      </searchContext.Provider>
     </div>
   );
 };

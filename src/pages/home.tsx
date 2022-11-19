@@ -19,8 +19,8 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div>
-      <main className="main">
+    <div className="main">
+      <main>
         <section className="banner">
           <div className="container">
             <div className="banner__inner">

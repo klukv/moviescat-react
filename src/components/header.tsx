@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 import { home, movies, personAcc } from "../const/const";
 
 import logo from "../assets/img/header/logo.svg";
-import search from "../assets/img/header/search.svg";
 import avatar from "../assets/img/header/person.svg";
+import Search from "./search";
 
 const Header: React.FC = () => {
   return (
@@ -28,14 +28,7 @@ const Header: React.FC = () => {
               </li>
             </ul>
             <div className="header__links">
-              <div className="header__link search">
-                {/* <img src={search} alt="search" /> */}
-                <div className="container_search">
-                  <input type="text" placeholder="Поиск..." />
-
-                  <div className="search-btn"></div>
-                </div>
-              </div>
+              <Search />
               <Link to={personAcc} className="header__link avatar">
                 <img src={avatar} alt="avatar" />
               </Link>

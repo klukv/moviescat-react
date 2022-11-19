@@ -28,8 +28,8 @@ const Movies: React.FC = () => {
   const activeLabel = useSelector((state: RootState) => state.filterSlice);
 
   return (
-    <div>
-      <main className="main">
+    <div className="main">
+      <main>
         <section className="movies">
           <div className="container">
             <SortPopupDate
