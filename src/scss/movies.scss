@@ -123,4 +123,45 @@
 		display: block;
 		width: 100%;
 	}
+	&__pagination {
+		margin: 0px 0px 40px 0px;
+		display: flex;
+		justify-content: center;
+		&-inner {
+			display: flex;
+			align-items: center;
+		}
+		.pagination-left,
+		.pagination-right {
+			width: 20px;
+			height: 20px;
+			color: #fff;
+		}
+		span {
+			margin-right: 12px;
+			&:last-child {
+				margin-right: 0px;
+			}
+		}
+		&-btn {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			font-size: 18px;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			border: 2px solid #f7c356;
+			cursor: pointer;
+			transition: all 0.2s ease-in-out;
+			&:hover {
+				background-color: #f7c356;
+				color: #000;
+			}
+		}
+		.active {
+			background-color: #f7c356;
+			color: #000;
+		}
+	}
 }

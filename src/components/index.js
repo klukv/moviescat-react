@@ -8,3 +8,4 @@ export { default as SearchComponent } from './search';
 export { default as Slider } from './Slider';
 export { default as SortPopupDate } from './SortPopupDate';
 export { default as SortPopupGenre } from './SortPopupGenre';
+export { default as usePagination } from './hooks/usePagination';
