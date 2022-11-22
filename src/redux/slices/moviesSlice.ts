@@ -14,10 +14,12 @@ export interface moviesState {
     imgUrl: string;
     type: string;
   }[];
+  isLoaded: boolean;
 }
 
 const initialState: moviesState = {
   movies: [],
+  isLoaded: false,
 };
 
 export const moviesSlice = createSlice({
@@ -27,9 +29,12 @@ export const moviesSlice = createSlice({
     addFilms: (state, action) => {
       state.movies = action.payload;
     },
+    setLoaded: (state, action) => {
+      state.isLoaded = action.payload;
+    },
   },
 });
 
-export const { addFilms } = moviesSlice.actions;
+export const { addFilms, setLoaded } = moviesSlice.actions;
 
 export default moviesSlice.reducer;

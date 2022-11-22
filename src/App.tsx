@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import Footer from "./components/footer";
 import Header from "./components/header";
-import { addFilms } from "./redux/slices/moviesSlice";
+import { addFilms, setLoaded } from "./redux/slices/moviesSlice";
 import { RootState } from "./redux/store";
 import { publicRoutes } from "./routes";
 
@@ -32,11 +32,15 @@ const App: React.FC = () => {
   const searchMovies = searchValue ? `&title=${searchValue}` : "";
 
   useEffect(() => {
+    dispatch(setLoaded(false));
     axios
       .get(
         `https://6373a0410bb6b698b6116d57.mockapi.io/items?sortby=${typeParams}&order=${order}${genreURL}${searchMovies}`
       )
-      .then(({ data }) => dispatch(addFilms(data)));
+      .then(({ data }) => {
+        dispatch(addFilms(data));
+        dispatch(setLoaded(true));
+      });
   }, [genre, type, typeParams, searchValue]);
 
   return (

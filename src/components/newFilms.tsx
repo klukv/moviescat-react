@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import MoviesComponent from "./MoviesComponent";
+import { MovieComponent } from "./index";
 
 type translateType = {
   translate: number;
@@ -22,7 +22,7 @@ const NewFilms: React.FC<translateType> = ({ translate }) => {
       }}
     >
       {arrayMovies.map((movie, index) => (
-        <MoviesComponent key={`index__${index}`} {...movie} />
+        <MovieComponent key={`index__${index}`} {...movie} />
       ))}
     </div>
   );

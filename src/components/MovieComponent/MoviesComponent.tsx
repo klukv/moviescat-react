@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { oneMovie } from "../const/const";
+import { oneMovie } from "../../const/const";
 
 interface movie {
   id: number;

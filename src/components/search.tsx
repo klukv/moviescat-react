@@ -3,7 +3,7 @@ import debounce from "lodash.debounce";
 import { searchContext } from "../App";
 
 const Search: React.FC = () => {
-  const { searchValue, setSearchValue } = React.useContext(searchContext);
+  const { setSearchValue } = React.useContext(searchContext);
   const [valueInput, setValueInput] = React.useState("");
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setValueInput(event.target.value);
