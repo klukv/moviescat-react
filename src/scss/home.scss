@@ -212,10 +212,6 @@ main {
 				top: 0;
 				left: 0;
 			}
-			// &:hover:after {
-			// 	display: block;
-			// 	opacity: 0.5;
-			// }
 		}
 	}
 }
@@ -275,19 +271,34 @@ main {
 	}
 	padding-bottom: 72px;
 }
-.arrow {
+.arrow__div {
 	position: absolute;
 	cursor: pointer;
+	border: 2px solid #ffffff;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+}
+.arrowLeft,
+.arrowRight {
 	color: #ffffff;
 }
 .arrowLeft {
-	left: -30px;
+	left: -60px;
 	top: 50%;
 }
 .arrowRight {
-	right: -30px;
+	right: -60px;
 	top: 50%;
 }
+.arrow {
+	width: 17px;
+	height: 17px;
+}
+
 .slider {
 	&__inner {
 		overflow: hidden;

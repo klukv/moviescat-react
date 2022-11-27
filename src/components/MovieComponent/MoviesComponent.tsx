@@ -15,17 +15,15 @@ const MoviesComponent: React.FC<movie> = ({ id, title, imgUrl }) => {
 
   return (
     <div className="movie__div movies__block compilation__slider_block">
-      <div className="movies__block compilation__slider_block">
-        <img src={imgUrl} alt="movie" className="compilation__movie" />
-        <div className="movie__hover">
-          <div className="movie__hover-title">
-            <span>{title}</span>
-          </div>
-          <div>
-            <button className="movie__hover-btn" onClick={() => clickMovie(id)}>
-              Смотреть
-            </button>
-          </div>
+      <img src={imgUrl} alt="movie" className="compilation__movie" />
+      <div className="movie__hover">
+        <div className="movie__hover-title">
+          <span>{title}</span>
+        </div>
+        <div>
+          <button className="movie__hover-btn" onClick={() => clickMovie(id)}>
+            Смотреть
+          </button>
         </div>
       </div>
     </div>

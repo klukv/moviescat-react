@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
-import { setOtherSort } from "../redux/slices/filter";
+import { setOtherSort } from "../../redux/slices/filter";
 
 type menuClick = MouseEvent & {
   path: Node[];

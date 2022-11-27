@@ -1,14 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { AccountMovieComponents, usePagination } from "../components";
+import Pagination from "../components/Pagination";
+import { RootState } from "../redux/store";
 
 import "../scss/personalAccount.scss";
 
-const guardiansIMG = require("../assets/img/banner/guardians.jpg");
-const lostCityIMG = require("../assets/img/banner/lostCity.jpg");
-const jwIMG = require("../assets/img/banner/JW.jpg");
-const thorIMG = require("../assets/img/banner/Thor.jpg");
-const blackIMG = require("../assets/img/banner/blackP.jpg");
-
 const PersonalAC: React.FC = () => {
+  const { recentlyMovies, favouriteMovies } = useSelector(
+    (state: RootState) => state.moviesSlice
+  );
+
+  const paginateRecentlyMovies = usePagination({
+    count: 5,
+    contentPerPage: recentlyMovies.length,
+  });
+
+  const paginateFavouriteMovies = usePagination({
+    count: 5,
+    contentPerPage: favouriteMovies.length,
+  });
+
   return (
     <div className="main">
       <main>
@@ -29,59 +41,31 @@ const PersonalAC: React.FC = () => {
                   Любимые
                 </h2>
                 <div className="person__compilation-slider">
-                  <a href="#1" className="person__block">
-                    <img
-                      src={guardiansIMG}
-                      alt="movie"
-                      className="person__image"
-                    />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img src={blackIMG} alt="movie" className="person__image" />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img
-                      src={lostCityIMG}
-                      alt="movie"
-                      className="person__image"
-                    />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img src={jwIMG} alt="movie" className="person__image" />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img src={thorIMG} alt="movie" className="person__image" />
-                  </a>
+                  {favouriteMovies
+                    .slice(
+                      paginateFavouriteMovies.firstContentIndex,
+                      paginateFavouriteMovies.lastContentIndex
+                    )
+                    .map((movie, index) => (
+                      <AccountMovieComponents
+                        key={`keyFavourite=${index}`}
+                        {...movie}
+                      />
+                    ))}
                 </div>
+                <Pagination {...paginateFavouriteMovies} />
               </div>
               <div className="person__watched">
                 <h2 className="person__watched-title avatar__title">
                   Недавно просмотренные
                 </h2>
                 <div className="person__watched-slider">
-                  <a href="#1" className="person__block">
-                    <img
-                      src={guardiansIMG}
-                      alt="movie"
-                      className="person__image"
+                  {recentlyMovies.map((movie, index) => (
+                    <AccountMovieComponents
+                      key={`keyRecentlyMovie-${index}`}
+                      {...movie}
                     />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img src={blackIMG} alt="movie" className="person__image" />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img
-                      src={lostCityIMG}
-                      alt="movie"
-                      className="person__image"
-                    />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img src={jwIMG} alt="movie" className="person__image" />
-                  </a>
-                  <a href="#1" className="person__block">
-                    <img src={thorIMG} alt="movie" className="person__image" />
-                  </a>
+                  ))}
                 </div>
               </div>
             </div>

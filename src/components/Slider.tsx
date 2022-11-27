@@ -27,16 +27,17 @@ const Slider: React.FC<movieType> = ({ activeFilms }) => {
   return (
     <div className="slider">
       <div className="slider__inner">
-        <FaChevronLeft className="arrowLeft arrow" onClick={handleLeftArrow} />
+        <div className="arrow__div arrowLeft " onClick={handleLeftArrow}>
+          <FaChevronLeft className="arrow" />
+        </div>
         {activeFilms ? (
           <NewFilms translate={translate} />
         ) : (
           <ActualFilms translate={translate} />
         )}
-        <FaChevronRight
-          className="arrowRight arrow"
-          onClick={handleRightArrow}
-        />
+        <div className="arrow__div arrowRight" onClick={handleRightArrow}>
+          <FaChevronRight className="arrow" />
+        </div>
       </div>
     </div>
   );

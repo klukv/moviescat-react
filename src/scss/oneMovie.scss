@@ -212,17 +212,36 @@ h6 {
 		line-height: 26px;
 		margin-bottom: 18px;
 	}
+	&__buttons {
+		display: flex;
+		align-items: center;
+	}
 	&__button {
 		background: transparent;
 		display: inline-block;
 		padding: 13px 46px;
 		color: #f7c356;
 		border-radius: 16px;
-		border: 1px solid #f7c356;
-		margin-bottom: 48px;
+		border: 2px solid #f7c356;
 		font-size: 24px;
+		margin-right: 27px;
+		transition: all 0.3s ease-in-out;
+		&:hover {
+			background-color: #f7c356;
+			color: #ffffff;
+		}
 	}
+	&__like {
+		&-svg {
+			cursor: pointer;
+			width: 56px;
+			height: 56px;
+			fill: #f7c356;
+		}
+	}
+
 	&__about {
+		margin-top: 48px;
 		&-title {
 			font-size: 36px;
 			line-height: 42px;
@@ -236,7 +255,7 @@ h6 {
 		}
 		&-point {
 			font-size: 20px;
-			line-height: 23px;
+			line-height: 26px;
 			margin-bottom: 16px;
 			&:last-child {
 				margin-bottom: 0px;
