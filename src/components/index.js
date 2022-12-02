@@ -10,3 +10,4 @@ export { default as Slider } from './Slider';
 export { default as SortPopupDate } from './SortPopups/SortPopupDate';
 export { default as SortPopupGenre } from './SortPopups/SortPopupGenre';
 export { default as usePagination } from './hooks/usePagination';
+export { default as EmptySlider } from './EmptySlider';

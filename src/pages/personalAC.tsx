@@ -1,6 +1,10 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { AccountMovieComponents, usePagination } from "../components";
+import {
+  AccountMovieComponents,
+  EmptySlider,
+  usePagination,
+} from "../components";
 import Pagination from "../components/Pagination";
 import { RootState } from "../redux/store";
 
@@ -12,13 +16,13 @@ const PersonalAC: React.FC = () => {
   );
 
   const paginateRecentlyMovies = usePagination({
-    count: 5,
-    contentPerPage: recentlyMovies.length,
+    count: recentlyMovies.length,
+    contentPerPage: 5,
   });
 
   const paginateFavouriteMovies = usePagination({
-    count: 5,
-    contentPerPage: favouriteMovies.length,
+    count: favouriteMovies.length,
+    contentPerPage: 5,
   });
 
   return (
@@ -41,31 +45,43 @@ const PersonalAC: React.FC = () => {
                   Любимые
                 </h2>
                 <div className="person__compilation-slider">
-                  {favouriteMovies
-                    .slice(
-                      paginateFavouriteMovies.firstContentIndex,
-                      paginateFavouriteMovies.lastContentIndex
-                    )
-                    .map((movie, index) => (
-                      <AccountMovieComponents
-                        key={`keyFavourite=${index}`}
-                        {...movie}
-                      />
-                    ))}
+                  {favouriteMovies.length !== 0 ? (
+                    favouriteMovies
+                      .slice(
+                        paginateFavouriteMovies.firstContentIndex,
+                        paginateFavouriteMovies.lastContentIndex
+                      )
+                      .map((movie, index) => (
+                        <AccountMovieComponents
+                          key={`keyFavourite=${index}`}
+                          {...movie}
+                        />
+                      ))
+                  ) : (
+                    <EmptySlider />
+                  )}
                 </div>
-                <Pagination {...paginateFavouriteMovies} />
+                {favouriteMovies.length > 5 ? (
+                  <Pagination {...paginateFavouriteMovies} />
+                ) : (
+                  ""
+                )}
               </div>
               <div className="person__watched">
                 <h2 className="person__watched-title avatar__title">
                   Недавно просмотренные
                 </h2>
                 <div className="person__watched-slider">
-                  {recentlyMovies.map((movie, index) => (
-                    <AccountMovieComponents
-                      key={`keyRecentlyMovie-${index}`}
-                      {...movie}
-                    />
-                  ))}
+                  {recentlyMovies.length !== 0 ? (
+                    recentlyMovies.map((movie, index) => (
+                      <AccountMovieComponents
+                        key={`keyRecently=${index}`}
+                        {...movie}
+                      />
+                    ))
+                  ) : (
+                    <EmptySlider />
+                  )}
                 </div>
               </div>
             </div>

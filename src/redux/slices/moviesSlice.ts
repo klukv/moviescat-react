@@ -48,11 +48,9 @@ export const moviesSlice = createSlice({
       if (idMovie) {
         return state;
       } else {
-        if (state.recentlyMovies.length < 5) {
-          state.recentlyMovies.unshift(action.payload);
-        } else {
+        state.recentlyMovies.unshift(action.payload);
+        if (state.recentlyMovies.length > 5) {
           state.recentlyMovies.pop();
-          state.recentlyMovies.unshift(action.payload);
         }
       }
     },
@@ -66,12 +64,7 @@ export const moviesSlice = createSlice({
       if (idMovie) {
         return state;
       } else {
-        if (state.favouriteMovies.length < 5) {
-          state.favouriteMovies.unshift(action.payload);
-        } else {
-          state.favouriteMovies.pop();
-          state.favouriteMovies.unshift(action.payload);
-        }
+        state.favouriteMovies.unshift(action.payload);
       }
     },
   },
