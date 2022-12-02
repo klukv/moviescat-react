@@ -263,4 +263,12 @@ h6 {
 		}
 	}
 }
+.video__player {
+	display: none;
+	margin-bottom: 50px;
+}
+.video__player-active {
+	display: block;
+	margin-bottom: 50px;
+}
 @import "./footer";

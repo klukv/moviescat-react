@@ -1,13 +1,30 @@
 import React from "react";
 
-import { Link } from "react-router-dom";
-import { home, movies, personAcc } from "../const/const";
+import { Link, useLocation } from "react-router-dom";
+import { home, movies, personAcc, serials } from "../const/const";
 
 import logo from "../assets/img/header/logo.svg";
 import avatar from "../assets/img/header/person.svg";
 import Search from "./search";
 
+const menuLinks = [
+  {
+    path: home,
+    name: "Главная",
+  },
+  {
+    path: movies,
+    name: "Фильмы",
+  },
+  {
+    path: serials,
+    name: "Сериалы",
+  },
+];
+
 const Header: React.FC = () => {
+  const location = useLocation();
+
   return (
     <div className="header">
       <header>
@@ -17,15 +34,18 @@ const Header: React.FC = () => {
               <img src={logo} alt="logo" />
             </div>
             <ul className="header__menu">
-              <li className="header__menu-link">
-                <Link to={home}>Главная</Link>
-              </li>
-              <li className="header__menu-link">
-                <Link to={movies}>Фильмы</Link>
-              </li>
-              <li className="header__menu-link">
-                <a href="#1">Сериалы</a>
-              </li>
+              {menuLinks.map((link, index) => (
+                <li
+                  key={`headers__links_${index}`}
+                  className={
+                    location.pathname === link.path
+                      ? "header__menu-link active"
+                      : "header__menu-link"
+                  }
+                >
+                  <Link to={link.path}>{link.name}</Link>
+                </li>
+              ))}
             </ul>
             <div className="header__links">
               <Search />

@@ -28,6 +28,11 @@
 				padding-right: 0px;
 			}
 		}
+		.active {
+			a {
+				color: #f7c356;
+			}
+		}
 	}
 	&__links {
 		display: flex;

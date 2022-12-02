@@ -13,8 +13,15 @@ const OneMovie: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
+  const video = document.getElementsByTagName("video")[0];
+
+  const [activeVideo, setActiveVideo] = React.useState(false);
   const handleWatchMovie = (movieWatched: typeof selectMovie) => {
     dispatch(addRecentlyMovies(movieWatched));
+    setActiveVideo(!activeVideo);
+    if (video.played) {
+      video.pause();
+    }
   };
 
   const handleFavouriteMovie = (movieFavourite: typeof selectMovie) => {
@@ -184,6 +191,18 @@ const OneMovie: React.FC = () => {
                   </div>
                 </div>
               </div>
+            </div>
+            <div
+              className={
+                activeVideo ? "video__player-active" : "video__player video"
+              }
+            >
+              <video controls width="100%" id="video">
+                <source
+                  src="https://harrypotter-film.ru/video/part_one/harry_potter_and_philosophers_stone_480.mp4"
+                  type="video/mp4"
+                />
+              </video>
             </div>
           </div>
         </section>
