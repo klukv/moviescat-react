@@ -150,22 +150,20 @@ main {
 		font-weight: 700;
 		padding-bottom: 25px;
 	}
-	&__button {
+	&__link {
+		display: inline-block;
 		font-family: "Open Sans", sans-serif;
 		font-size: 15px;
 		font-weight: 700;
-		padding: 17px 36px 17px 26px;
+		padding: 17px 36px 17px 36px;
 		border: 2px solid #f9cd5c;
 		border-radius: 16px;
 		background: transparent;
 		color: #f9cd5c;
-		position: relative;
-		&::after {
-			position: absolute;
-			content: "";
-			background-image: url(../assets/img/banner/ep_arrow-right.svg);
-			width: 19px;
-			height: 19px;
+		transition: all 0.3s ease-in-out;
+		&:hover {
+			background-color: #f7c356;
+			color: #ffffff;
 		}
 	}
 }
@@ -234,7 +232,7 @@ main {
 			}
 		}
 		&-title {
-			font-size: 33px;
+			font-size: 30px;
 			padding-bottom: 30px;
 		}
 		&-text {
@@ -252,10 +250,10 @@ main {
 		}
 		&-image {
 			flex: 0 0 588px;
-			border-radius: 12px;
-			overflow: hidden;
 			img {
-				padding-left: 30px;
+				max-width: 100%;
+				margin-left: 30px;
+				border-radius: 12px;
 			}
 		}
 		&-title {

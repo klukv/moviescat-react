@@ -32,7 +32,9 @@ const Home: React.FC = () => {
                 <h3 className="banner__subtitle">
                   Смотрите фильмы и сериалы только у нас
                 </h3>
-                <button className="banner__button">Узнать больше</button>
+                <a className="banner__link" href="#learn__more">
+                  Узнать больше
+                </a>
               </div>
             </div>
           </div>
@@ -67,7 +69,7 @@ const Home: React.FC = () => {
               <Slider activeFilms={popularFilms} />
             </div>
           </section>
-          <section className="about">
+          <section className="about" id="learn__more">
             <div className="about__inner">
               <div className="about__title title">О нас</div>
               <div className="about__quality">
@@ -87,13 +89,16 @@ const Home: React.FC = () => {
               <div className="about__download">
                 <div className="about__download-info">
                   <div className="about__download-title title">
-                    Возможность скачивания
+                    Удобный интерфейс
                   </div>
                   <div className="about__download-text">
-                    В нашем онлайн-кинотеатре можно скачивать фильмы. Поэтому
-                    если вы собираетесь в дорогу, то у вас есть возможность
-                    скачать несколько фильмов и скоротать время в пути за
-                    просмотром качественного кино.
+                    Для современного человека удобство и комфорт особенно
+                    ценятся при постоянной занятости или просто в конце рабочего
+                    дня. По этой причине, на сегодняшний день так популярны
+                    онлайн-кинотеатры. Здесь вы можете посмотреть любимый фильм,
+                    увлечь ребенка интересным видео, либо насладиться нашумевшим
+                    блокбастером, который только недавно вышел на экраны, не
+                    выходя из дома.
                   </div>
                 </div>
                 <div className="about__download-image">

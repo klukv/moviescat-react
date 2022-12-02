@@ -54,7 +54,11 @@ const Movies: React.FC = () => {
               activeObj={activeLabel.genreSort}
             />
             <div className="movies__row">
-              {isLoaded
+              {moviesArray.length < 5
+                ? moviesArray.map((movie, index) => (
+                    <MovieComponent key={`index=${index}`} {...movie} />
+                  ))
+                : isLoaded
                 ? moviesArray
                     .slice(
                       paginateMovies.firstContentIndex,
@@ -67,7 +71,7 @@ const Movies: React.FC = () => {
                     <MovieLoadingComponent key={`indexLoading=${index}`} />
                   ))}
             </div>
-            <Pagination {...paginateMovies} />
+            {moviesArray.length > 5 ? <Pagination {...paginateMovies} /> : ""}
           </div>
         </section>
       </main>

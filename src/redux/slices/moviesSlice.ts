@@ -28,6 +28,12 @@ const initialState: moviesState = {
   isLoaded: false,
 };
 
+const findId = (arrayMovie: movieType[], movieId: number) => {
+  return arrayMovie.find((elem) => elem.id === movieId) !== undefined
+    ? true
+    : false;
+};
+
 export const moviesSlice = createSlice({
   name: "movies",
   initialState,
@@ -39,13 +45,7 @@ export const moviesSlice = createSlice({
       state.isLoaded = action.payload;
     },
     addRecentlyMovies: (state, action) => {
-      const idMovie = state.recentlyMovies.find(
-        (elem) => elem.id === action.payload.id
-      )
-        ? true
-        : false;
-
-      if (idMovie) {
+      if (findId(state.recentlyMovies, action.payload.id)) {
         return state;
       } else {
         state.recentlyMovies.unshift(action.payload);
@@ -55,13 +55,7 @@ export const moviesSlice = createSlice({
       }
     },
     addFavouriteMovies: (state, action) => {
-      const idMovie = state.favouriteMovies.find(
-        (elem) => elem.id === action.payload.id
-      )
-        ? true
-        : false;
-
-      if (idMovie) {
+      if (findId(state.favouriteMovies, action.payload.id)) {
         return state;
       } else {
         state.favouriteMovies.unshift(action.payload);
