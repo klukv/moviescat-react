@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   addRecentlyMovies,
   addFavouriteMovies,
@@ -9,14 +9,14 @@ import { RootState } from "../redux/store";
 
 import "../scss/oneMovie.scss";
 
-const OneMovie: React.FC = () => {
+const OneSerial: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const video = document.getElementsByTagName("video")[0];
 
   const [activeVideo, setActiveVideo] = React.useState(false);
-  const handleWatchMovie = (movieWatched: typeof selectMovie) => {
+  const handleWatchMovie = (movieWatched: typeof selectSerial) => {
     dispatch(addRecentlyMovies(movieWatched));
     setActiveVideo(!activeVideo);
     if (video.played) {
@@ -24,12 +24,12 @@ const OneMovie: React.FC = () => {
     }
   };
 
-  const handleFavouriteMovie = (movieFavourite: typeof selectMovie) => {
+  const handleFavouriteMovie = (movieFavourite: typeof selectSerial) => {
     dispatch(addFavouriteMovies(movieFavourite));
   };
 
-  const selectMovie = useSelector(
-    (state: RootState) => state.moviesSlice.movies
+  const selectSerial = useSelector(
+    (state: RootState) => state.serialsSlice.serials
   ).find((item) => item.id.toString() === id);
 
   return (
@@ -41,7 +41,10 @@ const OneMovie: React.FC = () => {
               <div className="information__row">
                 <div className="information__block-one">
                   <div className="information__image">
-                    <img src={selectMovie && selectMovie.imgUrl} alt="movie" />
+                    <img
+                      src={selectSerial && selectSerial.imgUrl}
+                      alt="movie"
+                    />
                   </div>
                   <div className="information__rating">
                     <h2 className="information__rating-title">
@@ -128,15 +131,15 @@ const OneMovie: React.FC = () => {
                 </div>
                 <div className="information__block-two">
                   <div className="information__title">
-                    {selectMovie && selectMovie.title}
+                    {selectSerial && selectSerial.title}
                   </div>
                   <div className="information__description">
-                    {selectMovie && selectMovie.description}
+                    {selectSerial && selectSerial.description}
                   </div>
                   <div className="information__buttons">
                     <button
                       className="information__button"
-                      onClick={() => handleWatchMovie(selectMovie)}
+                      onClick={() => handleWatchMovie(selectSerial)}
                     >
                       Смотреть
                     </button>
@@ -145,7 +148,7 @@ const OneMovie: React.FC = () => {
                         className="information__like-svg"
                         viewBox="0 0 32 32"
                         xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => handleFavouriteMovie(selectMovie)}
+                        onClick={() => handleFavouriteMovie(selectSerial)}
                       >
                         <defs>
                           <style></style>
@@ -166,27 +169,23 @@ const OneMovie: React.FC = () => {
                     <div className="information__about-grid">
                       <div className="information__about-point">Год</div>
                       <div className="information__about-point">
-                        {selectMovie && selectMovie.year}
+                        {selectSerial && selectSerial.year}
                       </div>
                       <div className="information__about-point">Страна</div>
                       <div className="information__about-point">
-                        {selectMovie && selectMovie.country}
+                        {selectSerial && selectSerial.country}
                       </div>
                       <div className="information__about-point">Жанр</div>
                       <div className="information__about-point">
-                        {selectMovie && selectMovie.genre}
+                        {selectSerial && selectSerial.genre}
                       </div>
                       <div className="information__about-point">Режиссер</div>
                       <div className="information__about-point">
-                        {selectMovie && selectMovie.director}
+                        {selectSerial && selectSerial.director}
                       </div>
                       <div className="information__about-point">Время</div>
                       <div className="information__about-point">
-                        {selectMovie && `${selectMovie.time} мин.`}
-                      </div>
-                      <div className="information__about-point">Бюджет</div>
-                      <div className="information__about-point">
-                        {selectMovie && `$ ${selectMovie.budget}`}
+                        {selectSerial && `${selectSerial.time} мин.`}
                       </div>
                     </div>
                   </div>
@@ -212,4 +211,4 @@ const OneMovie: React.FC = () => {
   );
 };
 
-export default OneMovie;
+export default OneSerial;

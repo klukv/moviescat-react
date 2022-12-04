@@ -1,6 +1,6 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
-import { oneMovie } from "../../const/const";
+import { useLocation, useNavigate } from "react-router-dom";
+import { oneMovie, oneSerial } from "../../const/const";
 
 interface movie {
   id: number;
@@ -8,9 +8,21 @@ interface movie {
   imgUrl: string;
 }
 const MoviesComponent: React.FC<movie> = ({ id, title, imgUrl }) => {
+  const { pathname } = useLocation();
   const navigate = useNavigate();
+
   const clickMovie = (id: number) => {
-    navigate(oneMovie + "/" + id);
+    switch (pathname) {
+      case `/movies`:
+        navigate(oneMovie + "/" + id);
+        break;
+      case `/`:
+        navigate(oneMovie + "/" + id);
+        break;
+      case "/serials":
+        navigate(oneSerial + "/" + id);
+        break;
+    }
   };
 
   return (

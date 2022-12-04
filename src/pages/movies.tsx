@@ -20,7 +20,6 @@ const sortItemsGenre = [
 ];
 const sortItemsOther = [
   { name: "По умолчанию", typeParams: "default", order: "asc" },
-  { name: "По дате добавления", typeParams: "date_added", order: "desc" },
   { name: "По дате выхода", typeParams: "year", order: "desc" },
   { name: "По рейтингу", typeParams: "rating", order: "desc" },
   { name: "По названию", typeParams: "title", order: "desc" },

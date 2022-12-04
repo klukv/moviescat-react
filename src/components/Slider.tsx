@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { ActualFilms, NewFilms } from "./index";
 
-const TRANSLATE_WIDTH = 500;
+const TRANSLATE_WIDTH = 237;
 interface movieType {
   activeFilms: boolean;
 }

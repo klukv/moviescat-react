@@ -5,6 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import { addFilms, setLoaded } from "./redux/slices/moviesSlice";
+import { addSerials, setLoadedSerials } from "./redux/slices/serialsSlice";
 import { RootState } from "./redux/store";
 import { publicRoutes } from "./routes";
 
@@ -33,6 +34,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     dispatch(setLoaded(false));
+    dispatch(setLoadedSerials(false));
     axios
       .get(
         `https://6373a0410bb6b698b6116d57.mockapi.io/items?sortby=${typeParams}&order=${order}${genreURL}${searchMovies}`
@@ -40,6 +42,14 @@ const App: React.FC = () => {
       .then(({ data }) => {
         dispatch(addFilms(data));
         dispatch(setLoaded(true));
+      });
+    axios
+      .get(
+        `https://6373a0410bb6b698b6116d57.mockapi.io/serials?sortby=${typeParams}&order=${order}${genreURL}${searchMovies}`
+      )
+      .then(({ data }) => {
+        dispatch(addSerials(data));
+        dispatch(setLoadedSerials(true));
       });
   }, [genre, type, typeParams, searchValue]);
 
