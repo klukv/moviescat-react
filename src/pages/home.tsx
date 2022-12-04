@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import { Slider } from "../components";
+import { Carousel, Slider } from "../components";
 
 import "../scss/home.scss";
 
@@ -24,6 +24,7 @@ const Home: React.FC = () => {
         <section className="banner">
           <div className="container">
             <div className="banner__inner">
+              <Carousel />
               <div className="banner__inner-info">
                 <h1 className="banner__title">
                   Почувствуй силу кино
@@ -39,8 +40,8 @@ const Home: React.FC = () => {
             </div>
           </div>
         </section>
-        <div className="container">
-          <section className="compilation">
+        <section className="compilation">
+          <div className="container">
             <div className="compilation__inner">
               <div className="compilation__titles">
                 <div
@@ -68,8 +69,10 @@ const Home: React.FC = () => {
               </div>
               <Slider activeFilms={popularFilms} />
             </div>
-          </section>
-          <section className="about" id="learn__more">
+          </div>
+        </section>
+        <section className="about" id="learn__more">
+          <div className="container">
             <div className="about__inner">
               <div className="about__title title">О нас</div>
               <div className="about__quality">
@@ -106,8 +109,8 @@ const Home: React.FC = () => {
                 </div>
               </div>
             </div>
-          </section>
-        </div>
+          </div>
+        </section>
       </main>
     </div>
   );

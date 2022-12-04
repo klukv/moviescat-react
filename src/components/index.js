@@ -11,3 +11,4 @@ export { default as SortPopupDate } from './SortPopups/SortPopupDate';
 export { default as SortPopupGenre } from './SortPopups/SortPopupGenre';
 export { default as usePagination } from './hooks/usePagination';
 export { default as EmptySlider } from './EmptySlider';
+export { default as Carousel } from './Carousel';
