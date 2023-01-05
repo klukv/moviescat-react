@@ -3,10 +3,15 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { register } from "../services/userService";
 
+import "../scss/loginORsignup.scss";
+import { Link } from "react-router-dom";
+import { login } from "../const/const";
+
 interface State {
   username: string;
   email: string;
   password: string;
+  roles: string[];
   successful: boolean;
   message: string;
 }
@@ -15,42 +20,35 @@ const initialValues = {
   username: "",
   email: "",
   password: "",
+  roles: [],
   successful: false,
   message: "",
 };
 
+const RoleCheckBox = [
+  {
+    name: "Пользователь",
+
+  },
+  {
+    name: "Модератор",
+
+  },
+  {
+    name: "Администратор",
+  },
+];
+
 const Signup: React.FC = () => {
   const [user, setUser] = React.useState<State>(initialValues);
 
-  const validationSchema = () => {
-    return Yup.object().shape({
-      username: Yup.string()
-        .test(
-          "len",
-          "Имя пользователя должно быть от 3 до 20 символов",
-          (val: any) =>
-            val && val.toString().length >= 3 && val.toString().length <= 20
-        )
-        .required("This field is required!"),
-      email: Yup.string()
-        .email("Неправильный email")
-        .required("This field is required!"),
-      password: Yup.string()
-        .test(
-          "len",
-          "Пароль должен быть от 6 до 40 символов",
-          (val: any) =>
-            val && val.toString().length >= 6 && val.toString().length <= 40
-        )
-        .required("This field is required!"),
-    });
-  };
   const handleRegister = async (formValue: {
     username: string;
     email: string;
     password: string;
+    roles: string[];
   }) => {
-    const { username, email, password } = formValue;
+    const { username, email, password, roles } = formValue;
 
     setUser((prevState) => {
       return {
@@ -60,7 +58,7 @@ const Signup: React.FC = () => {
       };
     });
 
-    await register(username, email, password).then(
+    await register(username, email, password, roles).then(
       (data) => {
         setUser((prevState) => {
           return {
@@ -82,7 +80,7 @@ const Signup: React.FC = () => {
           return {
             ...prevState,
             message: resMessage,
-            successful: true,
+            successful: false,
           };
         });
       }
@@ -90,74 +88,133 @@ const Signup: React.FC = () => {
   };
 
   return (
-    <div className="col-md-12">
-      <div className="card card-container">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleRegister}
-        >
-          <Form>
-            {!user.successful && (
-              <div>
-                <div className="form-group">
-                  <label htmlFor="username"> Username </label>
-                  <Field name="username" type="text" className="form-control" />
-                  <ErrorMessage
-                    name="username"
-                    component="div"
-                    className="alert alert-danger"
-                  />
-                </div>
+    <div className="main auth">
+      <div className="col-md-12">
+        <div className="card card-container auth__container">
+          <Formik initialValues={initialValues} onSubmit={handleRegister}>
+            <Form className="auth__form">
+              <h1 className="auth__title">Регистрация</h1>
+              {!user.successful && (
+                <div>
+                  <div className="form-group group">
+                    <Field
+                      name="username"
+                      type="text"
+                      className="form-control auth__values"
+                      required
+                    />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                    <label className="auth__name"> Имя пользователя </label>
+                    <ErrorMessage
+                      name="username"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="email"> Email </label>
-                  <Field name="email" type="email" className="form-control" />
-                  <ErrorMessage
-                    name="email"
-                    component="div"
-                    className="alert alert-danger"
-                  />
-                </div>
+                  <div className="form-group group">
+                    <Field
+                      name="email"
+                      type="email"
+                      className="form-control auth__values"
+                      required
+                    />
+                    <ErrorMessage
+                      name="email"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                    <label className="auth__name"> Электронная почта </label>
+                  </div>
 
-                <div className="form-group">
-                  <label htmlFor="password"> Password </label>
-                  <Field
-                    name="password"
-                    type="password"
-                    className="form-control"
-                  />
-                  <ErrorMessage
-                    name="password"
-                    component="div"
-                    className="alert alert-danger"
-                  />
-                </div>
+                  <div className="form-group group">
+                    <Field
+                      name="password"
+                      type="password"
+                      className="form-control auth__values"
+                      required
+                    />
+                    <ErrorMessage
+                      name="password"
+                      component="div"
+                      className="alert alert-danger"
+                    />
+                    <span className="highlight"></span>
+                    <span className="bar"></span>
+                    <label className="auth__name"> Пароль </label>
+                  </div>
+                  <div id="checkbox-group title-check" className="title-check">
+                    Роль
+                  </div>
+                  <div
+                    role="group"
+                    aria-labelledby="checkbox-group"
+                    className="reg__role-group"
+                  >
+                    <label>
+                      <Field
+                        type="checkbox"
+                        name="roles"
+                        value="user"
+                        className="reg__role"
+                      />
+                      Пользователь
+                    </label>
+                    <label>
+                      <Field
+                        type="checkbox"
+                        name="roles"
+                        value="mod"
+                        className="reg__role"
+                      />
+                      Модератор
+                    </label>
+                    <label>
+                      <Field
+                        type="checkbox"
+                        name="roles"
+                        value="admin"
+                        className="reg__role last-child"
+                      />
+                      Администратор
+                    </label>
+                  </div>
 
-                <div className="form-group">
-                  <button type="submit" className="btn btn-primary btn-block">
-                    Sign Up
-                  </button>
+                  <div className="form-group button-reg">
+                    <button type="submit" className="btn btn-primary btn-block">
+                      Зарегистрироваться
+                    </button>
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
-            {user.message && (
-              <div className="form-group">
-                <div
-                  className={
-                    user.successful
-                      ? "alert alert-success"
-                      : "alert alert-danger"
-                  }
-                  role="alert"
-                >
-                  {user.message}
+              {user.message && (
+                <div className="form-group">
+                  <div
+                    className={
+                      user.successful
+                        ? "alert alert-success"
+                        : "alert alert-danger"
+                    }
+                    role="alert"
+                  >
+                    {user.message}
+                  </div>
+                  {user.successful && (
+                    <div className="success__link">
+                      <Link className="btn" to={login}>
+                        Авторизироваться
+                      </Link>
+                    </div>
+                  )}
                 </div>
-              </div>
-            )}
-          </Form>
-        </Formik>
+              )}
+            </Form>
+          </Formik>
+        </div>
       </div>
     </div>
   );

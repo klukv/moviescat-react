@@ -14,12 +14,14 @@ export const signin = async (username: string, password: string) => {
 export const register = async (
   username: string,
   email: string,
-  password: string
+  password: string,
+  roles: string[]
 ) => {
   const { data } = await $host.post(API_URL + "/api/auth" + signup, {
     username,
     email,
     password,
+    roles
   });
   return data;
 };

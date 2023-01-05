@@ -1,11 +1,12 @@
 import { Formik, Field, Form, ErrorMessage } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { saveUser, setIsAuth } from "../redux/slices/user";
 import { signin } from "../services/userService";
 import "../scss/loginORsignup.scss";
+import { signup } from "../const/const";
 
 interface State {
   username: string;
@@ -75,26 +76,26 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="main login">
+    <div className="main auth">
       <div className="col-md-12">
-        <div className="card card-container login__container">
+        <div className="card card-container auth__container">
           <Formik
             initialValues={initialValues}
             onSubmit={handleLogin}
           >
-            <Form className="login__form">
-              <h1 className="login__title">Авторизация</h1>
+            <Form className="auth__form">
+              <h1 className="auth__title">Авторизация</h1>
               <div className="form-group group">
                 <Field
                   name="username"
                   type="text"
-                  className="form-control login__values"
+                  className="form-control auth__values"
                   required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
                 <label
-                  className="login__name"
+                  className="auth__name"
                 >
                   Имя пользователя
                 </label>
@@ -109,12 +110,12 @@ const Login: React.FC = () => {
                 <Field
                   name="password"
                   type="password"
-                  className="form-control login__values"
+                  className="form-control auth__values"
                   required
                 />
                 <span className="highlight"></span>
                 <span className="bar"></span>
-                <label className="login__name">Пароль</label>
+                <label className="auth__name">Пароль</label>
                 <ErrorMessage
                   name="password"
                   component="div"
@@ -134,6 +135,10 @@ const Login: React.FC = () => {
                   <span>Войти</span>
                 </button>
               </div>
+            <div className="auth__link-reg">
+              У вас нет аккаунта?
+              <Link to={signup}>Зарегистрируйтесь</Link>
+            </div>
 
               {userAuth.message && (
                 <div className="form-group">

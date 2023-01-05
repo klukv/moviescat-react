@@ -14,12 +14,7 @@ const PersonalAC: React.FC = () => {
   const { recentlyMovies, favouriteMovies } = useSelector(
     (state: RootState) => state.moviesSlice
   );
-
-  const paginateRecentlyMovies = usePagination({
-    count: recentlyMovies.length,
-    contentPerPage: 5,
-  });
-
+  const { user } = useSelector((state: RootState) => state.userSlice);
   const paginateFavouriteMovies = usePagination({
     count: favouriteMovies.length,
     contentPerPage: 5,
@@ -34,9 +29,9 @@ const PersonalAC: React.FC = () => {
               <div className="person__row">
                 <div className="person__block-img"></div>
                 <div className="person__info">
-                  <div className="person__info-name avatar__title">Name</div>
+                  <div className="person__info-name avatar__title">{user.username}</div>
                   <a href="#1" className="person__info-mail">
-                    pochta@mail.ru
+                    {user.email}
                   </a>
                 </div>
               </div>

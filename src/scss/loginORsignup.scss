@@ -1,4 +1,4 @@
-.login {
+.auth {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -8,12 +8,12 @@
     align-items: center;
     justify-content: center;
     width: 350px;
-    height: 500px;
+    min-height: 600px;
     border: 2px solid #ffffff;
     border-radius: 12px;
   }
   &__title {
-    margin-bottom: 70px;
+    margin: 20px 0px 70px 0px;
     font-size: 24px;
     font-weight: 700;
   }
@@ -52,13 +52,12 @@
     color: #f7c356;
   }
 
-  &__values:valid:not(:placeholder-shown) ~ &__name
-   {
+  &__values:valid:not(:placeholder-shown) ~ &__name {
     top: -20px;
     font-size: 14px;
     color: #f7c356;
   }
-  &__values:invalid:not(:placeholder-shown){
+  &__values:invalid:not(:placeholder-shown) {
     border-bottom: 1px solid rgb(231, 62, 62);
   }
   .bar {
@@ -153,5 +152,42 @@
       background-color: #f7c356;
       color: #ffffff;
     }
+  }
+  .alert-danger,
+  .alert {
+    font-size: 24px;
+    padding: 30px 0px 30px 0px;
+    text-align: center;
+    line-height: 24px;
+  }
+  &__link-reg {
+    padding-top: 30px;
+    a {
+      padding-left: 5px;
+      color: #f7c356;
+    }
+  }
+
+  .success__link {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+  }
+  .title-check{
+    font-size: 18px;
+  }
+  .button-reg{
+    display: flex;
+    justify-content: center;
+  }
+  .reg__role-group{
+    display: flex;
+    flex-direction: column;
+  }
+  .reg__role{
+   margin-top: 15px;
+  }
+  .last-child{
+    margin-bottom: 20px;
   }
 }
