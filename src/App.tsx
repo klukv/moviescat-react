@@ -1,13 +1,14 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Footer from "./components/footer";
 import Header from "./components/header";
+import { login } from "./const/const";
 import { addFilms, setLoaded } from "./redux/slices/moviesSlice";
 import { addSerials, setLoadedSerials } from "./redux/slices/serialsSlice";
 import { RootState } from "./redux/store";
-import { publicRoutes } from "./routes";
+import { authRoutes, publicRoutes } from "./routes";
 
 interface contextSearch {
   searchValue: string;
@@ -22,7 +23,12 @@ export const searchContext = React.createContext<contextSearch>(defaultState);
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = React.useState("");
+  const isAuthUser = useSelector(
+    (state: RootState) => state.userSlice.user.isAuth
+  );
+ 
   const { genre, type } = useSelector(
     (state: RootState) => state.filterSlice.genreSort
   );
@@ -33,6 +39,9 @@ const App: React.FC = () => {
   const searchMovies = searchValue ? `&title=${searchValue}` : "";
 
   useEffect(() => {
+    if(!isAuthUser){
+      navigate(login)
+    }
     dispatch(setLoaded(false));
     dispatch(setLoadedSerials(false));
     axios
@@ -63,6 +72,9 @@ const App: React.FC = () => {
       >
         <Header />
         <Routes>
+          {isAuthUser && authRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component />} />
+          ))}
           {publicRoutes.map(({ path, Component }) => (
             <Route key={path} path={path} element={<Component />} />
           ))}

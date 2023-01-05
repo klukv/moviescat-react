@@ -1,20 +1,25 @@
 import {
   home,
+  login,
   movies,
   oneMovie,
   oneSerial,
   personAcc,
   serials,
+  signup,
 } from "./const/const";
 
 import Home from "./pages/home";
+import Login from "./pages/login";
 import Movies from "./pages/movies";
 import OneMovie from "./pages/oneMovie";
 import OneSerial from "./pages/oneSerial";
 import PersonalAccount from "./pages/personalAC";
 import Serials from "./pages/serials";
+import Signup from "./pages/signup";
 
-export const publicRoutes = [
+
+export const authRoutes = [
   {
     path: home,
     Component: Home,
@@ -38,5 +43,16 @@ export const publicRoutes = [
   {
     path: oneSerial + "/:id",
     Component: OneSerial,
+  },
+]
+
+export const publicRoutes = [
+  {
+    path: login,
+    Component: Login,
+  },
+  {
+    path: signup,
+    Component: Signup,
   },
 ];

@@ -4,3 +4,6 @@ export const personAcc = '/person';
 export const oneMovie = '/movie';
 export const serials = '/serials';
 export const oneSerial = '/serial';
+export const login = '/login';
+export const signup = '/registration';
+export const API_URL = 'http://localhost:8080';

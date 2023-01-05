@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-
 import { Carousel, Slider } from "../components";
-
 import "../scss/home.scss";
 
 const aboutOneIMG = require("../assets/img/about/quality.jpg");
@@ -9,7 +7,6 @@ const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
 const Home: React.FC = () => {
   const [popularFilms, setPopularFilms] = useState(true);
-
   const handlePopualrFilms = (value: boolean) => {
     setPopularFilms(value);
   };
@@ -17,7 +14,6 @@ const Home: React.FC = () => {
   const handleActualFilms = (value: boolean) => {
     setPopularFilms(value);
   };
-
   return (
     <div className="main">
       <main>

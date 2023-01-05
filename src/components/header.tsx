@@ -1,11 +1,13 @@
 import React from "react";
 
 import { Link, useLocation } from "react-router-dom";
-import { home, movies, personAcc, serials } from "../const/const";
+import { home, login, movies, personAcc, serials } from "../const/const";
 
 import logo from "../assets/img/header/logo.svg";
 import avatar from "../assets/img/header/person.svg";
 import Search from "./search";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const menuLinks = [
   {
@@ -24,7 +26,9 @@ const menuLinks = [
 
 const Header: React.FC = () => {
   const location = useLocation();
-
+  const isAuthUser = useSelector(
+    (state: RootState) => state.userSlice.user.isAuth
+  );
   return (
     <div className="header">
       <header>
@@ -48,10 +52,16 @@ const Header: React.FC = () => {
               ))}
             </ul>
             <div className="header__links">
-              <Search />
-              <Link to={personAcc} className="header__link avatar">
-                <img src={avatar} alt="avatar" />
-              </Link>
+              {isAuthUser && <Search />}
+              {isAuthUser ? (
+                <Link to={personAcc} className="header__link avatar">
+                  <img src={avatar} alt="avatar" />
+                </Link>
+              ) : (
+                <Link to={login} className="header__signin">
+                  Вход
+                </Link>
+              )}
             </div>
           </div>
         </div>
