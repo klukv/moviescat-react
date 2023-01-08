@@ -17,6 +17,8 @@ type movieType = {
 export interface moviesState {
   movies: movieType[];
   recentlyMovies: movieType[];
+  sliderPopularMovies: movieType[];
+  sliderActualMovies: movieType[];
   favouriteMovies: movieType[];
   isLoaded: boolean;
 }
@@ -25,6 +27,8 @@ const initialState: moviesState = {
   movies: [],
   recentlyMovies: [],
   favouriteMovies: [],
+  sliderPopularMovies: [],
+  sliderActualMovies: [],
   isLoaded: false,
 };
 
@@ -61,10 +65,22 @@ export const moviesSlice = createSlice({
         state.favouriteMovies.unshift(action.payload);
       }
     },
+    addPopularMovies: (state, action) => {
+      state.sliderPopularMovies = action.payload;
+    },
+    addActualMovies: (state, action) => {
+      state.sliderActualMovies = action.payload;
+    },
   },
 });
 
-export const { addFilms, setLoaded, addRecentlyMovies, addFavouriteMovies } =
-  moviesSlice.actions;
+export const {
+  addFilms,
+  setLoaded,
+  addRecentlyMovies,
+  addFavouriteMovies,
+  addPopularMovies,
+  addActualMovies,
+} = moviesSlice.actions;
 
 export default moviesSlice.reducer;

@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import "../scss/movies.scss";
 import {
@@ -10,33 +10,33 @@ import {
   usePagination,
 } from "../components";
 import Pagination from "../components/Pagination";
-
-const sortItemsGenre = [
-  { genre: "Все", type: "default", order: "asc" },
-  { genre: "Комедия", type: "comedy", order: "desc" },
-  { genre: "Драма", type: "drama", order: "desc" },
-  { genre: "Боевик", type: "action_movie", order: "desc" },
-  { genre: "Триллер", type: "thriller", order: "desc" },
-];
-const sortItemsOther = [
-  { name: "По умолчанию", typeParams: "default", order: "asc" },
-  { name: "По дате выхода", typeParams: "year", order: "desc" },
-  { name: "По рейтингу", typeParams: "rating", order: "desc" },
-  { name: "По названию", typeParams: "title", order: "desc" },
-];
+import { sortItemsGenre, sortItemsOther } from "../const/const";
+import { getAllFilms } from "../services/contentService";
+import { addFilms, setLoaded } from "../redux/slices/moviesSlice";
+import { IMovie } from "./home";
+import { searchContext } from "../App";
 
 const Movies: React.FC = () => {
-  const moviesArray = useSelector(
-    (state: RootState) => state.moviesSlice.movies
-  );
+  const dispatch = useDispatch();
+  const { sortParams, genreURL, searchMovies } =
+    React.useContext(searchContext);
+  const [movies, setMovies] = React.useState<IMovie[]>([]);
   const isLoaded = useSelector(
     (state: RootState) => state.moviesSlice.isLoaded
   );
   const activeLabel = useSelector((state: RootState) => state.filterSlice);
+  React.useEffect(() => {
+    dispatch(setLoaded(false));
+    getAllFilms(sortParams, genreURL, searchMovies).then((data) => {
+      dispatch(addFilms(data));
+      setMovies(data);
+      dispatch(setLoaded(true));
+    });
+  }, [sortParams, genreURL, searchMovies]);
 
   const paginateMovies = usePagination({
     contentPerPage: 5,
-    count: moviesArray.length,
+    count: movies.length,
   });
 
   return (
@@ -53,24 +53,24 @@ const Movies: React.FC = () => {
               activeObj={activeLabel.genreSort}
             />
             <div className="movies__row">
-              {moviesArray.length < 5
-                ? moviesArray.map((movie, index) => (
-                    <MovieComponent key={`index=${index}`} {...movie} />
-                  ))
-                : isLoaded
-                ? moviesArray
-                    .slice(
-                      paginateMovies.firstContentIndex,
-                      paginateMovies.lastContentIndex
-                    )
-                    .map((movies, index) => (
-                      <MovieComponent key={`index=${index}`} {...movies} />
+              {isLoaded
+                ? movies.length < 5
+                  ? movies.map((movie, index) => (
+                      <MovieComponent key={`index=${index}`} {...movie} />
                     ))
+                  : movies
+                      .slice(
+                        paginateMovies.firstContentIndex,
+                        paginateMovies.lastContentIndex
+                      )
+                      .map((movies, index) => (
+                        <MovieComponent key={`index=${index}`} {...movies} />
+                      ))
                 : [...new Array(5)].map((_, index) => (
                     <MovieLoadingComponent key={`indexLoading=${index}`} />
                   ))}
             </div>
-            {moviesArray.length > 5 ? <Pagination {...paginateMovies} /> : ""}
+            {movies.length > 5 ? <Pagination {...paginateMovies} /> : ""}
           </div>
         </section>
       </main>

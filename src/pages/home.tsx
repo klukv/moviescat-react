@@ -5,8 +5,24 @@ import "../scss/home.scss";
 const aboutOneIMG = require("../assets/img/about/quality.jpg");
 const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
+export interface IMovie {
+  id: number;
+  title: string;
+  description: string;
+  year: number;
+  country: string;
+  genre: string;
+  director: string;
+  time: number;
+  budget: number;
+  imgUrl: string;
+  type: string;
+}
+
 const Home: React.FC = () => {
+
   const [popularFilms, setPopularFilms] = useState(true);
+
   const handlePopualrFilms = (value: boolean) => {
     setPopularFilms(value);
   };
@@ -63,7 +79,7 @@ const Home: React.FC = () => {
                   </a>
                 </div>
               </div>
-              <Slider activeFilms={popularFilms} />
+              <Slider activeFilms={popularFilms}/>
             </div>
           </div>
         </section>

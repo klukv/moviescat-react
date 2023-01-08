@@ -1,9 +1,8 @@
-import { API_URL, login, signup } from "../const/const";
-import { $authHost, $host } from "./authService";
-
+import { login, signup } from "../const/const";
+import { $host } from "./authService";
 
 export const signin = async (username: string, password: string) => {
-  const { data } = await $host.post(API_URL + "/api/auth" + login, {
+  const { data } = await $host.post("/api/auth" + login, {
     username,
     password,
   });
@@ -17,16 +16,12 @@ export const register = async (
   password: string,
   roles: string[]
 ) => {
-  const { data } = await $host.post(API_URL + "/api/auth" + signup, {
+  const { data } = await $host.post("/api/auth" + signup, {
     username,
     email,
     password,
-    roles
+    roles,
   });
   return data;
 };
 
-export const getAllFilms = async () => {
-  const { data } = await $authHost.get(API_URL + "api/movies/all");
-  return null;
-};

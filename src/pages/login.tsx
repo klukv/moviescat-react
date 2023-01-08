@@ -2,7 +2,6 @@ import { Formik, Field, Form, ErrorMessage } from "formik";
 import React from "react";
 import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import * as Yup from "yup";
 import { saveUser, setIsAuth } from "../redux/slices/user";
 import { signin } from "../services/userService";
 import "../scss/loginORsignup.scss";

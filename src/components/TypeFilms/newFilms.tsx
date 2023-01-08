@@ -8,11 +8,9 @@ type translateType = {
 };
 
 const NewFilms: React.FC<translateType> = ({ translate }) => {
-  const arrayMovies = useSelector(
-    (state: RootState) => state.moviesSlice.movies
-  ).filter((movie) => {
-    return movie.type === "popular";
-  });
+  const { sliderPopularMovies } = useSelector(
+    (state: RootState) => state.moviesSlice
+  );
 
   return (
     <div
@@ -21,7 +19,7 @@ const NewFilms: React.FC<translateType> = ({ translate }) => {
         transform: `translateX(${translate}px)`,
       }}
     >
-      {arrayMovies.map((movie, index) => (
+      {sliderPopularMovies.map((movie, index) => (
         <MovieComponent key={`index__${index}`} {...movie} />
       ))}
     </div>

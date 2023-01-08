@@ -1,5 +1,5 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "../redux/store";
 import "../scss/movies.scss";
 import {
@@ -10,34 +10,45 @@ import {
   usePagination,
 } from "../components";
 import Pagination from "../components/Pagination";
+import { sortItemsGenre, sortItemsOther } from "../const/const";
+import { addSerials, setLoadedSerials } from "../redux/slices/serialsSlice";
+import { getAllSerials } from "../services/contentService";
+import { searchContext } from "../App";
 
-const sortItemsGenre = [
-  { genre: "Все", type: "default", order: "asc" },
-  { genre: "Комедия", type: "comedy", order: "desc" },
-  { genre: "Драма", type: "drama", order: "desc" },
-  { genre: "Боевик", type: "action_serial", order: "desc" },
-  { genre: "Триллер", type: "thriller", order: "desc" },
-];
-const sortItemsOther = [
-  { name: "По умолчанию", typeParams: "default", order: "asc" },
-  { name: "По дате добавления", typeParams: "date_added", order: "desc" },
-  { name: "По дате выхода", typeParams: "year", order: "desc" },
-  { name: "По рейтингу", typeParams: "rating", order: "desc" },
-  { name: "По названию", typeParams: "title", order: "desc" },
-];
+type serialType = {
+  id: number;
+  title: string;
+  description: string;
+  year: number;
+  country: string;
+  genre: string;
+  director: string;
+  time: number;
+  imgUrl: string;
+  type: string;
+};
 
 const Serials: React.FC = () => {
-  const serialsArray = useSelector(
-    (state: RootState) => state.serialsSlice.serials
-  );
+  const dispatch = useDispatch();
+  const { sortParams, genreURL, searchMovies } =
+    React.useContext(searchContext);
+  const [serails, setSerials] = React.useState<serialType[]>([]);
   const isLoaded = useSelector(
     (state: RootState) => state.serialsSlice.isLoaded
   );
   const activeLabel = useSelector((state: RootState) => state.filterSlice);
+  React.useEffect(() => {
+    dispatch(setLoadedSerials(false));
+    getAllSerials(sortParams, genreURL, searchMovies).then((data) => {
+      dispatch(addSerials(data));
+      setSerials(data);
+      dispatch(setLoadedSerials(true));
+    });
+  }, [sortParams, genreURL, searchMovies]);
 
   const paginateserials = usePagination({
     contentPerPage: 5,
-    count: serialsArray.length,
+    count: serails.length,
   });
 
   return (
@@ -54,24 +65,24 @@ const Serials: React.FC = () => {
               activeObj={activeLabel.genreSort}
             />
             <div className="movies__row">
-              {serialsArray.length < 5
-                ? serialsArray.map((serial, index) => (
-                    <MovieComponent key={`index=${index}`} {...serial} />
-                  ))
-                : isLoaded
-                ? serialsArray
-                    .slice(
-                      paginateserials.firstContentIndex,
-                      paginateserials.lastContentIndex
-                    )
-                    .map((serials, index) => (
-                      <MovieComponent key={`index=${index}`} {...serials} />
+              {isLoaded
+                ? serails.length < 5
+                  ? serails.map((serial, index) => (
+                      <MovieComponent key={`index=${index}`} {...serial} />
                     ))
+                  : serails
+                      .slice(
+                        paginateserials.firstContentIndex,
+                        paginateserials.lastContentIndex
+                      )
+                      .map((serials, index) => (
+                        <MovieComponent key={`index=${index}`} {...serials} />
+                      ))
                 : [...new Array(5)].map((_, index) => (
                     <MovieLoadingComponent key={`indexLoading=${index}`} />
                   ))}
             </div>
-            {serialsArray.length > 5 ? <Pagination {...paginateserials} /> : ""}
+            {serails.length > 5 ? <Pagination {...paginateserials} /> : ""}
           </div>
         </section>
       </main>

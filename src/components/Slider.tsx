@@ -33,7 +33,7 @@ const Slider: React.FC<movieType> = ({ activeFilms }) => {
         {activeFilms ? (
           <NewFilms translate={translate} />
         ) : (
-          <ActualFilms translate={translate} />
+          <ActualFilms translate={translate}/>
         )}
         <div className="arrow__div arrowRight" onClick={handleRightArrow}>
           <FaChevronRight className="arrow" />

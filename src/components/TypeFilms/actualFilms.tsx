@@ -7,12 +7,12 @@ type translateType = {
   translate: number;
 };
 
+
 const ActualFilms: React.FC<translateType> = ({ translate }) => {
-  const arrayMovies = useSelector(
-    (state: RootState) => state.moviesSlice.movies
-  ).filter((movie) => {
-    return movie.type === "actual";
-  });
+
+  const { sliderActualMovies } = useSelector(
+    (state: RootState) => state.moviesSlice
+  );
 
   return (
     <div
@@ -21,7 +21,7 @@ const ActualFilms: React.FC<translateType> = ({ translate }) => {
         transform: `translateX(${translate}px)`,
       }}
     >
-      {arrayMovies.map((movie, index) => (
+      {sliderActualMovies.map((movie, index) => (
         <MovieComponent key={`index__${index}`} {...movie} />
       ))}
       {/* доделать слайдер */}
