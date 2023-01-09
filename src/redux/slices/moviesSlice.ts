@@ -21,6 +21,7 @@ export interface moviesState {
   sliderActualMovies: movieType[];
   favouriteMovies: movieType[];
   isLoaded: boolean;
+  isAddedFMovie: boolean;
 }
 
 const initialState: moviesState = {
@@ -30,6 +31,7 @@ const initialState: moviesState = {
   sliderPopularMovies: [],
   sliderActualMovies: [],
   isLoaded: false,
+  isAddedFMovie: true
 };
 
 const findId = (arrayMovie: movieType[], movieId: number) => {
@@ -48,6 +50,9 @@ export const moviesSlice = createSlice({
     setLoaded: (state, action) => {
       state.isLoaded = action.payload;
     },
+    setStateFMovies: (state, action) => {
+      state.isAddedFMovie = action.payload;
+    },
     addRecentlyMovies: (state, action) => {
       if (findId(state.recentlyMovies, action.payload.id)) {
         return state;
@@ -59,11 +64,7 @@ export const moviesSlice = createSlice({
       }
     },
     addFavouriteMovies: (state, action) => {
-      if (findId(state.favouriteMovies, action.payload.id)) {
-        return state;
-      } else {
-        state.favouriteMovies.unshift(action.payload);
-      }
+      state.favouriteMovies = action.payload;
     },
     addPopularMovies: (state, action) => {
       state.sliderPopularMovies = action.payload;
@@ -77,6 +78,7 @@ export const moviesSlice = createSlice({
 export const {
   addFilms,
   setLoaded,
+  setStateFMovies,
   addRecentlyMovies,
   addFavouriteMovies,
   addPopularMovies,

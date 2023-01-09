@@ -25,20 +25,6 @@ const initialValues = {
   message: "",
 };
 
-const RoleCheckBox = [
-  {
-    name: "Пользователь",
-
-  },
-  {
-    name: "Модератор",
-
-  },
-  {
-    name: "Администратор",
-  },
-];
-
 const Signup: React.FC = () => {
   const [user, setUser] = React.useState<State>(initialValues);
 
@@ -58,7 +44,7 @@ const Signup: React.FC = () => {
       };
     });
 
-    await register(username, email, password, roles).then(
+    register(username, email, password, roles).then(
       (data) => {
         setUser((prevState) => {
           return {
@@ -67,7 +53,6 @@ const Signup: React.FC = () => {
             successful: true,
           };
         });
-        console.log(data);
       },
       ({ response }) => {
         const resMessage =

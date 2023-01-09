@@ -232,11 +232,30 @@ h6 {
 		}
 	}
 	&__like {
+		position: relative;
 		&-svg {
 			cursor: pointer;
 			width: 56px;
 			height: 56px;
 			fill: #f7c356;
+		}
+		&-message{
+			position: absolute;
+			top: 60px;
+			max-width: 110px;
+			text-align: center;
+			line-height: 20px;
+			font-size: 18px;
+			.message__success{
+				padding: 20px 14px;
+				border: 2px solid #21fa2c;
+				border-radius: 12px;
+			}
+			.message__error{
+				border-radius: 12px;
+				padding: 20px 14px;
+				border: 2px solid rgb(245, 59, 59);
+			}
 		}
 	}
 

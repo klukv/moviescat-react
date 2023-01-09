@@ -2,35 +2,59 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-  addRecentlyMovies,
-  addFavouriteMovies,
+  addRecentlyMovies
 } from "../redux/slices/moviesSlice";
+import { setStateFSerials } from "../redux/slices/serialsSlice";
 import { RootState } from "../redux/store";
 
 import "../scss/oneMovie.scss";
+import { addFavouriteSerial } from "../services/contentService";
 
 const OneSerial: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const video = document.getElementsByTagName("video")[0];
-
+  const [dataMessage, setDataMessage] = React.useState("");
   const [activeVideo, setActiveVideo] = React.useState(false);
-  const handleWatchMovie = (movieWatched: typeof selectSerial) => {
-    dispatch(addRecentlyMovies(movieWatched));
+  const handleWatchSerial = (serialWatched: typeof selectSerial) => {
+    dispatch(addRecentlyMovies(serialWatched));
     setActiveVideo(!activeVideo);
-    if (video.played) {
-      video.pause();
+    // if (video.played) {
+    //   video.pause();
+    // }
+  };
+  const { userId, arraySerials } = useSelector(
+    ({ userSlice, serialsSlice }: RootState) => {
+      return {
+        userId: userSlice.user.id,
+        arraySerials: serialsSlice.serials,
+      };
+    }
+  );
+  const selectSerial = arraySerials.find((serial) => serial.id.toString() === id);
+
+  const handleFavouriteSerial = (serialFavourite: typeof selectSerial) => {
+    if (serialFavourite?.id) {
+      addFavouriteSerial(userId, serialFavourite.id).then(
+        (data) => {
+          setDataMessage(data.message);
+          dispatch(setStateFSerials(true));
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+            setDataMessage(resMessage);
+        }
+      );
     }
   };
 
-  const handleFavouriteMovie = (movieFavourite: typeof selectSerial) => {
-    dispatch(addFavouriteMovies(movieFavourite));
-  };
-
-  const selectSerial = useSelector(
-    (state: RootState) => state.serialsSlice.serials
-  ).find((item) => item.id.toString() === id);
+ 
 
   return (
     <div className="main">
@@ -139,7 +163,7 @@ const OneSerial: React.FC = () => {
                   <div className="information__buttons">
                     <button
                       className="information__button"
-                      onClick={() => handleWatchMovie(selectSerial)}
+                      onClick={() => handleWatchSerial(selectSerial)}
                     >
                       Смотреть
                     </button>
@@ -148,7 +172,7 @@ const OneSerial: React.FC = () => {
                         className="information__like-svg"
                         viewBox="0 0 32 32"
                         xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => handleFavouriteMovie(selectSerial)}
+                        onClick={() => handleFavouriteSerial(selectSerial)}
                       >
                         <defs>
                           <style></style>

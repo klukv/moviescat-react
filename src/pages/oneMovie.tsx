@@ -1,37 +1,97 @@
+import debounce from "lodash.debounce";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
   addRecentlyMovies,
-  addFavouriteMovies,
+  setStateFMovies,
 } from "../redux/slices/moviesSlice";
 import { RootState } from "../redux/store";
 
 import "../scss/oneMovie.scss";
+import { addFavouriteFilm } from "../services/contentService";
+
+export interface Idata {
+  message: string;
+  success: boolean;
+}
+
+const initialValues = {
+  message: "",
+  success: false,
+};
 
 const OneMovie: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const video = document.getElementsByTagName("video")[0];
-
+  const [dataMessage, setDataMessage] = React.useState<Idata>(initialValues);
   const [activeVideo, setActiveVideo] = React.useState(false);
   const handleWatchMovie = (movieWatched: typeof selectMovie) => {
     dispatch(addRecentlyMovies(movieWatched));
     setActiveVideo(!activeVideo);
-    if (video.played) {
-      video.pause();
-    }
+    // if (video.played) {
+    //   video.pause();
+    // }
   };
+
+  const closeWindowData = React.useCallback(
+    debounce(() => {
+      setDataMessage((prevState) => {
+        return {
+          ...prevState,
+          message: initialValues.message,
+          success: initialValues.success,
+        };
+      });
+    }, 3000),
+    []
+  );
+
+  const { userId, arrayMovies } = useSelector(
+    ({ userSlice, moviesSlice }: RootState) => {
+      return {
+        userId: userSlice.user.id,
+        arrayMovies: moviesSlice.movies,
+      };
+    }
+  );
+  const selectMovie = arrayMovies.find((movie) => movie.id.toString() === id);
 
   const handleFavouriteMovie = (movieFavourite: typeof selectMovie) => {
-    dispatch(addFavouriteMovies(movieFavourite));
+    if (movieFavourite?.id) {
+      addFavouriteFilm(userId, movieFavourite.id).then(
+        (data) => {
+          setDataMessage((prevState) => {
+            return {
+              ...prevState,
+              message: data.message,
+              success: true,
+            };
+          });
+          dispatch(setStateFMovies(true));
+          closeWindowData();
+        },
+        (error) => {
+          const resMessage =
+            (error.response &&
+              error.response.data &&
+              error.response.data.message) ||
+            error.message ||
+            error.toString();
+          setDataMessage((prevState: Idata) => {
+            return {
+              ...prevState,
+              message: resMessage,
+              success: false,
+            };
+          });
+          closeWindowData();
+        }
+      );
+    }
   };
-
-  const selectMovie = useSelector(
-    (state: RootState) => state.moviesSlice.movies
-  ).find((item) => item.id.toString() === id);
-
   return (
     <div className="main">
       <main>
@@ -158,6 +218,19 @@ const OneMovie: React.FC = () => {
                           />
                         </g>
                       </svg>
+                      {dataMessage.message && (
+                        <div className="information__like-message">
+                          <div
+                            className={
+                              dataMessage.success
+                                ? "message__success"
+                                : "message__error"
+                            }
+                          >
+                            {dataMessage.message}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 

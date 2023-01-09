@@ -7,6 +7,8 @@ export const oneSerial = "/serial";
 export const login = "/login";
 export const signup = "/registration";
 export const API_URL = "http://localhost:8080";
+export const API_URL_AUTH = "/api/auth";
+export const API_URL_CONTENT = "/api/user";
 
 export const sortItemsGenre = [
   { genre: "Все", type: "default", order: "asc" },
