@@ -1,6 +1,5 @@
 import React from "react";
 import { Formik, Field, Form, ErrorMessage } from "formik";
-import * as Yup from "yup";
 import { register } from "../services/userService";
 
 import "../scss/loginORsignup.scss";
@@ -80,7 +79,7 @@ const Signup: React.FC = () => {
             <Form className="auth__form">
               <h1 className="auth__title">Регистрация</h1>
               {!user.successful && (
-                <div>
+                <>
                   <div className="form-group group">
                     <Field
                       name="username"
@@ -173,7 +172,7 @@ const Signup: React.FC = () => {
                       Зарегистрироваться
                     </button>
                   </div>
-                </div>
+                </>
               )}
 
               {user.message && (

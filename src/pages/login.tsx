@@ -55,13 +55,13 @@ const Login: React.FC = () => {
         navigate("/");
         console.log(data);
       },
-      (error) => {
+      ({response}) => {
         const resMessage =
-          (error.response &&
-            error.response.data &&
-            error.response.data.message) ||
-          error.message ||
-          error.toString();
+          (response &&
+            response.data &&
+            response.data.message) ||
+            response.message ||
+            response.toString();
 
         setUserAuth((prevState) => {
           return {

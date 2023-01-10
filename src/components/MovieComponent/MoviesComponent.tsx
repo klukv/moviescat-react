@@ -19,6 +19,9 @@ const MoviesComponent: React.FC<movie> = ({ id, title, imgUrl }) => {
       case `/`:
         navigate(oneMovie + "/" + id);
         break;
+      case `/person`:
+        navigate(oneMovie + "/" + id);
+        break;
       case "/serials":
         navigate(oneSerial + "/" + id);
         break;

@@ -1,13 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Field, ErrorMessage } from "formik";
-import {
-  AccountMovieComponents,
-  EmptySlider,
-  usePagination,
-} from "../components";
+import { EmptySlider, MovieComponent, usePagination } from "../components";
 import useModal from "../components/hooks/useModal";
-import Modal from "../components/modal";
+import Modal from "../components/ModalWindows/Modal";
 import Pagination from "../components/Pagination";
 import {
   addFavouriteMovies,
@@ -24,10 +20,21 @@ import {
   getAllFavouriteMovies,
   getAllFavouriteSerial,
 } from "../services/contentService";
+import ModalUpdate from "../components/ModalWindows/ModalUpdate";
+import ModalDelete from "../components/ModalWindows/ModalDelete";
+
+const premiumRoles = ["ROLE_ADMIN", "ROLE_MODERATOR"];
 
 const PersonalAC: React.FC = () => {
   const dispatch = useDispatch();
-  const { isOpen, toggle } = useModal();
+  const {
+    isOpen,
+    toggle,
+    isOpenUpdate,
+    toggleUpdateModal,
+    isOpenDelete,
+    toggleDeleteModal,
+  } = useModal();
   const { recentlyMovies, favouriteMovies, isAddedFMovie, isAddedFSerial } =
     useSelector(({ moviesSlice, serialsSlice }: RootState) => {
       return {
@@ -39,6 +46,12 @@ const PersonalAC: React.FC = () => {
     });
   const { user } = useSelector((state: RootState) => state.userSlice);
   const isAdmin: boolean = user.roles.includes("ROLE_ADMIN");
+  const isAdminOrMod =
+    user.roles.find((role) => {
+      return premiumRoles.includes(role);
+    }) !== undefined
+      ? true
+      : false;
 
   React.useEffect(() => {
     if (isAddedFMovie) {
@@ -76,8 +89,24 @@ const PersonalAC: React.FC = () => {
                     {user.email}
                   </a>
                   {isAdmin && (
-                    <button className="admin__btn" onClick={toggle}>
-                      Добавить фильм
+                    <>
+                      <button className="admin__btn" onClick={toggle}>
+                        Добавить фильм
+                      </button>
+                      <button
+                        className="admin__btn mod__btn"
+                        onClick={toggleDeleteModal}
+                      >
+                        <span>Удалить фильм</span>
+                      </button>
+                    </>
+                  )}
+                  {isAdminOrMod && (
+                    <button
+                      className="admin__btn mod__btn"
+                      onClick={toggleUpdateModal}
+                    >
+                      <span>Редактировать фильм</span>
                     </button>
                   )}
                 </div>
@@ -94,7 +123,7 @@ const PersonalAC: React.FC = () => {
                         paginateFavouriteMovies.lastContentIndex
                       )
                       .map((movie, index) => (
-                        <AccountMovieComponents
+                        <MovieComponent
                           key={`keyFavourite=${index}`}
                           {...movie}
                         />
@@ -116,10 +145,7 @@ const PersonalAC: React.FC = () => {
                 <div className="person__watched-slider">
                   {recentlyMovies.length !== 0 ? (
                     recentlyMovies.map((movie, index) => (
-                      <AccountMovieComponents
-                        key={`keyRecently=${index}`}
-                        {...movie}
-                      />
+                      <MovieComponent key={`keyRecently=${index}`} {...movie} />
                     ))
                   ) : (
                     <EmptySlider />
@@ -232,6 +258,8 @@ const PersonalAC: React.FC = () => {
           </button>
         </div>
       </Modal>
+      <ModalUpdate isOpen={isOpenUpdate} toggle={toggleUpdateModal} />
+      <ModalDelete isOpen={isOpenDelete} toggle={toggleDeleteModal} />
     </div>
   );
 };

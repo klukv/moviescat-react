@@ -1,5 +1,6 @@
-import { IMovieData } from "../components/modal";
+import { IMovieData } from "../components/ModalWindows/Modal";
 import { API_URL_CONTENT } from "../const/const";
+import { IMovie } from "../pages/home";
 import { $authHost } from "./authService";
 
 export const getAllFilms = async (
@@ -64,15 +65,35 @@ export const getAllFavouriteSerial = async (user_id: number) => {
 export const createMovie = async (movie: IMovieData) => {
   const { data } = await $authHost.post(API_URL_CONTENT + `/movie`, {
     title: movie.title,
-      description: movie.description,
-      year: movie.year,
-      country: movie.country,
-      genre: movie.genre,
-      director: movie.director,
-      time: movie.time,
-      budget: movie.budget,
-      imgUrl:movie.imgUrl,
-      type: movie.type
+    description: movie.description,
+    year: movie.year,
+    country: movie.country,
+    genre: movie.genre,
+    director: movie.director,
+    time: movie.time,
+    budget: movie.budget,
+    imgUrl: movie.imgUrl,
+    type: movie.type,
   });
   return data;
 };
+export const putFilm = async (movie: IMovie) => {
+  const { data } = await $authHost.put(API_URL_CONTENT + `/movie`, {
+    id: movie.id,
+    title: movie.title,
+    description: movie.description,
+    year: movie.year,
+    country: movie.country,
+    genre: movie.genre,
+    director: movie.director,
+    time: movie.time,
+    budget: movie.budget,
+    imgUrl: movie.imgUrl,
+    type: movie.type,
+  });
+  return data;
+};
+export const deleteFilm = async (movie_id: number) => {
+  const {data} = await $authHost.delete(API_URL_CONTENT + `/movie/` + movie_id);
+  return data;
+}

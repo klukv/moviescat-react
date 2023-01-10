@@ -1,8 +1,9 @@
 import React from "react";
 import { Formik, Form } from "formik";
-import { createMovie } from "../services/contentService";
-import { Idata } from "../pages/oneMovie";
+import { createMovie } from "../../services/contentService";
+import { Idata } from "../../pages/oneMovie";
 import debounce from "lodash.debounce";
+import { initialData } from "./ModalUpdate";
 
 interface Iprops {
   children?: React.ReactNode;
@@ -34,10 +35,7 @@ const initialValues = {
   imgUrl: "",
   type: "",
 };
-const initialData = {
-  message: "",
-  success: false,
-};
+
 
 const Modal: React.FC<Iprops> = ({ children, isOpen, toggle }) => {
   const [dataMessage, setDataMessage] = React.useState<Idata>(initialData);
