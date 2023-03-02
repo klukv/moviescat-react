@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setOtherSort } from "../../redux/slices/filter";
+import useClickOutside from "../hooks/useClickOutside";
 
-type menuClick = MouseEvent & {
-  path: Node[];
-};
 interface OtherParametrsType {
   items: {
     name: string;
@@ -22,18 +20,8 @@ const SortPopupDate: React.FC<OtherParametrsType> = ({ items, activeObj }) => {
   const dispatch = useDispatch();
   const refDateMenu = useRef<HTMLDivElement>(null);
   const [menuDateActive, setMenuDateActive] = useState(false);
-  useEffect(() => {
-    const handleClickMenu = (event: MouseEvent) => {
-      const _event = event as menuClick;
-      if (refDateMenu.current && !_event.path.includes(refDateMenu.current)) {
-        setMenuDateActive(false);
-      }
-    };
 
-    document.body.addEventListener("click", handleClickMenu);
-
-    return () => document.body.removeEventListener("click", handleClickMenu);
-  }, []);
+  useClickOutside(refDateMenu, setMenuDateActive, menuDateActive);
 
   const onClickSortItem = (name: string, typeParams: string, order: string) => {
     dispatch(setOtherSort({ name, typeParams, order }));

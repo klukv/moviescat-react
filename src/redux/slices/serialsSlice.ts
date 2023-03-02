@@ -1,17 +1,7 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { serialType } from "../../types/serialsType";
 
-type serialType = {
-  id: number;
-  title: string;
-  description: string;
-  year: number;
-  country: string;
-  genre: string;
-  director: string;
-  time: number;
-  imgUrl: string;
-  type: string;
-};
+
 
 export interface serialsState {
   serials: serialType[];
@@ -42,19 +32,19 @@ export const serialsSlice = createSlice({
   name: "serials",
   initialState,
   reducers: {
-    addSerials: (state, action) => {
+    addSerials: (state, action: PayloadAction<serialType[]>) => {
       state.serials = action.payload;
     },
-    setLoadedSerials: (state, action) => {
+    setLoadedSerials: (state, action:PayloadAction<boolean>) => {
       state.isLoaded = action.payload;
     },
-    setStateFSerials: (state, action) => {
+    setStateFSerials: (state, action:PayloadAction<boolean>) => {
       state.isAddedFSerial = action.payload;
     },
-    addFavouriteSerials: (state, action) => {
+    addFavouriteSerials: (state, action:PayloadAction<serialType[]>) => {
       state.favouriteSerials = action.payload;
     },
-    addRecentlySerials: (state, action) => {
+    addRecentlySerials: (state, action:PayloadAction<serialType>) => {
       if (findId(state.recentlySerials, action.payload.id)) {
         return state;
       } else {

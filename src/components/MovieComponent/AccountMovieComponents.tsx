@@ -1,14 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { oneMovie } from "../../const/const";
+import { Imovie } from "../../types/movieType";
 
-interface movie {
-  id: number;
-  title: string;
-  imgUrl: string;
-}
 
-const AccountMovieComponents: React.FC<movie> = ({ id, title, imgUrl }) => {
+
+const AccountMovieComponents: React.FC<Imovie> = ({ id, title, imgUrl }) => {
   const navigate = useNavigate();
   const clickRecentlyMovie = (id: number) => {
     navigate(oneMovie + "/" + id);

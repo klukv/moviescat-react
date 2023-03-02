@@ -1,11 +1,11 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
-import { Idata } from "../../pages/oneMovie";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { IMovie } from "../../pages/home";
 import { putFilm } from "../../services/contentService";
 import { setStateFMovies } from "../../redux/slices/moviesSlice";
+import { movieType } from "../../types/movieType";
+import { Idata } from "../../types/dataType";
 
 interface IModalUpdate {
   isOpen: boolean;
@@ -32,10 +32,10 @@ const ModalUpdate: React.FC<IModalUpdate> = ({ isOpen, toggle }) => {
     };
   });
   const findKey = (
-    selectMovie: IMovie,
+    selectMovie: movieType,
     selectValue: string,
     changeValue: string
-  ): IMovie => {
+  ): movieType => {
     const changeValueArray = Object.entries(selectMovie).map(
       (keyValue: [key: string, value: string | number]) => {
         return keyValue[0] === selectValue
@@ -52,7 +52,7 @@ const ModalUpdate: React.FC<IModalUpdate> = ({ isOpen, toggle }) => {
     editValue: string;
   }) => {
     const { titleMovie, nameValue, editValue } = formValue;
-    const editMovie = arrayMovies.find((movie) => {
+    const editMovie = arrayMovies.find((movie: movieType) => {
       return movie.title === titleMovie;
     });
     if (editMovie) {
@@ -90,7 +90,10 @@ const ModalUpdate: React.FC<IModalUpdate> = ({ isOpen, toggle }) => {
       {isOpen && (
         <div className="modal-overlay" onClick={toggle}>
           <Formik initialValues={initialValues} onSubmit={handleEditMovie}>
-            <Form className="modal-form" onClick={(e) => e.stopPropagation()}>
+            <Form
+              className="modal-form modal-update"
+              onClick={(e) => e.stopPropagation()}
+            >
               {!dataMessage.success && (
                 <>
                   <div className="modal-group">
@@ -145,7 +148,7 @@ const ModalUpdate: React.FC<IModalUpdate> = ({ isOpen, toggle }) => {
                   <div className="modal-group">
                     <button
                       type="submit"
-                      className="admin__btn btn-primary btn-block"
+                      className="btn-primary btn-block button-modal"
                     >
                       <span>Добавить</span>
                     </button>

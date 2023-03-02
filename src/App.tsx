@@ -1,18 +1,16 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { Cmovies, Cserials } from "./components";
 import Footer from "./components/footer";
 import Header from "./components/header";
-import { login } from "./const/const";
-import {
-  addActualMovies,
-  addPopularMovies,
-} from "./redux/slices/moviesSlice";
+import { likeMovies, likeSerials } from "./const/const";
+import Login from "./pages/login";
+import PersonalAC from "./pages/personalAC";
+import { addActualMovies, addPopularMovies } from "./redux/slices/moviesSlice";
 import { RootState } from "./redux/store";
 import { authRoutes, publicRoutes } from "./routes";
-import {
-  getFilmsByType,
-} from "./services/contentService";
+import { getFilmsByType } from "./services/contentService";
 
 interface contextSearch {
   searchValue: string;
@@ -26,7 +24,7 @@ const defaultState = {
   setSearchValue: () => "",
   genreURL: "",
   searchMovies: "",
-  sortParams: ""
+  sortParams: "",
 };
 
 export const searchContext = React.createContext<contextSearch>(defaultState);
@@ -35,7 +33,6 @@ const typeActual: string = "actual";
 
 const App: React.FC = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [searchValue, setSearchValue] = React.useState("");
   const isAuthUser = useSelector(
     (state: RootState) => state.userSlice.user.isAuth
@@ -53,13 +50,14 @@ const App: React.FC = () => {
     typeParams !== "default" ? `sort=${typeParams},order=${order}` : "";
 
   useEffect(() => {
-    if (!isAuthUser) {
-      navigate(login);
+    if (isAuthUser) {
+      getFilmsByType(typeActual).then((data) =>
+        dispatch(addActualMovies(data))
+      );
+      getFilmsByType(typePopular).then((data) =>
+        dispatch(addPopularMovies(data))
+      );
     }
-    getFilmsByType(typeActual).then((data) => dispatch(addActualMovies(data)));
-    getFilmsByType(typePopular).then((data) =>
-      dispatch(addPopularMovies(data))
-    );
   }, []);
 
   return (
@@ -75,13 +73,20 @@ const App: React.FC = () => {
       >
         <Header />
         <Routes>
-          {isAuthUser &&
+          {isAuthUser ? (
             authRoutes.map(({ path, Component }) => (
               <Route key={path} path={path} element={<Component />} />
-            ))}
+            ))
+          ) : (
+            <Route key="login-key" path="*" element={<Login />} />
+          )}
           {publicRoutes.map(({ path, Component }) => (
             <Route key={path} path={path} element={<Component />} />
           ))}
+          <Route path="/person" element={<PersonalAC />}>
+            <Route path={likeMovies} element={<Cmovies />} />
+            <Route path={likeSerials} element={<Cserials />} />
+          </Route>
         </Routes>
         <Footer />
       </searchContext.Provider>

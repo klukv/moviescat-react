@@ -25,7 +25,6 @@ header,
 aside {
 	display: block;
 }
-
 html,
 body {
 	height: 100%;
@@ -33,9 +32,6 @@ body {
 	font-size: 100%;
 	line-height: 1;
 	font-size: 14px;
-	-ms-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-webkit-text-size-adjust: 100%;
 }
 input,
 button,
@@ -93,8 +89,6 @@ h6 {
 		content: "";
 		height: 1px; /* Высота линии */
 		width: 0%;
-		-webkit-transition: width 0.3s ease-in-out;
-		-moz--transition: width 0.3s ease-in-out;
 		transition: width 0.3s ease-in-out;
 	}
 	&:hover:after,

@@ -1,18 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-type movieType = {
-  id: number;
-  title: string;
-  description: string;
-  year: number;
-  country: string;
-  genre: string;
-  director: string;
-  time: number;
-  budget: number;
-  imgUrl: string;
-  type: string;
-};
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { movieType } from "../../types/movieType";
 
 export interface moviesState {
   movies: movieType[];
@@ -31,7 +18,7 @@ const initialState: moviesState = {
   sliderPopularMovies: [],
   sliderActualMovies: [],
   isLoaded: false,
-  isAddedFMovie: true
+  isAddedFMovie: true,
 };
 
 const findId = (arrayMovie: movieType[], movieId: number) => {
@@ -44,16 +31,16 @@ export const moviesSlice = createSlice({
   name: "movies",
   initialState,
   reducers: {
-    addFilms: (state, action) => {
+    addFilms: (state, action: PayloadAction<movieType[]>) => {
       state.movies = action.payload;
     },
-    setLoaded: (state, action) => {
+    setLoaded: (state, action: PayloadAction<boolean>) => {
       state.isLoaded = action.payload;
     },
-    setStateFMovies: (state, action) => {
+    setStateFMovies: (state, action: PayloadAction<boolean>) => {
       state.isAddedFMovie = action.payload;
     },
-    addRecentlyMovies: (state, action) => {
+    addRecentlyMovies: (state, action: PayloadAction<movieType>) => {
       if (findId(state.recentlyMovies, action.payload.id)) {
         return state;
       } else {
@@ -63,13 +50,13 @@ export const moviesSlice = createSlice({
         }
       }
     },
-    addFavouriteMovies: (state, action) => {
+    addFavouriteMovies: (state, action: PayloadAction<movieType[]>) => {
       state.favouriteMovies = action.payload;
     },
-    addPopularMovies: (state, action) => {
+    addPopularMovies: (state, action: PayloadAction<movieType[]>) => {
       state.sliderPopularMovies = action.payload;
     },
-    addActualMovies: (state, action) => {
+    addActualMovies: (state, action: PayloadAction<movieType[]>) => {
       state.sliderActualMovies = action.payload;
     },
   },

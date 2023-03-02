@@ -1,16 +1,9 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { sortGenreType, sortOtherParamsType } from "../../types/filterTypes";
 
 export interface filterState {
-  genreSort: {
-    genre: string;
-    type: string;
-    order: string;
-  };
-  otherParams: {
-    name: string;
-    typeParams: string;
-    order: string;
-  };
+  genreSort: sortGenreType;
+  otherParams: sortOtherParamsType;
 }
 
 const initialState: filterState = {
@@ -30,10 +23,10 @@ export const filterSlice = createSlice({
   name: "filter",
   initialState,
   reducers: {
-    setGenreSort: (state, action) => {
+    setGenreSort: (state, action: PayloadAction<sortGenreType>) => {
       state.genreSort = action.payload;
     },
-    setOtherSort: (state, action) => {
+    setOtherSort: (state, action: PayloadAction<sortOtherParamsType>) => {
       state.otherParams = action.payload;
     },
   },

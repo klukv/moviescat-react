@@ -1,34 +1,24 @@
 import React from "react";
 import { Formik, Form } from "formik";
 import { createMovie } from "../../services/contentService";
-import { Idata } from "../../pages/oneMovie";
 import debounce from "lodash.debounce";
 import { initialData } from "./ModalUpdate";
+import { IDropdownSelectItem, IMovieData } from "../../types/movieType";
+import { Idata } from "../../types/dataType";
 
 interface Iprops {
   children?: React.ReactNode;
   isOpen: boolean;
   toggle: () => void;
-}
-export interface IMovieData {
-  title: string;
-  description: string;
-  year: number;
-  country: string;
-  genre: string;
-  director: string;
-  time: number;
-  budget: number;
-  imgUrl: string;
-  type: string;
+  genres: string;
 }
 
 const initialValues = {
   title: "",
   description: "",
-  year:0,
+  year: 0,
   country: "",
-  genre: "",
+  genres: "",
   director: "",
   time: 0,
   budget: 0,
@@ -36,8 +26,7 @@ const initialValues = {
   type: "",
 };
 
-
-const Modal: React.FC<Iprops> = ({ children, isOpen, toggle }) => {
+const Modal: React.FC<Iprops> = ({ children, isOpen, toggle, genres }) => {
   const [dataMessage, setDataMessage] = React.useState<Idata>(initialData);
   const clearDataMessage = React.useCallback(
     debounce(() => {
@@ -51,28 +40,24 @@ const Modal: React.FC<Iprops> = ({ children, isOpen, toggle }) => {
     }, 3000),
     []
   );
-  
   const handleSubmitMovie = (formValue: IMovieData) => {
     const {
       title,
       description,
       year,
       country,
-      genre,
       director,
       time,
       budget,
       imgUrl,
       type,
     } = formValue;
-  
-
     createMovie({
       title,
       description,
       year,
       country,
-      genre,
+      genres,
       director,
       time,
       budget,

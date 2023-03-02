@@ -1,29 +1,31 @@
+import debounce from "lodash.debounce";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
-  addRecentlyMovies
-} from "../redux/slices/moviesSlice";
-import { setStateFSerials } from "../redux/slices/serialsSlice";
+  addRecentlySerials,
+  setStateFSerials,
+} from "../redux/slices/serialsSlice";
 import { RootState } from "../redux/store";
 
 import "../scss/oneMovie.scss";
 import { addFavouriteSerial } from "../services/contentService";
+import { Idata } from "../types/dataType";
+import { serialType } from "../types/serialsType";
+
+const initialValues = {
+  message: "",
+  success: false,
+};
 
 const OneSerial: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
   const video = document.getElementsByTagName("video")[0];
-  const [dataMessage, setDataMessage] = React.useState("");
+  const [dataMessage, setDataMessage] = React.useState<Idata>(initialValues);
   const [activeVideo, setActiveVideo] = React.useState(false);
-  const handleWatchSerial = (serialWatched: typeof selectSerial) => {
-    dispatch(addRecentlyMovies(serialWatched));
-    setActiveVideo(!activeVideo);
-    // if (video.played) {
-    //   video.pause();
-    // }
-  };
+
   const { userId, arraySerials } = useSelector(
     ({ userSlice, serialsSlice }: RootState) => {
       return {
@@ -32,14 +34,46 @@ const OneSerial: React.FC = () => {
       };
     }
   );
-  const selectSerial = arraySerials.find((serial) => serial.id.toString() === id);
+  const selectSerial = arraySerials.find(
+    (serial: serialType) => serial.id.toString() === id
+  );
 
-  const handleFavouriteSerial = (serialFavourite: typeof selectSerial) => {
+  const closeWindowData = React.useCallback(
+    debounce(() => {
+      setDataMessage((prevState) => {
+        return {
+          ...prevState,
+          message: initialValues.message,
+          success: initialValues.success,
+        };
+      });
+    }, 3000),
+    []
+  );
+
+  const handleWatchSerial = (serialWatched: serialType) => {
+    if (serialWatched) {
+      dispatch(addRecentlySerials(serialWatched));
+    }
+    setActiveVideo(!activeVideo);
+    // if (video.played) {
+    //   video.pause();
+    // }
+  };
+
+  const handleFavouriteSerial = (serialFavourite: serialType) => {
     if (serialFavourite?.id) {
       addFavouriteSerial(userId, serialFavourite.id).then(
         (data) => {
-          setDataMessage(data.message);
+          setDataMessage((prevState) => {
+            return {
+              ...prevState,
+              message: data.message,
+              success: true,
+            };
+          });
           dispatch(setStateFSerials(true));
+          closeWindowData();
         },
         (error) => {
           const resMessage =
@@ -48,13 +82,18 @@ const OneSerial: React.FC = () => {
               error.response.data.message) ||
             error.message ||
             error.toString();
-            setDataMessage(resMessage);
+          setDataMessage((prevState: Idata) => {
+            return {
+              ...prevState,
+              message: resMessage,
+              success: false,
+            };
+          });
+          closeWindowData();
         }
       );
     }
   };
-
- 
 
   return (
     <div className="main">
@@ -163,7 +202,9 @@ const OneSerial: React.FC = () => {
                   <div className="information__buttons">
                     <button
                       className="information__button"
-                      onClick={() => handleWatchSerial(selectSerial)}
+                      onClick={() => {
+                        if (selectSerial) handleWatchSerial(selectSerial);
+                      }}
                     >
                       Смотреть
                     </button>
@@ -172,7 +213,9 @@ const OneSerial: React.FC = () => {
                         className="information__like-svg"
                         viewBox="0 0 32 32"
                         xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => handleFavouriteSerial(selectSerial)}
+                        onClick={() => {
+                          if (selectSerial) handleFavouriteSerial(selectSerial);
+                        }}
                       >
                         <defs>
                           <style></style>
@@ -185,6 +228,19 @@ const OneSerial: React.FC = () => {
                           />
                         </g>
                       </svg>
+                      {dataMessage.message && (
+                        <div className="information__like-message">
+                          <div
+                            className={
+                              dataMessage.success
+                                ? "message__success"
+                                : "message__error"
+                            }
+                          >
+                            {dataMessage.message}
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
 

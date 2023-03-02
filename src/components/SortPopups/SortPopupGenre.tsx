@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setGenreSort } from "../../redux/slices/filter";
+import useClickOutside from "../hooks/useClickOutside";
 
-type menuClick = MouseEvent & {
-  path: Node[];
-};
 interface genreType {
   items: {
     genre: string;
@@ -21,18 +19,8 @@ const SortPopupGenre: React.FC<genreType> = ({ items, activeObj }) => {
   const dispatch = useDispatch();
   const refGenreMenu = useRef<HTMLDivElement>(null);
   const [menuGenreActive, setMenuGenreActive] = useState(false);
-  useEffect(() => {
-    const handleClickMenu = (event: MouseEvent) => {
-      const _event = event as menuClick;
-      if (refGenreMenu.current && !_event.path.includes(refGenreMenu.current)) {
-        setMenuGenreActive(false);
-      }
-    };
-
-    document.body.addEventListener("click", handleClickMenu);
-
-    return () => document.body.removeEventListener("click", handleClickMenu);
-  }, []);
+ 
+  useClickOutside(refGenreMenu, setMenuGenreActive, menuGenreActive);
 
   const onClickSortItem = (type: string, genre: string, order: string) => {
     dispatch(setGenreSort({ type, genre, order }));

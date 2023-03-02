@@ -1,11 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Idata } from "../../pages/oneMovie";
 import { initialData } from "./ModalUpdate";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { RootState } from "../../redux/store";
 import { deleteFilm } from "../../services/contentService";
 import { setStateFMovies } from "../../redux/slices/moviesSlice";
+import { movieType } from "../../types/movieType";
+import { Idata } from "../../types/dataType";
 
 interface IModal {
   isOpen: boolean;
@@ -27,7 +28,7 @@ const ModalDelete: React.FC<IModal> = ({ isOpen, toggle }) => {
   const handleDeleteMovie = (formValue: { deleteMovie: string }) => {
     const { deleteMovie } = formValue;
 
-    const idDeleteMovie = arrayMovies.find((movie) => {
+    const idDeleteMovie = arrayMovies.find((movie: movieType) => {
       return movie.title === deleteMovie;
     })?.id;
 
@@ -69,7 +70,7 @@ const ModalDelete: React.FC<IModal> = ({ isOpen, toggle }) => {
       {isOpen && (
         <div className="modal-overlay" onClick={toggle}>
           <Formik initialValues={initialValues} onSubmit={handleDeleteMovie}>
-            <Form className="modal-form" onClick={(e) => e.stopPropagation()}>
+            <Form className="modal-form modal-delete" onClick={(e) => e.stopPropagation()}>
               {!dataMessage.success && (
                 <>
                   <div className="modal-group">
@@ -89,7 +90,7 @@ const ModalDelete: React.FC<IModal> = ({ isOpen, toggle }) => {
                   <div className="modal-group">
                     <button
                       type="submit"
-                      className="admin__btn btn-primary btn-block"
+                      className="btn-primary btn-block button-modal"
                     >
                       <span>Удалить бедолагу</span>
                     </button>

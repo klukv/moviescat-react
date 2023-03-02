@@ -13,14 +13,14 @@ import Pagination from "../components/Pagination";
 import { sortItemsGenre, sortItemsOther } from "../const/const";
 import { getAllFilms } from "../services/contentService";
 import { addFilms, setLoaded } from "../redux/slices/moviesSlice";
-import { IMovie } from "./home";
 import { searchContext } from "../App";
+import { movieType } from "../types/movieType";
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
   const { sortParams, genreURL, searchMovies } =
     React.useContext(searchContext);
-  const [movies, setMovies] = React.useState<IMovie[]>([]);
+  const [movies, setMovies] = React.useState<movieType[]>([]);
   const isLoaded = useSelector(
     (state: RootState) => state.moviesSlice.isLoaded
   );

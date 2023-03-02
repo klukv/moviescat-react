@@ -1,6 +1,5 @@
-import { IMovieData } from "../components/ModalWindows/Modal";
 import { API_URL_CONTENT } from "../const/const";
-import { IMovie } from "../pages/home";
+import { IMovieData, movieType } from "../types/movieType";
 import { $authHost } from "./authService";
 
 export const getAllFilms = async (
@@ -68,7 +67,7 @@ export const createMovie = async (movie: IMovieData) => {
     description: movie.description,
     year: movie.year,
     country: movie.country,
-    genre: movie.genre,
+    genre: movie.genres,
     director: movie.director,
     time: movie.time,
     budget: movie.budget,
@@ -77,7 +76,7 @@ export const createMovie = async (movie: IMovieData) => {
   });
   return data;
 };
-export const putFilm = async (movie: IMovie) => {
+export const putFilm = async (movie: movieType) => {
   const { data } = await $authHost.put(API_URL_CONTENT + `/movie`, {
     id: movie.id,
     title: movie.title,
@@ -94,6 +93,8 @@ export const putFilm = async (movie: IMovie) => {
   return data;
 };
 export const deleteFilm = async (movie_id: number) => {
-  const {data} = await $authHost.delete(API_URL_CONTENT + `/movie/` + movie_id);
+  const { data } = await $authHost.delete(
+    API_URL_CONTENT + `/movie/` + movie_id
+  );
   return data;
-}
+};

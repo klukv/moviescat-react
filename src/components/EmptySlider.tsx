@@ -15,7 +15,7 @@ const EmptySlider: React.FC = () => {
       </div>
       <div className="empty__slider-two">
         <div className="empty__slider-text">
-          Вы можете создать свою подборку фильмов
+          Вы можете создать свою подборку кинокартин
         </div>
         <Link to={movies}>
           <svg

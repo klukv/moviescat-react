@@ -1,33 +1,40 @@
 import React, { useState } from "react";
-import { Carousel, Slider } from "../components";
+import { Carousel, MovieComponent } from "../components";
 import "../scss/home.scss";
+import Multi_slider from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import { movieType } from "../types/movieType";
 
 const aboutOneIMG = require("../assets/img/about/quality.jpg");
 const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
-export interface IMovie {
-  id: number;
-  title: string;
-  description: string;
-  year: number;
-  country: string;
-  genre: string;
-  director: string;
-  time: number;
-  budget: number;
-  imgUrl: string;
-  type: string;
-}
-
 const Home: React.FC = () => {
-
   const [popularFilms, setPopularFilms] = useState(true);
-
-  const handlePopualrFilms = (value: boolean) => {
-    setPopularFilms(value);
+  const { sliderPopularMovies, sliderActualMovies } = useSelector(
+    (state: RootState) => state.moviesSlice
+  );
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 7,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 2,
+    },
   };
 
-  const handleActualFilms = (value: boolean) => {
+  const handleActiveSlider = (value: boolean) => {
     setPopularFilms(value);
   };
   return (
@@ -63,7 +70,7 @@ const Home: React.FC = () => {
                       : "compilation__title title"
                   }
                 >
-                  <a href="#1" onClick={() => handlePopualrFilms(true)}>
+                  <a href="#1" onClick={() => handleActiveSlider(true)}>
                     Популярное
                   </a>
                 </div>
@@ -74,12 +81,27 @@ const Home: React.FC = () => {
                       : "compilation__title title"
                   }
                 >
-                  <a href="#1" onClick={() => handleActualFilms(false)}>
+                  <a href="#1" onClick={() => handleActiveSlider(false)}>
                     Актуальное
                   </a>
                 </div>
               </div>
-              <Slider activeFilms={popularFilms}/>
+              <Multi_slider
+                responsive={responsive}
+                itemClass="carousel-item-padding-40-px"
+              >
+                {popularFilms
+                  ? sliderPopularMovies.map(
+                      (movie: movieType, index: number) => (
+                        <MovieComponent key={`index__${index}`} {...movie} />
+                      )
+                    )
+                  : sliderActualMovies.map(
+                      (movie: movieType, index: number) => (
+                        <MovieComponent key={`index__${index}`} {...movie} />
+                      )
+                    )}
+              </Multi_slider>
             </div>
           </div>
         </section>

@@ -8,6 +8,7 @@ interface movie {
   imgUrl: string;
 }
 const MoviesComponent: React.FC<movie> = ({ id, title, imgUrl }) => {
+
   const { pathname } = useLocation();
   const navigate = useNavigate();
 

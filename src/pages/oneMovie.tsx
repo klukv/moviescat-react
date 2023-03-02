@@ -10,11 +10,8 @@ import { RootState } from "../redux/store";
 
 import "../scss/oneMovie.scss";
 import { addFavouriteFilm } from "../services/contentService";
-
-export interface Idata {
-  message: string;
-  success: boolean;
-}
+import { Idata } from "../types/dataType";
+import { movieType } from "../types/movieType";
 
 const initialValues = {
   message: "",
@@ -28,13 +25,6 @@ const OneMovie: React.FC = () => {
   const video = document.getElementsByTagName("video")[0];
   const [dataMessage, setDataMessage] = React.useState<Idata>(initialValues);
   const [activeVideo, setActiveVideo] = React.useState(false);
-  const handleWatchMovie = (movieWatched: typeof selectMovie) => {
-    dispatch(addRecentlyMovies(movieWatched));
-    setActiveVideo(!activeVideo);
-    // if (video.played) {
-    //   video.pause();
-    // }
-  };
 
   const closeWindowData = React.useCallback(
     debounce(() => {
@@ -57,9 +47,21 @@ const OneMovie: React.FC = () => {
       };
     }
   );
-  const selectMovie = arrayMovies.find((movie) => movie.id.toString() === id);
+  const selectMovie = arrayMovies.find(
+    (movie: movieType) => movie.id.toString() === id
+  );
 
-  const handleFavouriteMovie = (movieFavourite: typeof selectMovie) => {
+  const handleWatchMovie = (movieWatched: movieType) => {
+    if (movieWatched) {
+      dispatch(addRecentlyMovies(movieWatched));
+    }
+    setActiveVideo(!activeVideo);
+    // if (video.played) {
+    //   video.pause();
+    // }
+  };
+
+  const handleFavouriteMovie = (movieFavourite: movieType) => {
     if (movieFavourite?.id) {
       addFavouriteFilm(userId, movieFavourite.id).then(
         (data) => {
@@ -196,7 +198,9 @@ const OneMovie: React.FC = () => {
                   <div className="information__buttons">
                     <button
                       className="information__button"
-                      onClick={() => handleWatchMovie(selectMovie)}
+                      onClick={() => {
+                        if (selectMovie) handleWatchMovie(selectMovie);
+                      }}
                     >
                       Смотреть
                     </button>
@@ -205,7 +209,9 @@ const OneMovie: React.FC = () => {
                         className="information__like-svg"
                         viewBox="0 0 32 32"
                         xmlns="http://www.w3.org/2000/svg"
-                        onClick={() => handleFavouriteMovie(selectMovie)}
+                        onClick={() => {
+                          if (selectMovie) handleFavouriteMovie(selectMovie);
+                        }}
                       >
                         <defs>
                           <style></style>

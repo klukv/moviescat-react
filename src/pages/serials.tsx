@@ -14,19 +14,8 @@ import { sortItemsGenre, sortItemsOther } from "../const/const";
 import { addSerials, setLoadedSerials } from "../redux/slices/serialsSlice";
 import { getAllSerials } from "../services/contentService";
 import { searchContext } from "../App";
+import { serialType } from "../types/serialsType";
 
-type serialType = {
-  id: number;
-  title: string;
-  description: string;
-  year: number;
-  country: string;
-  genre: string;
-  director: string;
-  time: number;
-  imgUrl: string;
-  type: string;
-};
 
 const Serials: React.FC = () => {
   const dispatch = useDispatch();

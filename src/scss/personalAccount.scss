@@ -4,12 +4,67 @@
   font-weight: 700;
   color: #ffffff;
 }
-
+.main__person {
+  position: relative;
+}
 .person {
   padding: 48px 0px 70px 0px;
   &__row {
     display: flex;
     margin-bottom: 48px;
+    &-compilation {
+      margin-left: 300px;
+    }
+    &-title {
+      font-size: 32px;
+      color: #fff;
+      font-weight: 700;
+      margin-bottom: 26px;
+    }
+    &-menu {
+      display: flex;
+      flex-direction: column;
+    }
+    &-point {
+      position: relative;
+      padding: 0px 0px 20px 33px;
+      &:last-child {
+        padding-bottom: 0px;
+      }
+    }
+    &-link {
+      font-size: 20px;
+      color: #fff;
+      transition: color 0.2s ease-in-out;
+      &:hover {
+        color: #f7c356;
+      }
+    }
+    .active{
+      color: #f7c356;
+    }
+    .link-movies:before {
+      content: "";
+      background-image: url("../assets/img/personalAcc/movie.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 0;
+      left: 0;
+    }
+    .link-serials:before {
+      content: "";
+      background-image: url("../assets/img/personalAcc/star.svg");
+      background-size: cover;
+      background-repeat: no-repeat;
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      top: 0;
+      left: 0;
+    }
   }
   &__block-img {
     flex: 0 0 282px;
@@ -42,10 +97,32 @@
       line-height: 23px;
       color: #ffffff;
     }
+    &-logout {
+      width: 25px;
+      height: 25px;
+      margin-top: 15px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
   }
   &__compilation {
     &-title {
       margin-bottom: 30px;
+    }
+    &-header {
+      display: flex;
+      justify-content: space-between;
+    }
+    &-close{
+      width: 30px;
+      height: 30px;
+      margin-right: 20px;
+      transition: all 0.2s ease-in-out;
+      &:hover{
+        cursor: pointer;
+        transform: scale(1.15);
+      }
     }
     &-slider {
       display: flex;
@@ -114,27 +191,26 @@
   }
 }
 .admin__btn {
-  margin-top: 20px;
+  padding: 10px 10px;
+  width: 100%;
   display: inline-block;
   font-family: "Open Sans", sans-serif;
   font-size: 15px;
   font-weight: 700;
-  padding: 17px 36px 17px 36px;
-  border: 2px solid #f9cd5c;
   border-radius: 16px;
+  color: #fff;
   background: transparent;
-  color: #f9cd5c;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.2s ease-in-out;
   &:hover {
-    background-color: #f7c356;
-    color: #ffffff;
+    background-color: #505050;
+    color: #f7c356;
   }
 }
 .modal-overlay {
   z-index: 9999;
   width: 100vw;
   height: 100vh;
-  position: absolute;
+  position: fixed;
   top: 0;
   background-color: rgba(0, 0, 0, 0.7);
   display: flex;
@@ -144,18 +220,41 @@
 
 .modal-form {
   background-color: #0e0e0e;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 550px;
-  min-height: 600px;
+  text-align: center;
   border: 2px solid #ffffff;
   border-radius: 12px;
+}
+.modal-update,
+.modal-delete {
+  padding: 50px;
+}
+.modal__info {
+  display: flex;
+  padding: 50px;
+}
+.modal__one-block {
+  margin-right: 50px;
 }
 .modal-group {
   position: relative;
   margin-bottom: 45px;
+}
+.btn-modal {
+  text-align: center;
+  padding: 0px 50px;
+}
+.button-modal {
+  background: transparent;
+  width: 100%;
+  padding: 10px 0px;
+  border-radius: 16px;
+  color: #fff;
+  font-weight: 700;
+  font-size: 14px;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: #000;
+  }
 }
 .modal-input {
   background-color: #0e0e0e;
@@ -191,4 +290,52 @@
   top: -20px;
   font-size: 14px;
   color: #f7c356;
+}
+.searchWrapper {
+  background-color: #0e0e0e;
+  color: #ffffff;
+  padding: 10px 10px 10px 5px !important;
+  width: 300px;
+  border: none !important;
+  border-radius: 0px !important;
+  border-bottom: 1px solid #ffffff !important;
+}
+.searchBox {
+  font-size: 18px;
+  color: #fff;
+}
+.chip {
+  font-size: 16px !important;
+  background: #f7c356 !important;
+}
+.option {
+  color: #000;
+  font-size: 16px;
+}
+.admin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: #2c2c2c;
+  &__inner {
+    padding: 20px 50px 50px 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  &__title {
+    font-size: 18px;
+    padding-bottom: 20px;
+    font-weight: 700;
+    border-bottom: 2px solid #000;
+  }
+  &__menu {
+    &-list {
+      margin-top: 20px;
+    }
+  }
+}
+.btn_success{
+  margin-top: 50px;
 }

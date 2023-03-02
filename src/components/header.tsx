@@ -24,7 +24,7 @@ const menuLinks = [
   },
 ];
 
-const Header: React.FC = () => {
+const Header: React.FC = React.memo(() => {
   const location = useLocation();
   const isAuthUser = useSelector(
     (state: RootState) => state.userSlice.user.isAuth
@@ -68,6 +68,6 @@ const Header: React.FC = () => {
       </header>
     </div>
   );
-};
+});
 
 export default Header;

@@ -1,12 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-
-type User = {
-  id: number;
-  username: string;
-  email: string;
-  roles: string[];
-  isAuth: boolean;
-};
+import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { User } from "../../types/userType";
 
 export interface userState {
   user: User;
@@ -18,7 +11,7 @@ const initialState: userState = {
     username: "",
     email: "",
     roles: [],
-    isAuth:false
+    isAuth: false,
   },
 };
 
@@ -26,15 +19,16 @@ export const userSlice = createSlice({
   name: "user",
   initialState,
   reducers: {
-    saveUser: (state, action) => {
+    saveUser: (state, action: PayloadAction<User>) => {
       state.user = action.payload;
     },
-    setIsAuth: (state, action) => {
-      state.user.isAuth = action.payload
-    }
+    setIsAuth: (state, action: PayloadAction<boolean>) => {
+      state.user.isAuth = action.payload;
+    },
+    logoutUser: () => {},
   },
 });
 
-export const { saveUser, setIsAuth } = userSlice.actions;
+export const { saveUser, setIsAuth, logoutUser } = userSlice.actions;
 
 export default userSlice.reducer;

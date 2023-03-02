@@ -53,7 +53,7 @@ const Login: React.FC = () => {
           dispatch(setIsAuth(true));
         }
         navigate("/");
-        console.log(data);
+        window.location.reload();
       },
       ({response}) => {
         const resMessage =
