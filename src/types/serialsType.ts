@@ -1,3 +1,5 @@
+import { movieType } from "./movieType";
+
 export type serialType = {
     id: number;
     title: string;
@@ -10,3 +12,7 @@ export type serialType = {
     imgUrl: string;
     type: string;
   };
+export  type TRecentlyList = {
+    recentlyMovies: movieType[];
+    recentlySerials?: serialType[];
+  }

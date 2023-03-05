@@ -26,6 +26,20 @@ import { logoutUser } from "../redux/slices/user";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { home, likeMovies, likeSerials } from "../const/const";
 import Multiselect from "multiselect-react-dropdown";
+import { TRecentlyList } from "../types/serialsType";
+
+
+type TActiveList = {
+  isShow: boolean;
+  activeMovies: boolean;
+  activeSerials: boolean;
+};
+
+const initialValues = {
+  isShow: false,
+  activeMovies: false,
+  activeSerials: false,
+};
 
 const premiumRoles = ["ROLE_ADMIN", "ROLE_MODERATOR"];
 
@@ -38,17 +52,20 @@ const stateDropdown = {
     { name: "триллер", id: 4 },
   ],
 };
-type TActiveList = {
-  isShow: boolean;
-  activeMovies: boolean;
-  activeSerials: boolean;
-};
 
-const initialValues = {
-  isShow: false,
-  activeMovies: false,
-  activeSerials: false,
-};
+const RecentlyListVideos: React.FC<TRecentlyList> = React.memo(({ recentlyMovies }) => {
+  return (
+    <div className="person__watched-slider">
+      {recentlyMovies.length !== 0 ? (
+        recentlyMovies.map((movie: movieType, index: number) => (
+          <MovieComponent key={`keyRecently=${index}`} {...movie} />
+        ))
+      ) : (
+        <EmptySlider />
+      )}
+    </div>
+  );
+});
 
 const PersonalAC: React.FC = () => {
   const dispatch = useDispatch();
@@ -75,6 +92,7 @@ const PersonalAC: React.FC = () => {
       };
     }
   );
+  const MemoRecentlyMovies = React.useMemo(() => { return recentlyMovies},[recentlyMovies])
   const { user } = useSelector((state: RootState) => state.userSlice);
   const isAdmin: boolean = user.roles.includes("ROLE_ADMIN");
   const isAdminOrMod =
@@ -267,15 +285,7 @@ const PersonalAC: React.FC = () => {
                 <h2 className="person__watched-title avatar__title">
                   Недавно просмотренные
                 </h2>
-                <div className="person__watched-slider">
-                  {recentlyMovies.length !== 0 ? (
-                    recentlyMovies.map((movie: movieType, index: number) => (
-                      <MovieComponent key={`keyRecently=${index}`} {...movie} />
-                    ))
-                  ) : (
-                    <EmptySlider />
-                  )}
-                </div>
+                <RecentlyListVideos recentlyMovies={MemoRecentlyMovies}/>
               </div>
               {activeList.isShow && (
                 <div className="person__compilation">
