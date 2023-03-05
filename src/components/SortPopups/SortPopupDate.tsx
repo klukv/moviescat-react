@@ -30,13 +30,12 @@ const SortPopupDate: React.FC<OtherParametrsType> = ({ items, activeObj }) => {
 
   return (
     <div className="movies__date" ref={refDateMenu}>
-      <a
-        href="#1"
+      <div
         className="movies__date-btn sort"
         onClick={() => setMenuDateActive(!menuDateActive)}
       >
         {activeObj.name}
-      </a>
+      </div>
       <div className="sort__popup date-menu">
         {menuDateActive && (
           <ul className="movies__list">

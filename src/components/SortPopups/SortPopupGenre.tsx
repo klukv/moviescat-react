@@ -29,13 +29,12 @@ const SortPopupGenre: React.FC<genreType> = ({ items, activeObj }) => {
 
   return (
     <div className="movies__genre" ref={refGenreMenu}>
-      <a
-        href="#1"
+      <div
         className="movies__genre-btn sort"
         onClick={() => setMenuGenreActive(!menuGenreActive)}
       >
         {activeObj.genre}
-      </a>
+      </div>
       <div className="sort__popup">
         {menuGenreActive && (
           <ul className="movies__list">

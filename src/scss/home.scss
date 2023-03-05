@@ -187,7 +187,7 @@ main {
 	&__titles {
 		padding: 56px 0px 39px 0px;
 		display: flex;
-		a {
+		h2 {
 			@include hoverLink(#f7c356, 33px);
 			font-family: "Open Sans", sans-serif;
 			font-size: 33px;
@@ -195,7 +195,7 @@ main {
 			color: #ffffff;
 		}
 		.active {
-			a {
+			h2 {
 				color: #f7c356;
 			}
 		}

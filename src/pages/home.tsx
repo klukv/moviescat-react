@@ -70,9 +70,9 @@ const Home: React.FC = () => {
                       : "compilation__title title"
                   }
                 >
-                  <a href="#1" onClick={() => handleActiveSlider(true)}>
+                  <h2 onClick={() => handleActiveSlider(true)}>
                     Популярное
-                  </a>
+                  </h2>
                 </div>
                 <div
                   className={
@@ -81,9 +81,9 @@ const Home: React.FC = () => {
                       : "compilation__title title"
                   }
                 >
-                  <a href="#1" onClick={() => handleActiveSlider(false)}>
+                  <h2 onClick={() => handleActiveSlider(false)}>
                     Актуальное
-                  </a>
+                  </h2>
                 </div>
               </div>
               <Multi_slider
