@@ -10,7 +10,7 @@ interface UsePaginationProps {
   page: number;
 }
 
-const Pagination: React.FC<UsePaginationProps> = ({
+const Pagination: React.FC<UsePaginationProps> = React.memo(({
   firstContentIndex,
   lastContentIndex,
   nextPage,
@@ -58,6 +58,6 @@ const Pagination: React.FC<UsePaginationProps> = ({
       </div>
     </div>
   );
-};
+});
 
 export default Pagination;

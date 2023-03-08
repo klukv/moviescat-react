@@ -2,12 +2,11 @@ import debounce from "lodash.debounce";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { selectUserIdArrayVideos } from "../redux/selectors";
 import {
   addRecentlySerials,
   setStateFSerials,
 } from "../redux/slices/serialsSlice";
-import { RootState } from "../redux/store";
-
 import "../scss/oneMovie.scss";
 import { addFavouriteSerial } from "../services/contentService";
 import { Idata } from "../types/dataType";
@@ -22,32 +21,26 @@ const OneSerial: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const video = document.getElementsByTagName("video")[0];
+  //const video = document.getElementsByTagName("video")[0];
   const [dataMessage, setDataMessage] = React.useState<Idata>(initialValues);
   const [activeVideo, setActiveVideo] = React.useState(false);
 
-  const { userId, arraySerials } = useSelector(
-    ({ userSlice, serialsSlice }: RootState) => {
-      return {
-        userId: userSlice.user.id,
-        arraySerials: serialsSlice.serials,
-      };
-    }
-  );
-  const selectSerial = arraySerials.find(
+  const { userId, arraySerials } = useSelector(selectUserIdArrayVideos);
+  const selectSerial: serialType = arraySerials.find(
     (serial: serialType) => serial.id.toString() === id
   );
 
   const closeWindowData = React.useCallback(
-    debounce(() => {
-      setDataMessage((prevState) => {
-        return {
-          ...prevState,
-          message: initialValues.message,
-          success: initialValues.success,
-        };
-      });
-    }, 3000),
+    () =>
+      debounce(() => {
+        setDataMessage((prevState) => {
+          return {
+            ...prevState,
+            message: initialValues.message,
+            success: initialValues.success,
+          };
+        });
+      }, 3000),
     []
   );
 

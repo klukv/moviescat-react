@@ -12,8 +12,6 @@ import {
   addFavouriteSerials,
   setStateFSerials,
 } from "../redux/slices/serialsSlice";
-import { RootState } from "../redux/store";
-
 import "../scss/personalAccount.scss";
 import {
   getAllFavouriteMovies,
@@ -27,7 +25,7 @@ import { Link, Outlet, useNavigate } from "react-router-dom";
 import { home, likeMovies, likeSerials } from "../const/const";
 import Multiselect from "multiselect-react-dropdown";
 import { TRecentlyList } from "../types/serialsType";
-
+import { selectInfoPersonAcc, selectUser } from "../redux/selectors";
 
 type TActiveList = {
   isShow: boolean;
@@ -53,19 +51,21 @@ const stateDropdown = {
   ],
 };
 
-const RecentlyListVideos: React.FC<TRecentlyList> = React.memo(({ recentlyMovies }) => {
-  return (
-    <div className="person__watched-slider">
-      {recentlyMovies.length !== 0 ? (
-        recentlyMovies.map((movie: movieType, index: number) => (
-          <MovieComponent key={`keyRecently=${index}`} {...movie} />
-        ))
-      ) : (
-        <EmptySlider />
-      )}
-    </div>
-  );
-});
+const RecentlyListVideos: React.FC<TRecentlyList> = React.memo(
+  ({ recentlyMovies }) => {
+    return (
+      <div className="person__watched-slider">
+        {recentlyMovies.length !== 0 ? (
+          recentlyMovies.map((movie: movieType, index: number) => (
+            <MovieComponent key={`keyRecently=${index}`} {...movie} />
+          ))
+        ) : (
+          <EmptySlider />
+        )}
+      </div>
+    );
+  }
+);
 
 const PersonalAC: React.FC = () => {
   const dispatch = useDispatch();
@@ -82,18 +82,9 @@ const PersonalAC: React.FC = () => {
     isOpenDelete,
     toggleDeleteModal,
   } = useModal();
-  const { recentlyMovies, isAddedFMovie, isAddedFSerial } = useSelector(
-    ({ moviesSlice, serialsSlice }: RootState) => {
-      return {
-        recentlyMovies: moviesSlice.recentlyMovies,
-        favouriteMovies: moviesSlice.favouriteMovies,
-        isAddedFMovie: moviesSlice.isAddedFMovie,
-        isAddedFSerial: serialsSlice.isAddedFSerial,
-      };
-    }
-  );
-  const MemoRecentlyMovies = React.useMemo(() => { return recentlyMovies},[recentlyMovies])
-  const { user } = useSelector((state: RootState) => state.userSlice);
+  const { recentlyMovies, isAddedFMovie, isAddedFSerial } =
+    useSelector(selectInfoPersonAcc);
+  const { user } = useSelector(selectUser);
   const isAdmin: boolean = user.roles.includes("ROLE_ADMIN");
   const isAdminOrMod =
     user.roles.find((role: string) => {
@@ -154,7 +145,7 @@ const PersonalAC: React.FC = () => {
         dispatch(setStateFSerials(false));
       });
     }
-  }, [isAddedFMovie, isAddedFSerial]);
+  }, [isAddedFMovie, isAddedFSerial, dispatch, user.id]);
 
   return (
     <div className="main main__person">
@@ -285,7 +276,7 @@ const PersonalAC: React.FC = () => {
                 <h2 className="person__watched-title avatar__title">
                   Недавно просмотренные
                 </h2>
-                <RecentlyListVideos recentlyMovies={MemoRecentlyMovies}/>
+                <RecentlyListVideos recentlyMovies={recentlyMovies} />
               </div>
               {activeList.isShow && (
                 <div className="person__compilation">

@@ -2,12 +2,11 @@ import debounce from "lodash.debounce";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { selectUserIdArrayVideos } from "../redux/selectors";
 import {
   addRecentlyMovies,
   setStateFMovies,
 } from "../redux/slices/moviesSlice";
-import { RootState } from "../redux/store";
-
 import "../scss/oneMovie.scss";
 import { addFavouriteFilm } from "../services/contentService";
 import { Idata } from "../types/dataType";
@@ -22,32 +21,26 @@ const OneMovie: React.FC = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const video = document.getElementsByTagName("video")[0];
+  //const video = document.getElementsByTagName("video")[0];
   const [dataMessage, setDataMessage] = React.useState<Idata>(initialValues);
   const [activeVideo, setActiveVideo] = React.useState(false);
 
   const closeWindowData = React.useCallback(
-    debounce(() => {
-      setDataMessage((prevState) => {
-        return {
-          ...prevState,
-          message: initialValues.message,
-          success: initialValues.success,
-        };
-      });
-    }, 3000),
+    () =>
+      debounce(() => {
+        setDataMessage((prevState) => {
+          return {
+            ...prevState,
+            message: initialValues.message,
+            success: initialValues.success,
+          };
+        });
+      }, 3000),
     []
   );
 
-  const { userId, arrayMovies } = useSelector(
-    ({ userSlice, moviesSlice }: RootState) => {
-      return {
-        userId: userSlice.user.id,
-        arrayMovies: moviesSlice.movies,
-      };
-    }
-  );
-  const selectMovie = arrayMovies.find(
+  const { userId, arrayMovies } = useSelector(selectUserIdArrayVideos);
+  const selectMovie: movieType = arrayMovies.find(
     (movie: movieType) => movie.id.toString() === id
   );
 

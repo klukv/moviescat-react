@@ -6,6 +6,7 @@ import { putFilm } from "../../services/contentService";
 import { setStateFMovies } from "../../redux/slices/moviesSlice";
 import { movieType } from "../../types/movieType";
 import { Idata } from "../../types/dataType";
+import { selectUserIdArrayVideos } from "../../redux/selectors";
 
 interface IModalUpdate {
   isOpen: boolean;
@@ -26,11 +27,7 @@ export const initialData = {
 const ModalUpdate: React.FC<IModalUpdate> = ({ isOpen, toggle }) => {
   const dispatch = useDispatch();
   const [dataMessage, setDataMessage] = React.useState<Idata>(initialData);
-  const { arrayMovies } = useSelector(({ moviesSlice }: RootState) => {
-    return {
-      arrayMovies: moviesSlice.movies,
-    };
-  });
+  const { arrayMovies } = useSelector(selectUserIdArrayVideos);
   const findKey = (
     selectMovie: movieType,
     selectValue: string,

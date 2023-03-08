@@ -7,8 +7,8 @@ import Header from "./components/header";
 import { likeMovies, likeSerials } from "./const/const";
 import Login from "./pages/login";
 import PersonalAC from "./pages/personalAC";
+import { selectIsAuth, selectParamsURL } from "./redux/selectors";
 import { addActualMovies, addPopularMovies } from "./redux/slices/moviesSlice";
-import { RootState } from "./redux/store";
 import { authRoutes, publicRoutes } from "./routes";
 import { getFilmsByType } from "./services/contentService";
 
@@ -34,16 +34,9 @@ const typeActual: string = "actual";
 const App: React.FC = () => {
   const dispatch = useDispatch();
   const [searchValue, setSearchValue] = React.useState("");
-  const isAuthUser = useSelector(
-    (state: RootState) => state.userSlice.user.isAuth
-  );
+  const isAuthUser = useSelector(selectIsAuth);
 
-  const { genre, type } = useSelector(
-    (state: RootState) => state.filterSlice.genreSort
-  );
-  const { typeParams, order } = useSelector(
-    (state: RootState) => state.filterSlice.otherParams
-  );
+  const { genre, type, typeParams, order } = useSelector(selectParamsURL);
   const genreURL = type !== "default" ? `&genre=${genre}` : "";
   const searchMovies = searchValue ? `&title=${searchValue}` : "";
   const sortParams =
@@ -58,7 +51,7 @@ const App: React.FC = () => {
         dispatch(addPopularMovies(data))
       );
     }
-  }, []);
+  }, [dispatch, isAuthUser]);
 
   return (
     <div className="page">

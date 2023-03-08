@@ -7,6 +7,7 @@ import { deleteFilm } from "../../services/contentService";
 import { setStateFMovies } from "../../redux/slices/moviesSlice";
 import { movieType } from "../../types/movieType";
 import { Idata } from "../../types/dataType";
+import { selectUserIdArrayVideos } from "../../redux/selectors";
 
 interface IModal {
   isOpen: boolean;
@@ -19,11 +20,7 @@ const initialValues = {
 const ModalDelete: React.FC<IModal> = ({ isOpen, toggle }) => {
   const dispatch = useDispatch();
   const [dataMessage, setDataMessage] = React.useState<Idata>(initialData);
-  const { arrayMovies } = useSelector(({ moviesSlice }: RootState) => {
-    return {
-      arrayMovies: moviesSlice.movies,
-    };
-  });
+  const { arrayMovies } = useSelector(selectUserIdArrayVideos);
 
   const handleDeleteMovie = (formValue: { deleteMovie: string }) => {
     const { deleteMovie } = formValue;

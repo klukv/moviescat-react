@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../redux/store";
 import "../scss/movies.scss";
 import {
   SortPopupDate,
@@ -15,25 +14,22 @@ import { addSerials, setLoadedSerials } from "../redux/slices/serialsSlice";
 import { getAllSerials } from "../services/contentService";
 import { searchContext } from "../App";
 import { serialType } from "../types/serialsType";
-
+import { selectActiveLabel, selectIsLoadedSerials } from "../redux/selectors";
 
 const Serials: React.FC = () => {
   const dispatch = useDispatch();
   const { sortParams, genreURL, searchMovies } =
     React.useContext(searchContext);
   const [serails, setSerials] = React.useState<serialType[]>([]);
-  const isLoaded = useSelector(
-    (state: RootState) => state.serialsSlice.isLoaded
-  );
-  const activeLabel = useSelector((state: RootState) => state.filterSlice);
+  const isLoaded = useSelector(selectIsLoadedSerials);
+  const activeLabel = useSelector(selectActiveLabel);
   React.useEffect(() => {
-    dispatch(setLoadedSerials(false));
     getAllSerials(sortParams, genreURL, searchMovies).then((data) => {
       dispatch(addSerials(data));
       setSerials(data);
       dispatch(setLoadedSerials(true));
     });
-  }, [sortParams, genreURL, searchMovies]);
+  }, [sortParams, genreURL, searchMovies, dispatch]);
 
   const paginateserials = usePagination({
     contentPerPage: 5,

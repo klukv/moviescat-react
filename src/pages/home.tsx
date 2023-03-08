@@ -1,20 +1,18 @@
 import React, { useState } from "react";
 import { Carousel, MovieComponent } from "../components";
 import "../scss/home.scss";
-import Multi_slider from "react-multi-carousel";
+import CategorySlider from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
-import { RootState } from "../redux/store";
 import { movieType } from "../types/movieType";
+import { selectCategoryMovies } from "../redux/selectors";
 
 const aboutOneIMG = require("../assets/img/about/quality.jpg");
 const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
 const Home: React.FC = () => {
   const [popularFilms, setPopularFilms] = useState(true);
-  const { sliderPopularMovies, sliderActualMovies } = useSelector(
-    (state: RootState) => state.moviesSlice
-  );
+  const { sliderPopularMovies, sliderActualMovies } = useSelector(selectCategoryMovies);
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -86,7 +84,7 @@ const Home: React.FC = () => {
                   </h2>
                 </div>
               </div>
-              <Multi_slider
+              <CategorySlider
                 responsive={responsive}
                 itemClass="carousel-item-padding-40-px"
               >
@@ -101,7 +99,7 @@ const Home: React.FC = () => {
                         <MovieComponent key={`index__${index}`} {...movie} />
                       )
                     )}
-              </Multi_slider>
+              </CategorySlider>
             </div>
           </div>
         </section>

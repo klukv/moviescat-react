@@ -24,9 +24,10 @@ const initialValues = {
   message: "",
 };
 
+
+
 const Signup: React.FC = () => {
   const [user, setUser] = React.useState<State>(initialValues);
-
   const handleRegister = async (formValue: {
     username: string;
     email: string;

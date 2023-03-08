@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "../redux/store";
 import "../scss/movies.scss";
 import {
   SortPopupDate,
@@ -15,24 +14,22 @@ import { getAllFilms } from "../services/contentService";
 import { addFilms, setLoaded } from "../redux/slices/moviesSlice";
 import { searchContext } from "../App";
 import { movieType } from "../types/movieType";
+import { selectActiveLabel, selectIsLoadedMovies } from "../redux/selectors";
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
   const { sortParams, genreURL, searchMovies } =
     React.useContext(searchContext);
   const [movies, setMovies] = React.useState<movieType[]>([]);
-  const isLoaded = useSelector(
-    (state: RootState) => state.moviesSlice.isLoaded
-  );
-  const activeLabel = useSelector((state: RootState) => state.filterSlice);
+  const isLoaded = useSelector(selectIsLoadedMovies);
+  const activeLabel = useSelector(selectActiveLabel);
   React.useEffect(() => {
-    dispatch(setLoaded(false));
     getAllFilms(sortParams, genreURL, searchMovies).then((data) => {
       dispatch(addFilms(data));
       setMovies(data);
       dispatch(setLoaded(true));
     });
-  }, [sortParams, genreURL, searchMovies]);
+  }, [sortParams, genreURL, searchMovies, dispatch]);
 
   const paginateMovies = usePagination({
     contentPerPage: 5,

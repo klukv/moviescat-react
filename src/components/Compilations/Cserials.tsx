@@ -1,17 +1,13 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { MovieComponent, usePagination } from "..";
-import { RootState } from "../../redux/store";
+import { selectCategoryFavourite } from "../../redux/selectors";
 import { serialType } from "../../types/serialsType";
 import EmptySlider from "../EmptySlider";
 import Pagination from "../Pagination";
 
 const Cserials: React.FC = () => {
-  const { favouriteSerials } = useSelector(({ serialsSlice }: RootState) => {
-    return {
-      favouriteSerials: serialsSlice.favouriteSerials,
-    };
-  });
+  const { favouriteSerials } = useSelector(selectCategoryFavourite);
   const paginateFavouriteSerials = usePagination({
     count: favouriteSerials.length,
     contentPerPage: 5,
