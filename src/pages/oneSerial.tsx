@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectUserIdArrayVideos } from "../redux/selectors";
 import {
-  addRecentlySerials,
+  
   setStateFSerials,
 } from "../redux/slices/serialsSlice";
 import "../scss/oneMovie.scss";
@@ -31,7 +31,6 @@ const OneSerial: React.FC = () => {
   );
 
   const closeWindowData = React.useCallback(
-    () =>
       debounce(() => {
         setDataMessage((prevState) => {
           return {
@@ -46,7 +45,7 @@ const OneSerial: React.FC = () => {
 
   const handleWatchSerial = (serialWatched: serialType) => {
     if (serialWatched) {
-      dispatch(addRecentlySerials(serialWatched));
+      //dispatch(addRecentlySerials(serialWatched));
     }
     setActiveVideo(!activeVideo);
     // if (video.played) {

@@ -1,4 +1,5 @@
 import { API_URL_CONTENT } from "../const/const";
+import { IresponseMovies, IresponseSerials } from "../types/dataType";
 import { IMovieData, movieType } from "../types/movieType";
 import { $authHost } from "./authService";
 
@@ -49,17 +50,21 @@ export const addFavouriteSerial = async (
   return data;
 };
 
-export const getAllFavouriteMovies = async (user_id: number) => {
-  const { data } = await $authHost.get(
+export const getAllFavouriteMovies = async (
+  user_id: number
+): Promise<IresponseMovies> => {
+  const { data, status } = await $authHost.get(
     API_URL_CONTENT + `/all-favourite-movies?user_id=${user_id}`
   );
-  return data;
+  return { data: data, status: status };
 };
-export const getAllFavouriteSerial = async (user_id: number) => {
-  const { data } = await $authHost.get(
+export const getAllFavouriteSerial = async (
+  user_id: number
+): Promise<IresponseSerials> => {
+  const { data, status } = await $authHost.get(
     API_URL_CONTENT + `/all-favourite-serials?user_id=${user_id}`
   );
-  return data;
+  return { data: data, status: status };
 };
 export const createMovie = async (movie: IMovieData) => {
   const { data } = await $authHost.post(API_URL_CONTENT + `/movie`, {

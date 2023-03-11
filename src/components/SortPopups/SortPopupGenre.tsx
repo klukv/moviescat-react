@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setGenreSort } from "../../redux/slices/filter";
+import { setLoaded } from "../../redux/slices/moviesSlice";
 import useClickOutside from "../hooks/useClickOutside";
 
 interface genreType {
@@ -19,10 +20,11 @@ const SortPopupGenre: React.FC<genreType> = ({ items, activeObj }) => {
   const dispatch = useDispatch();
   const refGenreMenu = useRef<HTMLDivElement>(null);
   const [menuGenreActive, setMenuGenreActive] = useState(false);
- 
+
   useClickOutside(refGenreMenu, setMenuGenreActive, menuGenreActive);
 
   const onClickSortItem = (type: string, genre: string, order: string) => {
+    dispatch(setLoaded(false));
     dispatch(setGenreSort({ type, genre, order }));
     setMenuGenreActive(false);
   };

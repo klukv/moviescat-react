@@ -1,4 +1,5 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { getAllFavouriteMovies } from "../../services/contentService";
 import { movieType } from "../../types/movieType";
 
 export interface moviesState {
@@ -8,6 +9,7 @@ export interface moviesState {
   sliderActualMovies: movieType[];
   favouriteMovies: movieType[];
   isLoaded: boolean;
+  error: string | null;
   isAddedFMovie: boolean;
 }
 
@@ -18,6 +20,7 @@ const initialState: moviesState = {
   sliderPopularMovies: [],
   sliderActualMovies: [],
   isLoaded: false,
+  error: null,
   isAddedFMovie: true,
 };
 
@@ -26,6 +29,18 @@ const findId = (arrayMovie: movieType[], movieId: number) => {
     ? true
     : false;
 };
+
+export const fetchLikeMovies = createAsyncThunk<
+  movieType[],
+  number,
+  { rejectValue: string }
+>("movies/fetchLikeMovies", async (user_id, { rejectWithValue }) => {
+  const { data, status } = await getAllFavouriteMovies(user_id);
+  if (status !== 200) {
+    return rejectWithValue("Server Error!");
+  }
+  return data;
+});
 
 export const moviesSlice = createSlice({
   name: "movies",
@@ -40,16 +55,16 @@ export const moviesSlice = createSlice({
     setStateFMovies: (state, action: PayloadAction<boolean>) => {
       state.isAddedFMovie = action.payload;
     },
-    addRecentlyMovies: (state, action: PayloadAction<movieType>) => {
-      if (findId(state.recentlyMovies, action.payload.id)) {
-        return state;
-      } else {
-        state.recentlyMovies.unshift(action.payload);
-        if (state.recentlyMovies.length > 5) {
-          state.recentlyMovies.pop();
-        }
-      }
-    },
+    // addRecentlyMovies: (state, action: PayloadAction<movieType>) => {
+    //   if (findId(state.recentlyMovies, action.payload.id)) {
+    //     return state;
+    //   } else {
+    //     state.recentlyMovies.unshift(action.payload);
+    //     if (state.recentlyMovies.length > 5) {
+    //       state.recentlyMovies.pop();
+    //     }
+    //   }
+    // },
     addFavouriteMovies: (state, action: PayloadAction<movieType[]>) => {
       state.favouriteMovies = action.payload;
     },
@@ -60,13 +75,34 @@ export const moviesSlice = createSlice({
       state.sliderActualMovies = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchLikeMovies.pending, (state) => {
+        if (state !== null && state !== undefined) {
+          state.isAddedFMovie = false;
+          state.error = null;
+        }
+      })
+      .addCase(fetchLikeMovies.fulfilled, (state, action) => {
+        if (state !== null && state !== undefined) {
+          state.isAddedFMovie = false;
+          state.favouriteMovies = action.payload;
+        }
+      })
+      .addCase(fetchLikeMovies.rejected, (state, action) => {
+        if (state !== null && state !== undefined) {
+          state.isAddedFMovie = false;
+          state.error = action.error?.message ?? null;
+        }
+      });
+  },
 });
 
 export const {
   addFilms,
   setLoaded,
   setStateFMovies,
-  addRecentlyMovies,
+  // addRecentlyMovies,
   addFavouriteMovies,
   addPopularMovies,
   addActualMovies,

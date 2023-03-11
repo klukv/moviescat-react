@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {  useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { Cmovies, Cserials } from "./components";
 import Footer from "./components/footer";
@@ -8,9 +8,7 @@ import { likeMovies, likeSerials } from "./const/const";
 import Login from "./pages/login";
 import PersonalAC from "./pages/personalAC";
 import { selectIsAuth, selectParamsURL } from "./redux/selectors";
-import { addActualMovies, addPopularMovies } from "./redux/slices/moviesSlice";
 import { authRoutes, publicRoutes } from "./routes";
-import { getFilmsByType } from "./services/contentService";
 
 interface contextSearch {
   searchValue: string;
@@ -28,11 +26,9 @@ const defaultState = {
 };
 
 export const searchContext = React.createContext<contextSearch>(defaultState);
-const typePopular: string = "popular";
-const typeActual: string = "actual";
+
 
 const App: React.FC = () => {
-  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = React.useState("");
   const isAuthUser = useSelector(selectIsAuth);
 
@@ -42,16 +38,6 @@ const App: React.FC = () => {
   const sortParams =
     typeParams !== "default" ? `sort=${typeParams},order=${order}` : "";
 
-  useEffect(() => {
-    if (isAuthUser) {
-      getFilmsByType(typeActual).then((data) =>
-        dispatch(addActualMovies(data))
-      );
-      getFilmsByType(typePopular).then((data) =>
-        dispatch(addPopularMovies(data))
-      );
-    }
-  }, [dispatch, isAuthUser]);
 
   return (
     <div className="page">

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectUserIdArrayVideos } from "../redux/selectors";
 import {
-  addRecentlyMovies,
+  //addRecentlyMovies,
   setStateFMovies,
 } from "../redux/slices/moviesSlice";
 import "../scss/oneMovie.scss";
@@ -26,7 +26,6 @@ const OneMovie: React.FC = () => {
   const [activeVideo, setActiveVideo] = React.useState(false);
 
   const closeWindowData = React.useCallback(
-    () =>
       debounce(() => {
         setDataMessage((prevState) => {
           return {
@@ -46,7 +45,7 @@ const OneMovie: React.FC = () => {
 
   const handleWatchMovie = (movieWatched: movieType) => {
     if (movieWatched) {
-      dispatch(addRecentlyMovies(movieWatched));
+    //  dispatch(addRecentlyMovies(movieWatched));
     }
     setActiveVideo(!activeVideo);
     // if (video.played) {

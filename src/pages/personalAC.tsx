@@ -6,10 +6,12 @@ import useModal from "../components/hooks/useModal";
 import Modal from "../components/ModalWindows/Modal";
 import {
   addFavouriteMovies,
+  fetchLikeMovies,
   setStateFMovies,
 } from "../redux/slices/moviesSlice";
 import {
   addFavouriteSerials,
+  fetchLikeSerials,
   setStateFSerials,
 } from "../redux/slices/serialsSlice";
 import "../scss/personalAccount.scss";
@@ -26,6 +28,7 @@ import { home, likeMovies, likeSerials } from "../const/const";
 import Multiselect from "multiselect-react-dropdown";
 import { TRecentlyList } from "../types/serialsType";
 import { selectInfoPersonAcc, selectUser } from "../redux/selectors";
+import { AppDispatch } from "../redux/store";
 
 type TActiveList = {
   isShow: boolean;
@@ -68,7 +71,7 @@ const RecentlyListVideos: React.FC<TRecentlyList> = React.memo(
 );
 
 const PersonalAC: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const [activeList, setActiveList] =
     React.useState<TActiveList>(initialValues);
@@ -134,16 +137,11 @@ const PersonalAC: React.FC = () => {
 
   React.useEffect(() => {
     if (isAddedFMovie) {
-      getAllFavouriteMovies(user.id).then((data) => {
-        dispatch(addFavouriteMovies(data));
-        dispatch(setStateFMovies(false));
-      });
+      dispatch(fetchLikeMovies(user.id));
     }
+
     if (isAddedFSerial) {
-      getAllFavouriteSerial(user.id).then((data) => {
-        dispatch(addFavouriteSerials(data));
-        dispatch(setStateFSerials(false));
-      });
+      dispatch(fetchLikeSerials(user.id));
     }
   }, [isAddedFMovie, isAddedFSerial, dispatch, user.id]);
 

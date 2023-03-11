@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setOtherSort } from "../../redux/slices/filter";
+import { setLoaded } from "../../redux/slices/moviesSlice";
 import useClickOutside from "../hooks/useClickOutside";
 
 interface OtherParametrsType {
@@ -24,6 +25,7 @@ const SortPopupDate: React.FC<OtherParametrsType> = ({ items, activeObj }) => {
   useClickOutside(refDateMenu, setMenuDateActive, menuDateActive);
 
   const onClickSortItem = (name: string, typeParams: string, order: string) => {
+    dispatch(setLoaded(false));
     dispatch(setOtherSort({ name, typeParams, order }));
     setMenuDateActive(false);
   };

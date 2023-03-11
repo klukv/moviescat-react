@@ -1,16 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Carousel, MovieComponent } from "../components";
 import "../scss/home.scss";
 import CategorySlider from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { useSelector } from "react-redux";
 import { movieType } from "../types/movieType";
-import { selectCategoryMovies } from "../redux/selectors";
+import { selectCategoryMovies, selectIsAuth } from "../redux/selectors";
+import { getFilmsByType } from "../services/contentService";
+import { useDispatch } from "react-redux";
+import { addActualMovies, addPopularMovies } from "../redux/slices/moviesSlice";
 
 const aboutOneIMG = require("../assets/img/about/quality.jpg");
 const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
+
+const typePopular: string = "popular";
+const typeActual: string = "actual";
+
 const Home: React.FC = () => {
+  const dispatch = useDispatch();
+  const isAuthUser = useSelector(selectIsAuth);
   const [popularFilms, setPopularFilms] = useState(true);
   const { sliderPopularMovies, sliderActualMovies } = useSelector(selectCategoryMovies);
   const responsive = {
@@ -31,6 +40,17 @@ const Home: React.FC = () => {
       items: 2,
     },
   };
+
+  useEffect(() => {
+    if (isAuthUser) {
+      getFilmsByType(typeActual).then((data) =>
+        dispatch(addActualMovies(data))
+      );
+      getFilmsByType(typePopular).then((data) =>
+        dispatch(addPopularMovies(data))
+      );
+    }
+  }, [dispatch, isAuthUser]);
 
   const handleActiveSlider = (value: boolean) => {
     setPopularFilms(value);
