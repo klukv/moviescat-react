@@ -1,5 +1,6 @@
-import React from "react";
-import {  useSelector } from "react-redux";
+import React, { useCallback } from "react";
+import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { Cmovies, Cserials } from "./components";
 import Footer from "./components/footer";
@@ -8,7 +9,9 @@ import { likeMovies, likeSerials } from "./const/const";
 import Login from "./pages/login";
 import PersonalAC from "./pages/personalAC";
 import { selectIsAuth, selectParamsURL } from "./redux/selectors";
+import { logoutUser } from "./redux/slices/user";
 import { authRoutes, publicRoutes } from "./routes";
+import AuthVerify from "./components/authVerify";
 
 interface contextSearch {
   searchValue: string;
@@ -27,8 +30,8 @@ const defaultState = {
 
 export const searchContext = React.createContext<contextSearch>(defaultState);
 
-
 const App: React.FC = () => {
+  const dispatch = useDispatch();
   const [searchValue, setSearchValue] = React.useState("");
   const isAuthUser = useSelector(selectIsAuth);
 
@@ -37,7 +40,9 @@ const App: React.FC = () => {
   const searchMovies = searchValue ? `&title=${searchValue}` : "";
   const sortParams =
     typeParams !== "default" ? `sort=${typeParams},order=${order}` : "";
-
+  const logOut = useCallback(() => {
+    dispatch(logoutUser());
+  }, [dispatch]);
 
   return (
     <div className="page">
@@ -69,6 +74,7 @@ const App: React.FC = () => {
         </Routes>
         <Footer />
       </searchContext.Provider>
+      <AuthVerify logOut={logOut}/>
     </div>
   );
 };

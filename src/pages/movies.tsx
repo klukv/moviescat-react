@@ -13,7 +13,6 @@ import { sortItemsGenre, sortItemsOther } from "../const/const";
 import { getAllFilms } from "../services/contentService";
 import { addFilms, setLoaded } from "../redux/slices/moviesSlice";
 import { searchContext } from "../App";
-import { movieType } from "../types/movieType";
 import {
   selectActiveLabel,
   selectIsLoadedMovies,
