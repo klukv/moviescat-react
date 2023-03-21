@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setGenreSort } from "../../redux/slices/filter";
 import { setLoaded } from "../../redux/slices/moviesSlice";

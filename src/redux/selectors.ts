@@ -1,8 +1,9 @@
+import { moviesState } from "./slices/moviesSlice";
 import { RootState } from "./store";
 
 export const selectIsAuth = (state: RootState) => state.userSlice.user.isAuth;
 export const selectUser = (state: RootState) => state.userSlice;
-export const selectCategoryMovies = (state: RootState) => state.moviesSlice;
+export const selectCategoryMovies = (state: RootState): moviesState => state.moviesSlice;
 export const selectIsLoadedMovies = (state: RootState) =>
   state.moviesSlice.isLoaded;
 export const selectActiveLabel = (state: RootState) => state.filterSlice;
@@ -22,9 +23,10 @@ export const selectUserIdArrayVideos = ({
 export const selectInfoPersonAcc = ({
   moviesSlice,
   serialsSlice,
+  userSlice
 }: RootState) => {
   return {
-    recentlyMovies: moviesSlice.recentlyMovies,
+    allRecentlyVideos: userSlice.recentlyVideos,
     favouriteMovies: moviesSlice.favouriteMovies,
     isAddedFMovie: moviesSlice.isAddedFMovie,
     isAddedFSerial: serialsSlice.isAddedFSerial,

@@ -7,25 +7,18 @@ interface movie {
   title: string;
   imgUrl: string;
 }
-const MoviesComponent: React.FC<movie> = ({ id, title, imgUrl }) => {
 
+const MoviesComponent: React.FC<movie> = ({ id, title, imgUrl }) => {
   const { pathname } = useLocation();
   const navigate = useNavigate();
 
-  const clickMovie = (id: number) => {
-    switch (pathname) {
-      case `/movies`:
-        navigate(oneMovie + "/" + id);
-        break;
-      case `/`:
-        navigate(oneMovie + "/" + id);
-        break;
-      case `/person`:
-        navigate(oneMovie + "/" + id);
-        break;
-      case "/serials":
-        navigate(oneSerial + "/" + id);
-        break;
+  const clickMovie = (pathname: string, id: number) => {
+    if (pathname.includes("movies")) {
+      navigate(oneMovie + "/" + id);
+    } else if (pathname.includes("serials")) {
+      navigate(oneSerial + "/" + id);
+    } else {
+      navigate(oneMovie + "/" + id);
     }
   };
 
@@ -37,7 +30,10 @@ const MoviesComponent: React.FC<movie> = ({ id, title, imgUrl }) => {
           <span>{title}</span>
         </div>
         <div>
-          <button className="movie__hover-btn" onClick={() => clickMovie(id)}>
+          <button
+            className="movie__hover-btn"
+            onClick={() => clickMovie(pathname, id)}
+          >
             Смотреть
           </button>
         </div>

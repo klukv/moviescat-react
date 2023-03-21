@@ -3,22 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Field, ErrorMessage } from "formik";
 import { EmptySlider, MovieComponent } from "../components";
 import useModal from "../components/hooks/useModal";
-import Modal from "../components/ModalWindows/Modal";
-import {
-  addFavouriteMovies,
-  fetchLikeMovies,
-  setStateFMovies,
-} from "../redux/slices/moviesSlice";
-import {
-  addFavouriteSerials,
-  fetchLikeSerials,
-  setStateFSerials,
-} from "../redux/slices/serialsSlice";
+import Modal from "../components/ModalWindows/ModalСreate";
+import { fetchLikeMovies } from "../redux/slices/moviesSlice";
+import { fetchLikeSerials } from "../redux/slices/serialsSlice";
 import "../scss/personalAccount.scss";
-import {
-  getAllFavouriteMovies,
-  getAllFavouriteSerial,
-} from "../services/contentService";
 import ModalUpdate from "../components/ModalWindows/ModalUpdate";
 import ModalDelete from "../components/ModalWindows/ModalDelete";
 import { IDropdownSelectItem, movieType } from "../types/movieType";
@@ -26,15 +14,19 @@ import { logoutUser } from "../redux/slices/user";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import { home, likeMovies, likeSerials } from "../const/const";
 import Multiselect from "multiselect-react-dropdown";
-import { TRecentlyList } from "../types/serialsType";
+import { serialType } from "../types/serialsType";
 import { selectInfoPersonAcc, selectUser } from "../redux/selectors";
 import { AppDispatch } from "../redux/store";
+import { allVideos } from "../types/userType";
 
 type TActiveList = {
   isShow: boolean;
   activeMovies: boolean;
   activeSerials: boolean;
 };
+type TpropsRVideos = {
+  allRecentlyVideos: allVideos[]
+}
 
 const initialValues = {
   isShow: false,
@@ -54,14 +46,17 @@ const stateDropdown = {
   ],
 };
 
-const RecentlyListVideos: React.FC<TRecentlyList> = React.memo(
-  ({ recentlyMovies }) => {
+
+const RecentlyListVideos: React.FC<TpropsRVideos> = React.memo(
+  ({ allRecentlyVideos }) => {
     return (
       <div className="person__watched-slider">
-        {recentlyMovies.length !== 0 ? (
-          recentlyMovies.map((movie: movieType, index: number) => (
-            <MovieComponent key={`keyRecently=${index}`} {...movie} />
-          ))
+        {allRecentlyVideos.length !== 0 ? (
+          allRecentlyVideos.map(
+            (video: movieType | serialType, index: number) => (
+              <MovieComponent key={`${video.id}${index}`} {...video} />
+            )
+          )
         ) : (
           <EmptySlider />
         )}
@@ -85,8 +80,8 @@ const PersonalAC: React.FC = () => {
     isOpenDelete,
     toggleDeleteModal,
   } = useModal();
-  const { recentlyMovies, isAddedFMovie, isAddedFSerial } =
-    useSelector(selectInfoPersonAcc);
+  const { allRecentlyVideos, isAddedFMovie, isAddedFSerial } =
+    useSelector(selectInfoPersonAcc); 
   const { user } = useSelector(selectUser);
   const isAdmin: boolean = user.roles.includes("ROLE_ADMIN");
   const isAdminOrMod =
@@ -274,7 +269,9 @@ const PersonalAC: React.FC = () => {
                 <h2 className="person__watched-title avatar__title">
                   Недавно просмотренные
                 </h2>
-                <RecentlyListVideos recentlyMovies={recentlyMovies} />
+                <RecentlyListVideos
+                  allRecentlyVideos={allRecentlyVideos}
+                />
               </div>
               {activeList.isShow && (
                 <div className="person__compilation">

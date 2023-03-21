@@ -14,19 +14,22 @@ import { getAllFilms } from "../services/contentService";
 import { addFilms, setLoaded } from "../redux/slices/moviesSlice";
 import { searchContext } from "../App";
 import { movieType } from "../types/movieType";
-import { selectActiveLabel, selectIsLoadedMovies } from "../redux/selectors";
+import {
+  selectActiveLabel,
+  selectIsLoadedMovies,
+  selectCategoryMovies,
+} from "../redux/selectors";
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
   const { sortParams, genreURL, searchMovies } =
     React.useContext(searchContext);
-  const [movies, setMovies] = React.useState<movieType[]>([]);
+  const { movies } = useSelector(selectCategoryMovies);
   const isLoaded = useSelector(selectIsLoadedMovies);
   const activeLabel = useSelector(selectActiveLabel);
   React.useEffect(() => {
     getAllFilms(sortParams, genreURL, searchMovies).then((data) => {
       dispatch(addFilms(data));
-      setMovies(data);
       dispatch(setLoaded(true));
     });
   }, [sortParams, genreURL, searchMovies, dispatch]);
@@ -35,7 +38,7 @@ const Movies: React.FC = () => {
     contentPerPage: 5,
     count: movies.length,
   });
-
+ 
   return (
     <div className="main">
       <main>
@@ -67,7 +70,7 @@ const Movies: React.FC = () => {
                     <MovieLoadingComponent key={`indexLoading=${index}`} />
                   ))}
             </div>
-            {movies.length > 5 ? <Pagination {...paginateMovies} /> : ""}
+            {movies.length > 5 && <Pagination {...paginateMovies} />}
           </div>
         </section>
       </main>

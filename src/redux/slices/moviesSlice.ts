@@ -4,7 +4,6 @@ import { movieType } from "../../types/movieType";
 
 export interface moviesState {
   movies: movieType[];
-  recentlyMovies: movieType[];
   sliderPopularMovies: movieType[];
   sliderActualMovies: movieType[];
   favouriteMovies: movieType[];
@@ -15,19 +14,12 @@ export interface moviesState {
 
 const initialState: moviesState = {
   movies: [],
-  recentlyMovies: [],
   favouriteMovies: [],
   sliderPopularMovies: [],
   sliderActualMovies: [],
   isLoaded: false,
   error: null,
   isAddedFMovie: true,
-};
-
-const findId = (arrayMovie: movieType[], movieId: number) => {
-  return arrayMovie.find((elem) => elem.id === movieId) !== undefined
-    ? true
-    : false;
 };
 
 export const fetchLikeMovies = createAsyncThunk<
@@ -55,16 +47,6 @@ export const moviesSlice = createSlice({
     setStateFMovies: (state, action: PayloadAction<boolean>) => {
       state.isAddedFMovie = action.payload;
     },
-    // addRecentlyMovies: (state, action: PayloadAction<movieType>) => {
-    //   if (findId(state.recentlyMovies, action.payload.id)) {
-    //     return state;
-    //   } else {
-    //     state.recentlyMovies.unshift(action.payload);
-    //     if (state.recentlyMovies.length > 5) {
-    //       state.recentlyMovies.pop();
-    //     }
-    //   }
-    // },
     addFavouriteMovies: (state, action: PayloadAction<movieType[]>) => {
       state.favouriteMovies = action.payload;
     },
@@ -102,7 +84,6 @@ export const {
   addFilms,
   setLoaded,
   setStateFMovies,
-  // addRecentlyMovies,
   addFavouriteMovies,
   addPopularMovies,
   addActualMovies,

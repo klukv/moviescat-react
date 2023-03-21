@@ -12,7 +12,3 @@ export type serialType = {
     imgUrl: string;
     type: string;
   };
-export  type TRecentlyList = {
-    recentlyMovies: movieType[];
-    recentlySerials?: serialType[];
-  }

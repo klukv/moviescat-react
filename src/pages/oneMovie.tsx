@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectUserIdArrayVideos } from "../redux/selectors";
 import {
-  //addRecentlyMovies,
   setStateFMovies,
 } from "../redux/slices/moviesSlice";
+import { addRecentlyVideos } from "../redux/slices/user";
 import "../scss/oneMovie.scss";
 import { addFavouriteFilm } from "../services/contentService";
 import { Idata } from "../types/dataType";
@@ -26,15 +26,15 @@ const OneMovie: React.FC = () => {
   const [activeVideo, setActiveVideo] = React.useState(false);
 
   const closeWindowData = React.useCallback(
-      debounce(() => {
-        setDataMessage((prevState) => {
-          return {
-            ...prevState,
-            message: initialValues.message,
-            success: initialValues.success,
-          };
-        });
-      }, 3000),
+    debounce(() => {
+      setDataMessage((prevState) => {
+        return {
+          ...prevState,
+          message: initialValues.message,
+          success: initialValues.success,
+        };
+      });
+    }, 3000),
     []
   );
 
@@ -45,7 +45,7 @@ const OneMovie: React.FC = () => {
 
   const handleWatchMovie = (movieWatched: movieType) => {
     if (movieWatched) {
-    //  dispatch(addRecentlyMovies(movieWatched));
+      dispatch(addRecentlyVideos(movieWatched));
     }
     setActiveVideo(!activeVideo);
     // if (video.played) {

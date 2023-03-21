@@ -30,8 +30,8 @@ const appReducer = combineReducers({
 const rootReducer: Reducer = (state: RootState, action: AnyAction) => {
   if (action.type === "user/logoutUser") {
     storage.removeItem("persist:root");
-
-    state = {} as RootState;
+    storage.removeItem("token");
+    return appReducer(undefined, action);
   }
   return appReducer(state, action);
 };
@@ -62,4 +62,3 @@ export default store;
 export type RootState = ReturnType<typeof store.getState>;
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}
 export type AppDispatch = typeof store.dispatch;
-

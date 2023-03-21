@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { selectUserIdArrayVideos } from "../redux/selectors";
 import {
-  
   setStateFSerials,
 } from "../redux/slices/serialsSlice";
+import { addRecentlyVideos } from "../redux/slices/user";
 import "../scss/oneMovie.scss";
 import { addFavouriteSerial } from "../services/contentService";
 import { Idata } from "../types/dataType";
@@ -45,7 +45,7 @@ const OneSerial: React.FC = () => {
 
   const handleWatchSerial = (serialWatched: serialType) => {
     if (serialWatched) {
-      //dispatch(addRecentlySerials(serialWatched));
+      dispatch(addRecentlyVideos(serialWatched));
     }
     setActiveVideo(!activeVideo);
     // if (video.played) {

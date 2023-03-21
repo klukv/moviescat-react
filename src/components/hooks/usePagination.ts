@@ -51,6 +51,11 @@ const usePagination = ({
       setPage(num);
     }
   };
+  React.useEffect(() => {
+    if (page > pageCount) {
+      setPage(1);
+    }
+  }, [page, pageCount]);
   return {
     totalPages: pageCount === Infinity ? 0 : pageCount,
     nextPage: () => changePage(true),

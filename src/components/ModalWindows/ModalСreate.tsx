@@ -3,7 +3,7 @@ import { Formik, Form } from "formik";
 import { createMovie } from "../../services/contentService";
 import debounce from "lodash.debounce";
 import { initialData } from "./ModalUpdate";
-import { IDropdownSelectItem, IMovieData } from "../../types/movieType";
+import { IMovieData } from "../../types/movieType";
 import { Idata } from "../../types/dataType";
 
 interface Iprops {
