@@ -13,7 +13,6 @@ import { addActualMovies, addPopularMovies } from "../redux/slices/moviesSlice";
 const aboutOneIMG = require("../assets/img/about/quality.jpg");
 const aboutTwoIMG = require("../assets/img/about/download.jpg");
 
-
 const typePopular: string = "popular";
 const typeActual: string = "actual";
 
@@ -21,7 +20,8 @@ const Home: React.FC = () => {
   const dispatch = useDispatch();
   const isAuthUser = useSelector(selectIsAuth);
   const [popularFilms, setPopularFilms] = useState(true);
-  const { sliderPopularMovies, sliderActualMovies } = useSelector(selectCategoryMovies);
+  const { sliderPopularMovies, sliderActualMovies } =
+    useSelector(selectCategoryMovies);
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
@@ -88,9 +88,7 @@ const Home: React.FC = () => {
                       : "compilation__title title"
                   }
                 >
-                  <h2 onClick={() => handleActiveSlider(true)}>
-                    Популярное
-                  </h2>
+                  <h2 onClick={() => handleActiveSlider(true)}>Популярное</h2>
                 </div>
                 <div
                   className={
@@ -99,9 +97,7 @@ const Home: React.FC = () => {
                       : "compilation__title title"
                   }
                 >
-                  <h2 onClick={() => handleActiveSlider(false)}>
-                    Актуальное
-                  </h2>
+                  <h2 onClick={() => handleActiveSlider(false)}>Актуальное</h2>
                 </div>
               </div>
               <CategorySlider
@@ -109,16 +105,16 @@ const Home: React.FC = () => {
                 itemClass="carousel-item-padding-40-px"
               >
                 {popularFilms
-                  ? sliderPopularMovies.map(
-                      (movie: movieType, index: number) => (
+                  ? sliderPopularMovies
+                      .slice(0, 8)
+                      .map((movie: movieType, index: number) => (
                         <MovieComponent key={`index__${index}`} {...movie} />
-                      )
-                    )
-                  : sliderActualMovies.map(
-                      (movie: movieType, index: number) => (
+                      ))
+                  : sliderActualMovies
+                      .slice(0, 8)
+                      .map((movie: movieType, index: number) => (
                         <MovieComponent key={`index__${index}`} {...movie} />
-                      )
-                    )}
+                      ))}
               </CategorySlider>
             </div>
           </div>

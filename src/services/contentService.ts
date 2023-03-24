@@ -4,12 +4,10 @@ import { IMovieData, movieType } from "../types/movieType";
 import { $authHost } from "./authService";
 
 export const getAllFilms = async (
-  sort: string,
-  genre: string,
-  search: string
+  URL: string
 ) => {
   const { data } = await $authHost.get(
-    API_URL_CONTENT + `/movies?${sort}${genre}`
+    API_URL_CONTENT + `/movies?${URL}`
   );
   return data;
 };

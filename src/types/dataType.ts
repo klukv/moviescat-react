@@ -10,6 +10,10 @@ export interface IresponseMovies {
   status: number;
 }
 export interface IresponseSerials {
-    data: serialType[];
-    status: number;
-  }
+  data: serialType[];
+  status: number;
+}
+export interface IQueryJSON {
+  sort: string;
+  genre: string;
+}

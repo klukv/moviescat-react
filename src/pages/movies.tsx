@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../scss/movies.scss";
 import {
@@ -9,6 +9,7 @@ import {
   usePagination,
 } from "../components";
 import Pagination from "../components/Pagination";
+import qs from "qs";
 import { sortItemsGenre, sortItemsOther } from "../const/const";
 import { getAllFilms } from "../services/contentService";
 import { addFilms, setLoaded } from "../redux/slices/moviesSlice";
@@ -18,26 +19,79 @@ import {
   selectIsLoadedMovies,
   selectCategoryMovies,
 } from "../redux/selectors";
+import { useNavigate } from "react-router-dom";
+import { sortGenreType, sortOtherParamsType } from "../types/filterTypes";
+import { IQueryJSON } from "../types/dataType";
+import  { setGenreSort, setOtherSort } from "../redux/slices/filter";
 
 const Movies: React.FC = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [URL, setURL] = React.useState<string>("");
+  const isURL = React.useRef<boolean>(false);
   const { sortParams, genreURL, searchMovies } =
     React.useContext(searchContext);
   const { movies } = useSelector(selectCategoryMovies);
   const isLoaded = useSelector(selectIsLoadedMovies);
   const activeLabel = useSelector(selectActiveLabel);
-  React.useEffect(() => {
-    getAllFilms(sortParams, genreURL, searchMovies).then((data) => {
+
+  useEffect(() => {
+    if (window.location.search.substring(1)) {
+      const queryJSON: IQueryJSON | qs.ParsedQs = qs.parse(
+        window.location.search.substring(1)
+      );
+      if (queryJSON) {
+        const sortValue: string | undefined =
+          typeof queryJSON.sort === "string"
+            ? queryJSON.sort.split(",")[0]
+            : undefined;
+        const selectGenre = sortItemsGenre.find(
+          (objGenre: sortGenreType) => objGenre.genre === queryJSON.genre
+        );
+        const selectSort = sortItemsOther.find(
+          (objOtherParams: sortOtherParamsType) =>
+            objOtherParams.typeParams === sortValue
+        );
+        selectGenre && dispatch(setGenreSort(selectGenre));
+        selectSort && dispatch(setOtherSort(selectSort));
+      }
+    }
+  }, []);
+  useEffect(() => {
+    if (isURL.current) {
+      const URL = qs.stringify(
+        {
+          sort: sortParams,
+          genre: genreURL,
+        },
+        {
+          filter: (prefix, value: string) => {
+            if (value !== "default") {
+              return value;
+            }
+          },
+        }
+      );
+      setURL(URL);
+      navigate(`?${URL}`);
+    }
+    console.log(URL);
+
+    isURL.current = true;
+  }, [sortParams, genreURL, dispatch]);
+
+  useEffect(() => {
+    getAllFilms(URL).then((data) => {
       dispatch(addFilms(data));
       dispatch(setLoaded(true));
     });
-  }, [sortParams, genreURL, searchMovies, dispatch]);
+  }, [URL, dispatch]);
 
   const paginateMovies = usePagination({
     contentPerPage: 5,
     count: movies.length,
   });
- 
+
   return (
     <div className="main">
       <main>

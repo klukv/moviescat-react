@@ -36,10 +36,10 @@ const App: React.FC = () => {
   const isAuthUser = useSelector(selectIsAuth);
 
   const { genre, type, typeParams, order } = useSelector(selectParamsURL);
-  const genreURL = type !== "default" ? `&genre=${genre}` : "";
+  const genreURL = type !== "default" ? `${genre}` : "default";
   const searchMovies = searchValue ? `&title=${searchValue}` : "";
   const sortParams =
-    typeParams !== "default" ? `sort=${typeParams},order=${order}` : "";
+    typeParams !== "default" ? `${typeParams}, order=${order}` : "default";
   const logOut = useCallback(() => {
     dispatch(logoutUser());
   }, [dispatch]);
@@ -74,7 +74,7 @@ const App: React.FC = () => {
         </Routes>
         <Footer />
       </searchContext.Provider>
-      <AuthVerify logOut={logOut}/>
+      <AuthVerify logOut={logOut} />
     </div>
   );
 };
